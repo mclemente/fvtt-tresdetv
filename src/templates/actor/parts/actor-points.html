@@ -1,0 +1,80 @@
+<div>
+	<div class="ability flexrow flex-group-center">
+		<label for="system.pontos.vida.value" class="resource-label flexlarge align-left">
+			{{localize "TRESDETV.Pontos.vida"}}
+		</label>
+		<div class="flexrow">
+			<input
+				type="text"
+				name="system.pontos.vida.value"
+				value="{{system.pontos.vida.value}}"
+				data-dtype="Number"
+			/>
+			<span> / </span>
+			<input
+				type="text"
+				name="system.pontos.vida.max"
+				value="{{system.pontos.vida.max}}"
+				data-dtype="Number"
+				disabled
+			/>
+		</div>
+	</div>
+	<div class="ability flexrow flex-group-center">
+		<label for="system.pontos.mana.value" class="resource-label flexlarge align-left">
+			{{localize "TRESDETV.Pontos.mana"}}
+		</label>
+		<div class="flexrow">
+			<input
+				type="text"
+				name="system.pontos.mana.value"
+				value="{{system.pontos.mana.value}}"
+				data-dtype="Number"
+			/>
+			<span> / </span>
+			<input
+				type="text"
+				name="system.pontos.mana.max"
+				value="{{system.pontos.mana.max}}"
+				data-dtype="Number"
+				disabled
+			/>
+		</div>
+	</div>
+	<div class="ability flexrow flex-group-center">
+		<label for="system.pontos.acao.value" class="resource-label flexlarge align-left">
+			{{localize "TRESDETV.Pontos.acao"}}
+		</label>
+		<div class="flexrow">
+			<input
+				type="text"
+				name="system.pontos.acao.value"
+				value="{{system.pontos.acao.value}}"
+				data-dtype="Number"
+			/>
+			<span> / </span>
+			<input
+				type="text"
+				name="system.pontos.acao.max"
+				value="{{system.pontos.acao.max}}"
+				data-dtype="Number"
+				disabled
+			/>
+		</div>
+	</div>
+	{{#if (eq data.type "personagem")}}
+	<div class="ability flexrow flex-group-center">
+		<label for="system.pontos.experiencia.value" class="resource-label flexlarge align-left">
+			{{localize "TRESDETV.Pontos.experiencia"}}
+		</label>
+		<div class="flexrow">
+			<input
+				type="text"
+				name="system.pontos.experiencia.value"
+				value="{{system.pontos.experiencia.value}}"
+				data-dtype="Number"
+			/>
+		</div>
+	</div>
+	{{/if}}
+</div>

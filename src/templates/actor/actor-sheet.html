@@ -1,0 +1,117 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+	{{!-- Sheet Header --}}
+	<header class="sheet-header">
+		<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
+		<div class="header-fields">
+			<div class="flexrow">
+				<h1 class="charname" style="flex: 6">
+					<input name="name" type="text" value="{{actor.name}}" placeholder="{{ localize 'Name' }}" />
+				</h1>
+				<input
+					style="height: 50px; padding: 0px; margin: 5px 0 5px 5px; text-align: center; font-size: 2em"
+					type="text"
+					name="system.pontos.personagem.value"
+					value="{{system.pontos.personagem.value}}"
+					data-dtype="Number"
+					data-tooltip="Pontos de Personagem"
+					data-tooltip-direction="UP"
+				/>
+			</div>
+			<div class="resources grid grid-4col"></div>
+		</div>
+	</header>
+
+	{{!-- Sheet Tab Navigation --}}
+	<nav class="sheet-tabs tabs" data-group="primary">
+		{{!-- Default tab is specified in actor-sheet.js --}}
+		<a class="item" data-tab="features">Detalhes</a>
+		<a class="item" data-tab="vantagens">Vantagens & Desvantagens</a>
+		<a class="item" data-tab="items">Inventário</a>
+		<!-- Técnicas -->
+		{{#if tecnicas.length}}
+		<a class="item" data-tab="spells">Técnicas</a>
+		{{/if}}
+		<a class="item" data-tab="description">Descrição</a>
+		<a class="item" data-tab="effects">Efeitos</a>
+	</nav>
+
+	{{!-- Sheet Body --}}
+	<section class="sheet-body">
+		{{!-- Owned Features Tab --}}
+		<div class="tab features" data-group="primary" data-tab="features">
+			<section class="grid grid-2col">
+				<aside class="sidebar">
+					<div class="abilities flexcol">
+						{{#each system.atributos as |ability key|}}
+						<div class="ability flexrow flex-group-center">
+							<label
+								for="system.atributos.{{key}}.value"
+								class="rollable resource-label flexlarge align-left"
+								data-key="{{key}}"
+								>{{localize (concat "TRESDETV.Atributos." key)}}</label
+							>
+							<input
+								type="text"
+								name="system.atributos.{{key}}.value"
+								value="{{ability.value}}"
+								data-dtype="Number"
+							/>
+						</div>
+						{{/each}}
+						<!-- Points -->
+						{{> "systems/tresdetv/templates/actor/parts/actor-points.html"}}
+					</div>
+				</aside>
+
+				{{!-- For the main features list, span the right two columns --}}
+				<section>
+					<div class="form-group flexrow">
+						<label for="system.detalhes.escala" class="resource-label flexlarge align-left">Escala</label>
+						<input
+							type="text"
+							name="system.detalhes.escala"
+							value="{{system.detalhes.escala}}"
+							data-dtype="String"
+						/>
+					</div>
+					<div class="form-group flexrow">
+						<label for="system.detalhes.tipoDano" class="resource-label flexlarge align-left"
+							>Tipo de Dano</label
+						>
+						<input
+							type="text"
+							name="system.detalhes.tipoDano"
+							value="{{system.detalhes.tipoDano}}"
+							data-dtype="String"
+						/>
+					</div>
+					{{> "systems/tresdetv/templates/actor/parts/actor-skills.html"}}
+				</section>
+			</section>
+		</div>
+
+		<div class="tab vantagens" data-group="primary" data-tab="vantagens">
+			{{> "systems/tresdetv/templates/actor/parts/actor-features.html"}}
+		</div>
+
+		<div class="tab items" data-group="primary" data-tab="items">
+			{{> "systems/tresdetv/templates/actor/parts/actor-items.html"}}
+		</div>
+
+		{{!-- Biography Tab --}}
+		<div class="tab biography" data-group="primary" data-tab="description">
+			{{editor system.descricao target="system.descricao" rollData=rollData button=true owner=owner
+			editable=editable}}
+		</div>
+
+		{{!-- Owned Spells Tab --}}
+		<div class="tab spells" data-group="primary" data-tab="spells">
+			{{> "systems/tresdetv/templates/actor/parts/actor-spells.html"}}
+		</div>
+
+		{{!-- Active Effects Tab --}}
+		<div class="tab effects flexcol" data-group="primary" data-tab="effects">
+			{{> "systems/tresdetv/templates/actor/parts/actor-effects.html"}}
+		</div>
+	</section>
+</form>

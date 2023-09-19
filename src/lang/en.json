@@ -1,0 +1,55 @@
+{
+	"TYPES": {
+		"Actor": {
+			"personagem": "Personagem de Jogador",
+			"pdm": "Personagem do Mestre",
+			"veiculo": "Veículo"
+		},
+		"Item": {
+			"item": "Item",
+			"tecnica": "Técnica",
+			"pericia": "Perícia",
+			"vantagem": "Vantagem",
+			"desvantagem": "Desvantagem"
+		}
+	},
+	"TRESDETV": {
+		"Atributos": {
+			"poder": "Poder",
+			"habilidade": "Habilidade",
+			"resistencia": "Resistência"
+		},
+		"Pontos": {
+			"acao": "Pontos de Ação",
+			"experiencia": "Pontos de Experiência",
+			"mana": "Pontos de Mana",
+			"vida": "Pontos de Vida"
+		},
+		"Settings": {
+			"initiativeTiebreaker": {
+				"name": "Resolver Desempates",
+				"hint": "Adiciona um número decimal aleatório à Iniciativa para resolver desempates."
+			}
+		},
+		"Add": "Adicionar",
+
+		"EffectNew": "Novo Efeito",
+		"EffectInactive": "Efeitos Inativos",
+		"EffectPassive": "Efeitos Passivos",
+		"EffectTemporary": "Efeitos Temporários",
+		"EffectSource": "Fonte",
+		"EffectDuration": "Duração",
+
+		"EffectCreate": "Criar",
+		"EffectDelete": "Deletar",
+		"EffectEdit": "Editar",
+		"EffectToggle": "Alternar",
+
+		"Especializacao": "Especialização",
+
+		"Initiative": "Iniciativa",
+
+		"New": "Novo",
+		"NewItem": "{new} {item}"
+	}
+}

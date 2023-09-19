@@ -1,0 +1,18 @@
+{
+	"Actor": {
+		"types": ["personagem", "pdm", "veiculo"],
+		"htmlFields": ["descricao"],
+		"personagem": {},
+		"pdm": {},
+		"veiculo": {}
+	},
+	"Item": {
+		"types": ["item", "tecnica", "pericia", "vantagem", "desvantagem"],
+		"htmlFields": ["descricao"],
+		"item": {},
+		"pericia": {},
+		"tecnica": {},
+		"vantagem": {},
+		"desvantagem": {}
+	}
+}
