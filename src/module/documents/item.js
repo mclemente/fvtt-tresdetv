@@ -1,6 +1,3 @@
-import RollTresDeTV from "../dice/roll";
-import { getTargets, getToken } from "../helpers/utils";
-
 /**
  * Extend the basic Item with some very simple modifications.
  * @extends {Item}
