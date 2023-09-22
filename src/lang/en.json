@@ -15,15 +15,36 @@
 	},
 	"TRESDETV": {
 		"Atributos": {
-			"poder": "Poder",
-			"habilidade": "Habilidade",
-			"resistencia": "Resistência"
+			"poder": {
+				"label": "Poder",
+				"short": "P"
+			},
+			"habilidade": {
+				"label": "Habilidade",
+				"short": "H"
+			},
+			"resistencia": {
+				"label": "Resistência",
+				"short": "R"
+			}
 		},
 		"Pontos": {
-			"acao": "Pontos de Ação",
-			"experiencia": "Pontos de Experiência",
-			"mana": "Pontos de Mana",
-			"vida": "Pontos de Vida"
+			"acao": {
+				"label": "Pontos de Ação",
+				"short": "PA"
+			},
+			"experiencia": {
+				"label": "Pontos de Experiência",
+				"short": "Experiência"
+			},
+			"mana": {
+				"label": "Pontos de Mana",
+				"short": "PM"
+			},
+			"vida": {
+				"label": "Pontos de Vida",
+				"short": "PV"
+			}
 		},
 		"Settings": {
 			"initiativeTiebreaker": {

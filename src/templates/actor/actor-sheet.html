@@ -3,12 +3,13 @@
 	<header class="sheet-header">
 		<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
 		<div class="header-fields">
-			<div class="flexrow">
+			<div class="main-fields flexrow">
 				<h1 class="charname" style="flex: 6">
 					<input name="name" type="text" value="{{actor.name}}" placeholder="{{ localize 'Name' }}" />
 				</h1>
+				{{#if (eq data.type "personagem")}}
 				<input
-					style="height: 50px; padding: 0px; margin: 5px 0 5px 5px; text-align: center; font-size: 2em"
+					class="ponto-personagem"
 					type="text"
 					name="system.pontos.personagem.value"
 					value="{{system.pontos.personagem.value}}"
@@ -16,8 +17,30 @@
 					data-tooltip="Pontos de Personagem"
 					data-tooltip-direction="UP"
 				/>
+				{{/if}}
 			</div>
-			<div class="resources grid grid-4col"></div>
+			{{#if (eq data.type "personagem")}}
+			<div class="grid grid-2col">
+				<div class="resource">
+					<label class="resource-label">Conceito</label>
+					<input
+						type="text"
+						name="system.detalhes.conceito"
+						value="{{system.detalhes.conceito}}"
+						data-dtype="String"
+					/>
+				</div>
+				<div class="resource">
+					<label class="resource-label">Arquétipo</label>
+					<input
+						type="text"
+						name="system.detalhes.arquetipo"
+						value="{{system.detalhes.arquetipo}}"
+						data-dtype="String"
+					/>
+				</div>
+			</div>
+			{{/if}}
 		</div>
 	</header>
 
@@ -25,13 +48,6 @@
 	<nav class="sheet-tabs tabs" data-group="primary">
 		{{!-- Default tab is specified in actor-sheet.js --}}
 		<a class="item" data-tab="features">Detalhes</a>
-		<a class="item" data-tab="vantagens">Vantagens & Desvantagens</a>
-		<a class="item" data-tab="items">Inventário</a>
-		<!-- Técnicas -->
-		{{#if tecnicas.length}}
-		<a class="item" data-tab="spells">Técnicas</a>
-		{{/if}}
-		<a class="item" data-tab="description">Descrição</a>
 		<a class="item" data-tab="effects">Efeitos</a>
 	</nav>
 
@@ -41,72 +57,65 @@
 		<div class="tab features" data-group="primary" data-tab="features">
 			<section class="grid grid-2col">
 				<aside class="sidebar">
-					<div class="abilities flexcol">
-						{{#each system.atributos as |ability key|}}
-						<div class="ability flexrow flex-group-center">
-							<label
-								for="system.atributos.{{key}}.value"
-								class="rollable resource-label flexlarge align-left"
-								data-key="{{key}}"
-								>{{localize (concat "TRESDETV.Atributos." key)}}</label
-							>
-							<input
-								type="text"
-								name="system.atributos.{{key}}.value"
-								value="{{ability.value}}"
-								data-dtype="Number"
-							/>
+					<h3 style="border: none; font-weight: bold; text-align: center">Atributos</h3>
+					<div class="abilities flexrow">
+						<div>
+							{{#each system.atributos as |ability key|}}
+							<div class="ability atributos flexrow flex-group-center">
+								<label
+									for="system.atributos.{{key}}.value"
+									class="rollable resource-label align-left"
+									data-key="{{key}}"
+									data-tooltip="{{localize (concat 'TRESDETV.Atributos.' key '.label')}}"
+									data-tooltip-direction="UP"
+									>{{localize (concat "TRESDETV.Atributos." key ".short")}}</label
+								>
+								<input
+									type="text"
+									name="system.atributos.{{key}}.value"
+									value="{{ability.value}}"
+									data-dtype="Number"
+								/>
+							</div>
+							{{/each}}
 						</div>
-						{{/each}}
 						<!-- Points -->
 						{{> "systems/tresdetv/templates/actor/parts/actor-points.html"}}
 					</div>
+					{{#if (eq data.type "personagem")}}
+					<div class="form-group flexrow">
+						<label for="system.pontos.experiencia.value" class="resource-label align-left">
+							{{localize "TRESDETV.Pontos.experiencia.short"}}
+						</label>
+						<input
+							type="text"
+							name="system.pontos.experiencia.value"
+							value="{{system.pontos.experiencia.value}}"
+							data-dtype="Number"
+						/>
+					</div>
+					{{/if}}
+					<div style="height: 100%; margin: 0 3px">
+						<h3 style="border: none; font-weight: bold; text-align: center">Anotações</h3>
+						{{editor system.descricao target="system.descricao" rollData=rollData button=true owner=owner
+						editable=editable}}
+					</div>
 				</aside>
 
-				{{!-- For the main features list, span the right two columns --}}
 				<section>
-					<div class="form-group flexrow">
-						<label for="system.detalhes.escala" class="resource-label flexlarge align-left">Escala</label>
-						<input
-							type="text"
-							name="system.detalhes.escala"
-							value="{{system.detalhes.escala}}"
-							data-dtype="String"
-						/>
-					</div>
-					<div class="form-group flexrow">
-						<label for="system.detalhes.tipoDano" class="resource-label flexlarge align-left"
-							>Tipo de Dano</label
-						>
-						<input
-							type="text"
-							name="system.detalhes.tipoDano"
-							value="{{system.detalhes.tipoDano}}"
-							data-dtype="String"
-						/>
-					</div>
+					<!-- Habilidades -->
+					{{> "systems/tresdetv/templates/actor/parts/actor-features.html"}}
+
+					<!-- Perícias -->
 					{{> "systems/tresdetv/templates/actor/parts/actor-skills.html"}}
+
+					<!-- Técnicas -->
+					{{#if tecnicas.length}} {{> "systems/tresdetv/templates/actor/parts/actor-spells.html"}} {{/if}}
+
+					<!-- Itens -->
+					{{> "systems/tresdetv/templates/actor/parts/actor-items.html"}}
 				</section>
 			</section>
-		</div>
-
-		<div class="tab vantagens" data-group="primary" data-tab="vantagens">
-			{{> "systems/tresdetv/templates/actor/parts/actor-features.html"}}
-		</div>
-
-		<div class="tab items" data-group="primary" data-tab="items">
-			{{> "systems/tresdetv/templates/actor/parts/actor-items.html"}}
-		</div>
-
-		{{!-- Biography Tab --}}
-		<div class="tab biography" data-group="primary" data-tab="description">
-			{{editor system.descricao target="system.descricao" rollData=rollData button=true owner=owner
-			editable=editable}}
-		</div>
-
-		{{!-- Owned Spells Tab --}}
-		<div class="tab spells" data-group="primary" data-tab="spells">
-			{{> "systems/tresdetv/templates/actor/parts/actor-spells.html"}}
 		</div>
 
 		{{!-- Active Effects Tab --}}

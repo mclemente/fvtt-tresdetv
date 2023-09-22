@@ -9,7 +9,7 @@ export class ActorSheet3DeTV extends ActorSheet {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: ["tresdetv", "sheet", "actor", "personagem"],
-			width: 600,
+			width: 505,
 			height: 600,
 			tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }],
 		});
@@ -85,7 +85,6 @@ export class ActorSheet3DeTV extends ActorSheet {
 		const desvantagens = [];
 		const tecnicas = [];
 		const pericias = [];
-		const especializacoes = [];
 
 		// Iterate through items, allocating to containers
 		for (let i of context.items) {
@@ -99,11 +98,7 @@ export class ActorSheet3DeTV extends ActorSheet {
 			} else if (i.type === "tecnica") {
 				tecnicas.push(i);
 			} else if (i.type === "pericia") {
-				if (i.system.especializacao) {
-					especializacoes.push(i);
-				} else {
-					pericias.push(i);
-				}
+				pericias.push(i);
 			}
 		}
 
@@ -113,7 +108,6 @@ export class ActorSheet3DeTV extends ActorSheet {
 		context.desvantagens = desvantagens;
 		context.tecnicas = tecnicas;
 		context.pericias = pericias;
-		context.especializacoes = especializacoes;
 	}
 
 	/* -------------------------------------------- */
@@ -184,10 +178,6 @@ export class ActorSheet3DeTV extends ActorSheet {
 		const data = duplicate(header.dataset);
 		// Initialize a default name.
 		let itemName = type.capitalize();
-		if (data.especializacao) {
-			itemName = game.i18n.localize("TRESDETV.Especializacao");
-			data.especializacao = true;
-		}
 		const name = game.i18n.format("TRESDETV.NewItem", {
 			new: game.i18n.localize("TRESDETV.New"),
 			item: itemName,

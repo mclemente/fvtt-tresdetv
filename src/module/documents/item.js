@@ -24,7 +24,7 @@ export default class ItemTresDeTV extends Item {
 		} else if (this.type === "desvantagem") {
 			this.updateSource({ img: "icons/svg/downgrade.svg" });
 		} else if (this.type === "pericia") {
-			this.updateSource({ img: "icons/svg/d20-black.svg" });
+			this.updateSource({ img: "icons/svg/d20.svg" });
 		} else if (this.type === "tecnica") {
 			this.updateSource({ img: "icons/svg/book.svg" });
 		}

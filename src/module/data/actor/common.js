@@ -19,7 +19,6 @@ export class ActorData extends foundry.abstract.DataModel {
 						initial: 1,
 					}),
 				}),
-				experiencia: new fields.SchemaField(createPointsField(0, null, { nullMax: true })),
 				mana: new fields.SchemaField({
 					...createPointsField(),
 					mult: new fields.NumberField({
@@ -35,11 +34,6 @@ export class ActorData extends foundry.abstract.DataModel {
 						initial: 5,
 					}),
 				}),
-			}),
-			detalhes: new fields.SchemaField({
-				escala: new fields.StringField({ initial: "Ningen" }),
-				// iniciativa: new fields.ArrayField({ initial: "" }),
-				tipoDano: new fields.StringField({ initial: "" }),
 			}),
 		};
 	}

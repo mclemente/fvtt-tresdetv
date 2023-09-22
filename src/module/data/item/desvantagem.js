@@ -10,7 +10,6 @@ export default class DesvantagemData extends BaseItemData {
 			...superFields,
 			// ...createConcessao(),
 			custo: new fields.NumberField({ initial: -1, max: 0 }),
-			arquetipo: new fields.BooleanField({ initial: false }),
 		};
 	}
 }

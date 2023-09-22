@@ -1,7 +1,12 @@
-<div>
+<div class="pontos">
 	<div class="ability flexrow flex-group-center">
-		<label for="system.pontos.vida.value" class="resource-label flexlarge align-left">
-			{{localize "TRESDETV.Pontos.vida"}}
+		<label
+			for="system.pontos.vida.value"
+			class="resource-label align-left"
+			data-tooltip="{{localize 'TRESDETV.Pontos.vida.label'}}"
+			data-tooltip-direction="UP"
+		>
+			{{localize "TRESDETV.Pontos.vida.short"}}
 		</label>
 		<div class="flexrow">
 			<input
@@ -21,8 +26,13 @@
 		</div>
 	</div>
 	<div class="ability flexrow flex-group-center">
-		<label for="system.pontos.mana.value" class="resource-label flexlarge align-left">
-			{{localize "TRESDETV.Pontos.mana"}}
+		<label
+			for="system.pontos.mana.value"
+			class="resource-label align-left"
+			data-tooltip="{{localize 'TRESDETV.Pontos.mana.label'}}"
+			data-tooltip-direction="UP"
+		>
+			{{localize "TRESDETV.Pontos.mana.short"}}
 		</label>
 		<div class="flexrow">
 			<input
@@ -42,8 +52,13 @@
 		</div>
 	</div>
 	<div class="ability flexrow flex-group-center">
-		<label for="system.pontos.acao.value" class="resource-label flexlarge align-left">
-			{{localize "TRESDETV.Pontos.acao"}}
+		<label
+			for="system.pontos.acao.value"
+			class="resource-label align-left"
+			data-tooltip="{{localize 'TRESDETV.Pontos.acao.label'}}"
+			data-tooltip-direction="UP"
+		>
+			{{localize "TRESDETV.Pontos.acao.short"}}
 		</label>
 		<div class="flexrow">
 			<input
@@ -62,19 +77,4 @@
 			/>
 		</div>
 	</div>
-	{{#if (eq data.type "personagem")}}
-	<div class="ability flexrow flex-group-center">
-		<label for="system.pontos.experiencia.value" class="resource-label flexlarge align-left">
-			{{localize "TRESDETV.Pontos.experiencia"}}
-		</label>
-		<div class="flexrow">
-			<input
-				type="text"
-				name="system.pontos.experiencia.value"
-				value="{{system.pontos.experiencia.value}}"
-				data-dtype="Number"
-			/>
-		</div>
-	</div>
-	{{/if}}
 </div>

@@ -17,7 +17,7 @@
 	grid-column: span 2 / span 2;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 10px;
-	margin: 10px 0;
+	/* margin: 10px 0; */
 	padding: 0;
 }
 
@@ -252,7 +252,7 @@
 
 .tresdetv.sheet.actor {
 	min-width: 500px;
-	min-height: 435px;
+	min-height: 460px;
 }
 
 .tresdetv .sheet-header {
@@ -289,10 +289,14 @@
 	flex: 1;
 }
 
-.tresdetv .sheet-header h1.charname {
-	height: 50px;
+.tresdetv .sheet-header .header-fields .main-fields > * {
+	height: 45px;
 	padding: 0px;
 	margin: 5px 0;
+}
+
+.tresdetv .sheet-header h1.charname {
+	padding: 0px;
 	border-bottom: 0;
 }
 
@@ -300,6 +304,12 @@
 	width: 100%;
 	height: 100%;
 	margin: 0;
+}
+
+.tresdetv .sheet-header .main-fields input.ponto-personagem {
+	margin-left: 5px;
+	text-align: center;
+	font-size: 2em;
 }
 
 .tresdetv .sheet-tabs {
@@ -329,6 +339,23 @@
 
 .tresdetv .ability {
 	margin-bottom: 3px;
+}
+
+.tresdetv .ability.atributos input {
+	max-width: 35px;
+}
+
+.tresdetv .ability label {
+	flex: 0 25px;
+	margin-right: 3px;
+}
+
+.tresdetv .ability input {
+	min-width: 35px;
+}
+
+.tresdetv .pontos {
+	margin-left: 5px;
 }
 
 .tresdetv .items-header {
@@ -396,6 +423,10 @@
 	overflow-x: hidden;
 }
 
+.tresdetv .items-list .item-name sup {
+	margin-left: -3px;
+}
+
 .tresdetv .items-list .item-controls {
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -439,11 +470,6 @@
 }
 
 .tresdetv .items-list .item .item-name .item-image {
-	-webkit-box-flex: 0;
-	-ms-flex: 0 0 30px;
-	flex: 0 0 30px;
-	height: 30px;
-	background-size: 30px;
 	border: none;
 	margin-right: 5px;
 }

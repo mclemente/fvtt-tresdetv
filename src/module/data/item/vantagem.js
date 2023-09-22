@@ -10,7 +10,6 @@ export default class VantagemData extends BaseItemData {
 			...superFields,
 			// ...createConcessao(),
 			custo: new fields.NumberField({ initial: 1, min: 0, max: null }),
-			arquetipo: new fields.BooleanField({ initial: false }),
 		};
 	}
 }
