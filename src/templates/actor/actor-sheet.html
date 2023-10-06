@@ -17,9 +17,14 @@
 					data-tooltip-direction="UP"
 				/>
 			</div>
+			{{#unless (eq data.type "veiculo")}}
+			<!--  -->
 			{{#if (eq data.type "personagem")}}
-			<div class="grid grid-2col">
-				<div class="resource">
+			<div class="grid grid-4col">
+				{{else}}
+				<div class="grid grid-3col">
+				{{/if}}
+				<div class="resource flexcol flex-group-center">
 					<label class="resource-label">Conceito</label>
 					<input
 						type="text"
@@ -28,7 +33,7 @@
 						data-dtype="String"
 					/>
 				</div>
-				<div class="resource">
+				<div class="resource flexcol flex-group-center">
 					<label class="resource-label">Arquétipo</label>
 					<input
 						type="text"
@@ -37,8 +42,23 @@
 						data-dtype="String"
 					/>
 				</div>
+				{{#if (eq data.type "personagem")}}
+				<div class="resource flexcol flex-group-center">
+					<label class="resource-label"> {{localize "TRESDETV.Pontos.experiencia.short"}} </label>
+					<input
+						type="text"
+						name="system.pontos.experiencia.value"
+						value="{{system.pontos.experiencia.value}}"
+						data-dtype="Number"
+					/>
+				</div>
+				{{/if}}
+				<div class="resource flexcol flex-group-center">
+					<label class="resource-label"> {{localize "TRESDETV.Darma"}}/{{localize "TRESDETV.Karma"}} </label>
+					<input type="checkbox" name="system.darma" {{checked system.darma}} />
+				</div>
 			</div>
-			{{/if}}
+			{{/unless}}
 		</div>
 	</header>
 
@@ -46,6 +66,7 @@
 	<nav class="sheet-tabs tabs" data-group="primary">
 		{{!-- Default tab is specified in actor-sheet.js --}}
 		<a class="item" data-tab="features">Detalhes</a>
+		<a class="item" data-tab="notes">Anotações</a>
 		<a class="item" data-tab="effects">Efeitos</a>
 	</nav>
 
@@ -57,62 +78,30 @@
 				<aside class="sidebar">
 					<h3 style="border: none; font-weight: bold; text-align: center">Atributos</h3>
 					<div class="abilities flexrow">
-						<div>
-							{{#each system.atributos as |ability key|}}
-							<div class="ability atributos flexrow flex-group-center">
-								<label
-									for="system.atributos.{{key}}.value"
-									class="rollable resource-label align-left"
-									data-key="{{key}}"
-									data-tooltip="{{localize (concat 'TRESDETV.Atributos.' key '.label')}}"
-									data-tooltip-direction="UP"
-									>{{localize (concat "TRESDETV.Atributos." key ".short")}}</label
-								>
-								<input
-									type="text"
-									name="system.atributos.{{key}}.value"
-									value="{{ability.value}}"
-									data-dtype="Number"
-								/>
-							</div>
-							{{/each}}
+						{{#each system.atributos as |ability key|}}
+						<div class="ability atributos flexcol flex-group-center">
+							<label class="rollable resource-label" data-key="{{key}}" data-tooltip-direction="UP"
+								>{{localize (concat "TRESDETV.Atributos." key ".label")}}</label
+							>
+							<input
+								type="text"
+								name="system.atributos.{{key}}.value"
+								value="{{ability.value}}"
+								data-dtype="Number"
+							/>
 						</div>
-						<!-- Points -->
-						{{> "systems/tresdetv/templates/actor/parts/actor-points.html"}}
+						{{/each}}
 					</div>
-					{{#unless (eq data.type "veiculo")}}
-					<div class="form-group flexrow">
-						<label for="system.darma" class="resource-label align-left">
-							{{localize "TRESDETV.Darma"}}
-						</label>
-						<input type="checkbox" name="system.darma" {{checked system.darma}} />
-					</div>
-					{{/unless}} {{#if (eq data.type "personagem")}}
-					<div class="form-group flexrow">
-						<label for="system.pontos.experiencia.value" class="resource-label align-left">
-							{{localize "TRESDETV.Pontos.experiencia.short"}}
-						</label>
-						<input
-							type="text"
-							name="system.pontos.experiencia.value"
-							value="{{system.pontos.experiencia.value}}"
-							data-dtype="Number"
-						/>
-					</div>
-					{{/if}}
-					<div style="height: 100%; margin: 0 3px">
-						<h3 style="border: none; font-weight: bold; text-align: center">Anotações</h3>
-						{{editor system.descricao target="system.descricao" rollData=rollData button=true owner=owner
-						editable=editable}}
-					</div>
+					<hr />
+					<!-- Points -->
+					{{> "systems/tresdetv/templates/actor/parts/actor-points.html"}}
+					<!-- Perícias -->
+					{{> "systems/tresdetv/templates/actor/parts/actor-skills.html"}}
 				</aside>
 
 				<section>
 					<!-- Habilidades -->
 					{{> "systems/tresdetv/templates/actor/parts/actor-features.html"}}
-
-					<!-- Perícias -->
-					{{> "systems/tresdetv/templates/actor/parts/actor-skills.html"}}
 
 					<!-- Técnicas -->
 					{{#if tecnicas.length}} {{> "systems/tresdetv/templates/actor/parts/actor-spells.html"}} {{/if}}
@@ -121,6 +110,13 @@
 					{{> "systems/tresdetv/templates/actor/parts/actor-items.html"}}
 				</section>
 			</section>
+		</div>
+
+		<div class="tab notes flexcol" data-group="primary" data-tab="notes">
+			<div>
+				{{editor system.descricao target="system.descricao" rollData=rollData button=true owner=owner
+				editable=editable}}
+			</div>
 		</div>
 
 		{{!-- Active Effects Tab --}}

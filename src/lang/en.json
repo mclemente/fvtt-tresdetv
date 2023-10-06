@@ -30,6 +30,7 @@
 		},
 		"Pontos": {
 			"acao": {
+				"name": "Ação",
 				"label": "Pontos de Ação",
 				"short": "PA"
 			},
@@ -38,10 +39,12 @@
 				"short": "Experiência"
 			},
 			"mana": {
+				"name": "Mana",
 				"label": "Pontos de Mana",
 				"short": "PM"
 			},
 			"vida": {
+				"name": "Vida",
 				"label": "Pontos de Vida",
 				"short": "PV"
 			}

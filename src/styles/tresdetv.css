@@ -337,25 +337,27 @@
 	font-weight: bold;
 }
 
-.tresdetv .ability {
+.tresdetv .resource label.resource-label,
+.tresdetv .resource input {
+	text-align: center;
+}
+
+.tresdetv .abilities {
 	margin-bottom: 3px;
 }
 
-.tresdetv .ability.atributos input {
+.tresdetv .ability {
+	/* margin-bottom: 3px; */
+}
+
+.tresdetv .ability.atributos input,
+.tresdetv .ability.pontos input {
 	max-width: 35px;
 }
 
 .tresdetv .ability label {
 	flex: 0 25px;
 	margin-right: 3px;
-}
-
-.tresdetv .ability input {
-	min-width: 35px;
-}
-
-.tresdetv .pontos {
-	margin-left: 5px;
 }
 
 .tresdetv .items-header {
