@@ -41,3 +41,17 @@ export function createPointsField(init = 1, max = 1, options = { nullMax: false 
 		}),
 	};
 }
+
+export function createDetails(type) {
+	const data = {
+		conceito: new fields.StringField({ initial: "" }),
+		arquetipo: new fields.StringField({ initial: "" }),
+	};
+	if (type === "veiculo") {
+		data.piloto = new fields.SchemaField({
+			name: new fields.StringField({ initial: "" }),
+			id: new fields.StringField({ initial: "" }),
+		});
+	}
+	return { details: new fields.SchemaField(data) };
+}

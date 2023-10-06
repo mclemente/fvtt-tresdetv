@@ -9,8 +9,8 @@ export class ActorSheet3DeTV extends ActorSheet {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: ["tresdetv", "sheet", "actor", "personagem"],
-			width: 505,
-			height: 600,
+			width: 550,
+			height: 650,
 			tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }],
 		});
 	}

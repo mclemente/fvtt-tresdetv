@@ -58,8 +58,8 @@ Hooks.once("init", async () => {
 	CONFIG.ui.combat = CombatTrackerTresDeTV;
 
 	// Define DataModels
-	CONFIG.Actor.dataModels.personagem = models.PersonagemData;
-	CONFIG.Actor.dataModels.pdm = models.PdMData;
+	CONFIG.Actor.dataModels.personagem = models.ActorData;
+	CONFIG.Actor.dataModels.pdm = models.ActorData;
 	CONFIG.Actor.dataModels.veiculo = models.VeiculoData;
 
 	CONFIG.Item.dataModels.item = models.ItemData;

@@ -80,7 +80,14 @@
 						<!-- Points -->
 						{{> "systems/tresdetv/templates/actor/parts/actor-points.html"}}
 					</div>
-					{{#if (eq data.type "personagem")}}
+					{{#unless (eq data.type "veiculo")}}
+					<div class="form-group flexrow">
+						<label for="system.darma" class="resource-label align-left">
+							{{localize "TRESDETV.Darma"}}
+						</label>
+						<input type="checkbox" name="system.darma" {{checked system.darma}} />
+					</div>
+					{{/unless}} {{#if (eq data.type "personagem")}}
 					<div class="form-group flexrow">
 						<label for="system.pontos.experiencia.value" class="resource-label align-left">
 							{{localize "TRESDETV.Pontos.experiencia.short"}}

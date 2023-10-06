@@ -121,7 +121,7 @@ export default class ActorTresDeTV extends Actor {
 	}
 
 	async rollTest(key, event) {
-		const label = game.i18n.localize("TRESDETV.Atributos." + key);
+		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
 		const data = this.getRollData();
 		data.atr = this.system.atributos[key].value;
 		const roll = new CONFIG.Dice.RollTresDeTV("2d6 + @atr", data);

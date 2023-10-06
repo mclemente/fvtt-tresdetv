@@ -1,4 +1,4 @@
-import { createAttributeField, createPointsField } from "../shared";
+import { createAttributeField, createDetails, createPointsField } from "../shared";
 
 const fields = foundry.data.fields;
 
@@ -11,6 +11,7 @@ export class ActorData extends foundry.abstract.DataModel {
 				habilidade: new fields.SchemaField(createAttributeField()),
 				resistencia: new fields.SchemaField(createAttributeField()),
 			}),
+			darma: new fields.BooleanField(),
 			pontos: new fields.SchemaField({
 				acao: new fields.SchemaField({
 					...createPointsField(),
@@ -35,6 +36,7 @@ export class ActorData extends foundry.abstract.DataModel {
 					}),
 				}),
 			}),
+			...createDetails(this.type),
 		};
 	}
 }
