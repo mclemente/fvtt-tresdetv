@@ -53,5 +53,5 @@ export function createDetails(type) {
 			id: new fields.StringField({ initial: "" }),
 		});
 	}
-	return { details: new fields.SchemaField(data) };
+	return { detalhes: new fields.SchemaField(data) };
 }

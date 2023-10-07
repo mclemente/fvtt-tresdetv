@@ -1,4 +1,4 @@
-export { default as ActorTresDeTV } from "./actor.js";
+export { default as ActorTresDeTV } from "./actor/actor.js";
 export { default as CombatTresDeTV } from "./combat.js";
 export { default as ItemTresDeTV } from "./item.js";
 

@@ -1,13 +1,9 @@
-// Import sheet classes.
-import { ActorSheet3DeTV } from "./sheets/actor-sheet.js";
-import { ItemSheet3DeTV } from "./sheets/item-sheet.js";
 // Import helper/utility classes and constants.
-import { TRESDETV } from "./helpers/config.js";
-import { registerSettings } from "./helpers/settings.js";
-import { preloadHandlebarsTemplates } from "./helpers/templates.js";
-import CombatTrackerTresDeTV from "./siderbar/combatTracker.js";
+import TRESDETV from "./helpers/config.js";
+import registerSettings from "./helpers/settings.js";
 
-import * as models from "./data/_module.js";
+import * as applications from "./applications/_module.js";
+import * as dataModels from "./data/_module.js";
 import * as dice from "./dice/_module.js";
 import * as documents from "./documents/_module.js";
 import * as utils from "./helpers/utils.js";
@@ -18,9 +14,12 @@ import * as hooks from "./hooks/_module.js";
 /* -------------------------------------------- */
 
 globalThis.tresdetv = {
+	applications,
 	config: TRESDETV,
+	dataModels,
 	dice,
 	documents,
+	utils,
 };
 
 /* -------------------------------------------- */
@@ -55,18 +54,18 @@ Hooks.once("init", async () => {
 	// Patch Core Functions
 	Combatant.prototype.getInitiativeRoll = utils.getInitiativeRoll;
 
-	CONFIG.ui.combat = CombatTrackerTresDeTV;
+	CONFIG.ui.combat = applications.combat.CombatTrackerTresDeTV;
 
 	// Define DataModels
-	CONFIG.Actor.dataModels.personagem = models.ActorData;
-	CONFIG.Actor.dataModels.pdm = models.ActorData;
-	CONFIG.Actor.dataModels.veiculo = models.VeiculoData;
+	CONFIG.Actor.dataModels.personagem = dataModels.ActorData;
+	CONFIG.Actor.dataModels.pdm = dataModels.ActorData;
+	CONFIG.Actor.dataModels.veiculo = dataModels.VeiculoData;
 
-	CONFIG.Item.dataModels.item = models.ItemData;
-	CONFIG.Item.dataModels.pericia = models.PericiaData;
-	CONFIG.Item.dataModels.tecnica = models.TenicaData;
-	CONFIG.Item.dataModels.vantagem = models.VantagemData;
-	CONFIG.Item.dataModels.desvantagem = models.DesvantagemData;
+	CONFIG.Item.dataModels.item = dataModels.ItemData;
+	CONFIG.Item.dataModels.pericia = dataModels.PericiaData;
+	CONFIG.Item.dataModels.tecnica = dataModels.TenicaData;
+	CONFIG.Item.dataModels.vantagem = dataModels.VantagemData;
+	CONFIG.Item.dataModels.desvantagem = dataModels.DesvantagemData;
 
 	const trackableAttributes = {
 		bar: ["pontos.vida", "pontos.mana"],
@@ -80,9 +79,15 @@ Hooks.once("init", async () => {
 
 	// Register sheet application classes
 	Actors.unregisterSheet("core", ActorSheet);
-	Actors.registerSheet("tresdetv", ActorSheet3DeTV, { label: "Ficha de Personagem 3DeTV", makeDefault: true });
+	Actors.registerSheet("tresdetv", applications.actor.ActorSheet3DeTV, {
+		label: "Ficha de Personagem 3DeTV",
+		makeDefault: true,
+	});
 	Items.unregisterSheet("core", ItemSheet);
-	Items.registerSheet("tresdetv", ItemSheet3DeTV, { label: "Ficha de Item 3DeTV", makeDefault: true });
+	Items.registerSheet("tresdetv", applications.item.ItemSheet3DeTV, {
+		label: "Ficha de Item 3DeTV",
+		makeDefault: true,
+	});
 
 	// Register custom system settings
 	registerSettings();
@@ -96,7 +101,7 @@ Hooks.once("init", async () => {
 	}
 
 	// Preload Handlebars templates.
-	return preloadHandlebarsTemplates();
+	return utils.preloadHandlebarsTemplates();
 });
 
 Hooks.once("i18nInit", () => utils.performPreLocalization(CONFIG.tresdetv));

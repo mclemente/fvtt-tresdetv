@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-export function registerSettings() {
+export default function registerSettings() {
 	// Register any custom system settings here
 	game.settings.register("tresdetv", "systemMigrationVersion", {
 		name: "System Migration Version",

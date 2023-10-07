@@ -1,16 +1,16 @@
-import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.js";
+import { onManageActiveEffect, prepareActiveEffectCategories } from "../../helpers/effects.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class ActorSheet3DeTV extends ActorSheet {
+export default class ActorSheet3DeTV extends ActorSheet {
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: ["tresdetv", "sheet", "actor", "personagem"],
-			width: 550,
-			height: 650,
+			width: 760,
+			height: 750,
 			tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }],
 		});
 	}
@@ -39,6 +39,11 @@ export class ActorSheet3DeTV extends ActorSheet {
 		context.system = actorData.system;
 		context.flags = actorData.flags;
 		context.config = CONFIG.tresdetv;
+		context.colunasDetalhes = actorData.type === "personagem" ? 4 : 3;
+
+		context.personagem = actorData.type === "personagem";
+		context.pdm = actorData.type === "pdm";
+		context.veiculo = actorData.type === "veiculo";
 
 		// Prepare character data and items.
 		this._prepareItems(context);

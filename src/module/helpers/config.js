@@ -1,1 +1,3 @@
-export const TRESDETV = {};
+const TRESDETV = {};
+
+export default TRESDETV;

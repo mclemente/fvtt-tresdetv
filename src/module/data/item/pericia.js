@@ -10,7 +10,8 @@ export default class PericiaData extends BaseItemData {
 			...superFields,
 			// ...createConcessao(),
 			custo: new fields.NumberField({ initial: 1, min: 0, max: null }),
-			especializacao: new fields.BooleanField({ initial: false }),
+			especializacao: new fields.BooleanField(),
+			maestria: new fields.BooleanField(),
 		};
 	}
 }
