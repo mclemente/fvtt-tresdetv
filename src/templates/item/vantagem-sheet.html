@@ -9,8 +9,7 @@
 				<div class="resource">
 					<label class="resource-label">Tipo</label>
 					<select name="system.tipo">
-						<option value="vantagem">Vantagem</option>
-						<option value="desvantagem">Desvantagem</option>
+						{{selectOptions tipoChoices selected=system.tipo nameAttr="key" labelAttr="label"}}
 					</select>
 				</div>
 			</div>
