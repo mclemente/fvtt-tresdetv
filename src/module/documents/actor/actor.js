@@ -120,7 +120,7 @@ export default class ActorTresDeTV extends Actor {
 		if (this.type !== "npc") return;
 	}
 
-	async rollDice(key, dice, event) {
+	async rollDice(key, dice) {
 		const data = this.getRollData();
 		let formula = `${dice}d6`;
 		const atr = this.system.atributos[key].value;

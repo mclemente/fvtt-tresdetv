@@ -58,6 +58,9 @@
 				"hint": "As perícias disponíveis a todos os personagens."
 			}
 		},
+		"Aria": {
+			"Rolar": "Rolar {dados} dados de {nome}"
+		},
 		"Add": "Adicionar",
 
 		"Darma": "Darma",
