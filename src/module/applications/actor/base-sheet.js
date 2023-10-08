@@ -100,8 +100,9 @@ export default class ActorSheet3DeTV extends ActorSheet {
 			if (i.type === "item") {
 				itens.push(i);
 			} else if (i.type === "vantagem") {
-				if (i.system.tipo === "desvantagem") desvantagens.push(i);
-				else vantagens.push(i);
+				vantagens.push(i);
+			} else if (i.type === "desvantagem") {
+				desvantagens.push(i);
 			} else if (i.type === "tecnica") {
 				tecnicas.push(i);
 			}
@@ -202,8 +203,7 @@ export default class ActorSheet3DeTV extends ActorSheet {
 		// Grab any data associated with this control.
 		const data = duplicate(header.dataset);
 		// Initialize a default name.
-		let itemName = game.i18n.localize(`TYPES.Item.${type}`);
-		if (data?.tipo === "desvantagem") itemName = game.i18n.localize(`TYPES.Item.desvantagem`);
+		let itemName = type.capitalize();
 		const name = game.i18n.format("TRESDETV.NewItem", {
 			new: game.i18n.localize("TRESDETV.New"),
 			item: itemName,

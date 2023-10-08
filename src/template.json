@@ -7,10 +7,12 @@
 		"veiculo": {}
 	},
 	"Item": {
-		"types": ["item", "tecnica", "vantagem"],
+		"types": ["item", "tecnica", "pericia", "vantagem", "desvantagem"],
 		"htmlFields": ["descricao"],
 		"item": {},
+		"pericia": {},
 		"tecnica": {},
-		"vantagem": {}
+		"vantagem": {},
+		"desvantagem": {}
 	}
 }

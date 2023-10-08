@@ -20,8 +20,9 @@ export default class ItemTresDeTV extends Item {
 		await super._preCreate(data, options, user);
 
 		if (this.type === "vantagem") {
-			if (this.system.tipo === "desvantagem") this.updateSource({ img: "icons/svg/downgrade.svg" });
-			else this.updateSource({ img: "icons/svg/upgrade.svg" });
+			this.updateSource({ img: "icons/svg/upgrade.svg" });
+		} else if (this.type === "desvantagem") {
+			this.updateSource({ img: "icons/svg/downgrade.svg" });
 		} else if (this.type === "pericia") {
 			this.updateSource({ img: "icons/svg/d20.svg" });
 		} else if (this.type === "tecnica") {

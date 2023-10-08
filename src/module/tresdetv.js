@@ -65,6 +65,7 @@ Hooks.once("init", async () => {
 	// CONFIG.Item.dataModels.pericia = dataModels.PericiaData;
 	CONFIG.Item.dataModels.tecnica = dataModels.TenicaData;
 	CONFIG.Item.dataModels.vantagem = dataModels.VantagemData;
+	CONFIG.Item.dataModels.desvantagem = dataModels.DesvantagemData;
 
 	const trackableAttributes = {
 		bar: ["pontos.vida", "pontos.mana"],
