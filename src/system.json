@@ -32,7 +32,7 @@
 	"flags": {
 		"hotReload": {
 			"extensions": ["js", "css", "html", "hbs", "json"],
-			"paths": ["system/templates", "lang/en.json", "tresdetv.js", "tresdetv.css"]
+			"paths": ["templates", "lang/en.json", "module/tresdetv.js", "styles/tresdetv.css"]
 		}
 	},
 	"manifest": "This is auto replaced",
