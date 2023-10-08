@@ -47,13 +47,6 @@ export default class ItemSheet3DeTV extends ItemSheet {
 		context.flags = itemData.flags;
 		context.skills = CONFIG.tresdetv;
 
-		if (context.data.type === "vantagem") {
-			context.tipoChoices = [
-				{ key: "vantagem", label: "Vantagem" },
-				{ key: "desvantagem", label: "Desvantagem" },
-			];
-		}
-
 		context.isGM = game.user.isGM;
 
 		return context;

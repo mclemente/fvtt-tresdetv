@@ -11,8 +11,8 @@ export default class ActorSheet3DeTV extends ActorSheet {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: ["tresdetv", "sheet", "actor", "personagem"],
-			width: 760,
-			height: 750,
+			width: 500,
+			height: 485,
 			tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }],
 		});
 	}
@@ -203,11 +203,7 @@ export default class ActorSheet3DeTV extends ActorSheet {
 		// Grab any data associated with this control.
 		const data = duplicate(header.dataset);
 		// Initialize a default name.
-		let itemName = type.capitalize();
-		const name = game.i18n.format("TRESDETV.NewItem", {
-			new: game.i18n.localize("TRESDETV.New"),
-			item: itemName,
-		});
+		const name = type.capitalize();
 		// Prepare the item object.
 		const itemData = {
 			name: name,

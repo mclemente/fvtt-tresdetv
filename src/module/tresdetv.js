@@ -62,7 +62,6 @@ Hooks.once("init", async () => {
 	CONFIG.Actor.dataModels.veiculo = dataModels.VeiculoData;
 
 	CONFIG.Item.dataModels.item = dataModels.ItemData;
-	// CONFIG.Item.dataModels.pericia = dataModels.PericiaData;
 	CONFIG.Item.dataModels.tecnica = dataModels.TenicaData;
 	CONFIG.Item.dataModels.vantagem = dataModels.VantagemData;
 	CONFIG.Item.dataModels.desvantagem = dataModels.DesvantagemData;
