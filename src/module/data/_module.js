@@ -1,4 +1,4 @@
-export { ActorData } from "./actor/common.js";
+export { ActorData } from "./actor/templates/common.js";
 // export { default as PdMData } from "./actor/pdm.js";
 // export { default as PersonagemData } from "./actor/personagem.js";
 export { default as VeiculoData } from "./actor/veiculo.js";

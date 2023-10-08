@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { BaseItemData, createConcessao } from "./common.js";
+import { BaseItemData, createConcessao } from "./templates/common.js";
 
 const fields = foundry.data.fields;
 

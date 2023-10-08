@@ -1,10 +1,11 @@
-import { createAttributeField, createDetails, createPointsField } from "../shared";
+import { createAttributeField, createDetails, createPointsField } from "../../shared";
 
 const fields = foundry.data.fields;
 
 export class ActorData extends foundry.abstract.DataModel {
 	static defineSchema() {
 		return {
+			descricao: new fields.HTMLField(),
 			atributos: new fields.SchemaField({
 				poder: new fields.SchemaField(createAttributeField()),
 				habilidade: new fields.SchemaField(createAttributeField()),
