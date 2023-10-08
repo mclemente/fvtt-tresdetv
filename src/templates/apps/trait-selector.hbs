@@ -1,0 +1,12 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+    {{> "tresdetv.trait-list" prefix="choices"}}
+
+    {{#if customPath}}
+        <div class="form-group stacked">
+            <label>Especial</label>
+            <input type="text" name="{{customPath}}" value="{{custom}}">
+        </div>
+    {{/if}}
+
+    <button type="submit"><i class="far fa-save"></i> {{localize "Save"}}</button>
+</form>

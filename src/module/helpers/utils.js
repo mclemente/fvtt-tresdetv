@@ -4,18 +4,30 @@
  * @return {Promise}
  */
 export const preloadHandlebarsTemplates = async function () {
-	return loadTemplates([
+	const partials = [
 		// Actor partials.
-		"systems/tresdetv/templates/actor/parts/actor-points.html",
-		"systems/tresdetv/templates/actor/parts/actor-features.html",
-		"systems/tresdetv/templates/actor/parts/actor-items.html",
-		"systems/tresdetv/templates/actor/parts/actor-skills.html",
-		"systems/tresdetv/templates/actor/parts/actor-spells.html",
-		"systems/tresdetv/templates/actor/parts/actor-effects.html",
+		"systems/tresdetv/templates/actor/parts/actor-points.hbs",
+		"systems/tresdetv/templates/actor/parts/actor-features.hbs",
+		"systems/tresdetv/templates/actor/parts/actor-items.hbs",
+		"systems/tresdetv/templates/actor/parts/actor-skills.hbs",
+		"systems/tresdetv/templates/actor/parts/actor-spells.hbs",
+		"systems/tresdetv/templates/actor/parts/actor-effects.hbs",
+
+		// Apps
+		"systems/tresdetv/templates/apps/parts/trait-list.hbs",
+
 		// Roll Dialog
 		"systems/tresdetv/templates/apps/dialog.hbs",
 		"systems/tresdetv/templates/apps/roll-dialog.hbs",
-	]);
+	];
+
+	const paths = {};
+	for (const path of partials) {
+		paths[path.replace(".hbs", ".html")] = path;
+		paths[`tresdetv.${path.split("/").pop().replace(".hbs", "")}`] = path;
+	}
+
+	return loadTemplates(paths);
 };
 
 /* -------------------------------------------- */
@@ -48,7 +60,7 @@ const _preLocalizationRegistrations = {};
 
 /**
  * Mark the provided config key to be pre-localized during the init stage.
- * @param {string} configKeyPath          Key path within `CONFIG.DND5E` to localize.
+ * @param {string} configKeyPath          Key path within `CONFIG.TRESDETV` to localize.
  * @param {object} [options={}]
  * @param {string} [options.key]          If each entry in the config enum is an object,
  *                                        localize and sort using this property.
@@ -65,7 +77,7 @@ export function preLocalize(configKeyPath, { key, keys = [], sort = false } = {}
 
 /**
  * Execute previously defined pre-localization tasks on the provided config object.
- * @param {object} config  The `CONFIG.DND5E` object to localize and sort. *Will be mutated.*
+ * @param {object} config  The `CONFIG.TRESDETV` object to localize and sort. *Will be mutated.*
  */
 export function performPreLocalization(config) {
 	for (const [keyPath, settings] of Object.entries(_preLocalizationRegistrations)) {
@@ -146,4 +158,15 @@ export function getMacroTarget(name, documentType) {
 export function getInitiativeRoll(formula) {
 	if (!this.actor) return new CONFIG.Dice.RollTresDeTV(formula ?? "2d6 + 0");
 	return this.actor.getInitiativeRoll();
+}
+
+export function getSkills() {
+	const pericias = game.settings.get("tresdetv", "pericias").split(/[,;]/);
+	CONFIG.TRESDETV.pericias = {};
+	for (let pericia of pericias) {
+		if (!pericia) continue;
+		const key = pericia.trim().toLowerCase().replace(/[\s']/g, "_");
+		const label = pericia.trim();
+		CONFIG.TRESDETV.pericias[key] = label;
+	}
 }

@@ -41,14 +41,6 @@ export default class TraitSelector extends DocumentSheet {
 			choices: await Trait.choices(this.trait, data.value),
 			custom: data.custom,
 			customPath: "custom" in data ? `${path}.custom` : null,
-			bypasses:
-				"bypasses" in data
-					? Object.entries(CONFIG.DND5E.physicalWeaponProperties).reduce((obj, [k, v]) => {
-							obj[k] = { label: v, chosen: data.bypasses.has(k) };
-							return obj;
-					  }, {})
-					: null,
-			bypassesPath: "bypasses" in data ? `${path}.bypasses` : null,
 		};
 	}
 
@@ -89,11 +81,7 @@ export default class TraitSelector extends DocumentSheet {
 	/** @override */
 	async _updateObject(event, formData) {
 		const path = `system.${Trait.actorKeyPath(this.trait)}`;
-		const data = foundry.utils.getProperty(this.document, path);
-
 		this._prepareChoices("choices", `${path}.value`, formData);
-		if ("bypasses" in data) this._prepareChoices("bypasses", `${path}.bypasses`, formData);
-
 		return this.object.update(formData);
 	}
 }

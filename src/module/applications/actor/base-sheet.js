@@ -1,4 +1,5 @@
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../../helpers/effects.js";
+import TraitSelector from "./trait-selector.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -38,8 +39,10 @@ export default class ActorSheet3DeTV extends ActorSheet {
 		// Add the actor's data to context.data for easier access, as well as flags.
 		context.system = actorData.system;
 		context.flags = actorData.flags;
-		context.config = CONFIG.tresdetv;
+		context.config = CONFIG.TRESDETV;
 		context.colunasDetalhes = actorData.type === "personagem" ? 4 : 3;
+
+		context.pericias = actorData.system.pericias.value.map((p) => CONFIG.TRESDETV.pericias[p]);
 
 		context.personagem = actorData.type === "personagem";
 		context.pdm = actorData.type === "pdm";
@@ -89,7 +92,6 @@ export default class ActorSheet3DeTV extends ActorSheet {
 		const vantagens = [];
 		const desvantagens = [];
 		const tecnicas = [];
-		const pericias = [];
 
 		// Iterate through items, allocating to containers
 		for (let i of context.items) {
@@ -102,8 +104,6 @@ export default class ActorSheet3DeTV extends ActorSheet {
 				desvantagens.push(i);
 			} else if (i.type === "tecnica") {
 				tecnicas.push(i);
-			} else if (i.type === "pericia") {
-				pericias.push(i);
 			}
 		}
 
@@ -112,7 +112,6 @@ export default class ActorSheet3DeTV extends ActorSheet {
 		context.vantagens = vantagens;
 		context.desvantagens = desvantagens;
 		context.tecnicas = tecnicas;
-		context.pericias = pericias;
 	}
 
 	/* -------------------------------------------- */
@@ -134,6 +133,8 @@ export default class ActorSheet3DeTV extends ActorSheet {
 
 		// Add Inventory Item
 		html.find(".item-create").click(this._onItemCreate.bind(this));
+
+		html.find(".trait-selector").click(this._onTraitSelector.bind(this));
 
 		html.find(".item-toggle").click((ev) => {
 			ev.preventDefault();
@@ -223,5 +224,17 @@ export default class ActorSheet3DeTV extends ActorSheet {
 		event.preventDefault();
 		const key = event.currentTarget.dataset.key;
 		this.actor.rollTest(key, { event });
+	}
+
+	/**
+	 * Handle spawning the TraitSelector application which allows a checkbox of multiple trait options.
+	 * @param {Event} event      The click event which originated the selection.
+	 * @returns {TraitSelector}  Newly displayed application.
+	 * @private
+	 */
+	_onTraitSelector(event) {
+		event.preventDefault();
+		const trait = event.currentTarget.dataset.trait;
+		return new TraitSelector(this.actor, trait).render(true);
 	}
 }

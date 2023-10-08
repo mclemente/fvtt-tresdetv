@@ -20,4 +20,17 @@ export default function registerSettings() {
 		default: false,
 		type: Boolean,
 	});
+
+	game.settings.register("tresdetv", "pericias", {
+		name: "TRESDETV.Settings.pericias.name",
+		hint: "TRESDETV.Settings.pericias.hint",
+		scope: "world",
+		config: true,
+		default:
+			"Animais, Arte, Esporte, Influência, Luta, Manha, Máquinas, Medicina, Mística, Percepção, Saber, Sustento",
+		type: String,
+		onChange: () => {
+			tresdetv.utils.getSkills();
+		},
+	});
 }

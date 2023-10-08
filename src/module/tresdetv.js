@@ -34,7 +34,7 @@ Hooks.once("init", async () => {
 			Object.assign(game.system, globalThis.tresdetv);
 
 	// Add custom constants for configuration.
-	CONFIG.tresdetv = CONFIG.tresdet = TRESDETV;
+	CONFIG.TRESDETV = CONFIG.tresdetv = CONFIG.tresdet = TRESDETV;
 	CONFIG.Dice.RollTresDeTV = dice.RollTresDeTV;
 	CONFIG.Dice.rolls.push(dice.RollTresDeTV);
 
@@ -91,6 +91,7 @@ Hooks.once("init", async () => {
 
 	// Register custom system settings
 	registerSettings();
+	utils.getSkills();
 
 	for (let group of Object.keys(hooks)) {
 		for (let hook of Object.getOwnPropertyNames(hooks[group])) {
@@ -101,7 +102,7 @@ Hooks.once("init", async () => {
 	}
 
 	// Preload Handlebars templates.
-	return utils.preloadHandlebarsTemplates();
+	utils.preloadHandlebarsTemplates();
 });
 
 Hooks.once("i18nInit", () => utils.performPreLocalization(CONFIG.tresdetv));

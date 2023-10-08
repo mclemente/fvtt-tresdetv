@@ -90,20 +90,20 @@
 					</div>
 					<hr />
 					<!-- Points -->
-					{{> "systems/tresdetv/templates/actor/parts/actor-points.html"}}
+					{{> "tresdetv.actor-points"}}
 					<!-- Perícias -->
-					{{> "systems/tresdetv/templates/actor/parts/actor-skills.html"}}
+					<div class="skills">{{> "tresdetv.actor-skills"}}</div>
 				</aside>
 
 				<section>
 					<!-- Habilidades -->
-					{{> "systems/tresdetv/templates/actor/parts/actor-features.html"}}
+					{{> "tresdetv.actor-features"}}
 
 					<!-- Técnicas -->
-					{{> "systems/tresdetv/templates/actor/parts/actor-spells.html"}}
+					{{> "tresdetv.actor-spells"}}
 
 					<!-- Itens -->
-					{{> "systems/tresdetv/templates/actor/parts/actor-items.html"}}
+					{{> "tresdetv.actor-items"}}
 				</section>
 			</section>
 		</div>
@@ -116,8 +116,6 @@
 		</div>
 
 		{{!-- Active Effects Tab --}}
-		<div class="tab effects flexcol" data-group="primary" data-tab="effects">
-			{{> "systems/tresdetv/templates/actor/parts/actor-effects.html"}}
-		</div>
+		<div class="tab effects flexcol" data-group="primary" data-tab="effects">{{> "tresdetv.actor-effects"}}</div>
 	</section>
 </form>

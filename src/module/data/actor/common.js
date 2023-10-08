@@ -5,13 +5,22 @@ const fields = foundry.data.fields;
 export class ActorData extends foundry.abstract.DataModel {
 	static defineSchema() {
 		return {
-			descricao: new fields.HTMLField(),
 			atributos: new fields.SchemaField({
 				poder: new fields.SchemaField(createAttributeField()),
 				habilidade: new fields.SchemaField(createAttributeField()),
 				resistencia: new fields.SchemaField(createAttributeField()),
 			}),
 			darma: new fields.BooleanField(),
+			pericias: new fields.SchemaField(
+				{
+					value: new foundry.data.fields.SetField(new foundry.data.fields.StringField(), {
+						label: "Escolhidas",
+						initial: [],
+					}),
+					// custom: new foundry.data.fields.StringField({ required: true, label: "Special" }),
+				},
+				{ label: "Perícias" },
+			),
 			pontos: new fields.SchemaField({
 				acao: new fields.SchemaField({
 					...createPointsField(),

@@ -11,22 +11,16 @@ export default class CoreHooks {
 		}
 	}
 
-	static onRenderChatMessage(app, html, data) {
+	static renderSettingsConfig(settingsConfig, html) {
+		const periciasInput = html.find('input[name="tresdetv.pericias"]');
+		const periciasTextarea = $(`<textarea
+			style='resize: vertical; min-height: 57px;'
+			name='tresdetv.pericias'
+			data-dtype='String'
+		  >${periciasInput.val()}</textarea>`);
+		periciasInput.parent().prepend(periciasTextarea);
+		periciasInput.remove();
 		return;
-		if (!message.isRoll || !message.isContentVisible || !message.rolls.length) return;
-
-		// Highlight rolls where the first part is a d20 roll
-		let rollResult = message.rolls.find((r) => {
-			return r.options.success;
-		});
-		if (!rollResult) return;
-
-		// Highlight successes and failures
-		if (rollResult.isSuccess) {
-			html.find(".dice-total").addClass("success");
-		} else {
-			html.find(".dice-total").addClass("failure");
-		}
 	}
 
 	static renderSidebarTab(app, html) {

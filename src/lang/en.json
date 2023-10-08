@@ -53,6 +53,10 @@
 			"initiativeTiebreaker": {
 				"name": "Resolver Desempates",
 				"hint": "Adiciona um número decimal aleatório à Iniciativa para resolver desempates."
+			},
+			"pericias": {
+				"name": "Perícias",
+				"hint": "As perícias disponíveis a todos os personagens."
 			}
 		},
 		"Add": "Adicionar",
@@ -77,6 +81,11 @@
 		"Initiative": "Iniciativa",
 
 		"New": "Novo",
-		"NewItem": "{new} {item}"
+		"NewItem": "{new} {item}",
+
+		"TraitPericiaPlural": {
+			"one": "Perícia",
+			"other": "Perícias"
+		}
 	}
 }
