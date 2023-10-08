@@ -17,7 +17,7 @@ export class ActorData extends foundry.abstract.DataModel {
 						label: "Escolhidas",
 						initial: [],
 					}),
-					// custom: new foundry.data.fields.StringField({ required: true, label: "Special" }),
+					custom: new foundry.data.fields.StringField({ required: true, label: "Special" }),
 				},
 				{ label: "Perícias" },
 			),

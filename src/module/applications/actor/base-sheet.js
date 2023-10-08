@@ -1,3 +1,4 @@
+import * as Trait from "../../documents/actor/trait.js";
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../../helpers/effects.js";
 import TraitSelector from "./trait-selector.js";
 
@@ -42,7 +43,7 @@ export default class ActorSheet3DeTV extends ActorSheet {
 		context.config = CONFIG.TRESDETV;
 		context.colunasDetalhes = actorData.type === "personagem" ? 4 : 3;
 
-		context.pericias = actorData.system.pericias.value.map((p) => CONFIG.TRESDETV.pericias[p]);
+		context.pericias = this._prepareSkills(context.system.pericias);
 
 		context.personagem = actorData.type === "personagem";
 		context.pdm = actorData.type === "pdm";
@@ -112,6 +113,25 @@ export default class ActorSheet3DeTV extends ActorSheet {
 		context.vantagens = vantagens;
 		context.desvantagens = desvantagens;
 		context.tecnicas = tecnicas;
+	}
+
+	_prepareSkills(systemData) {
+		const data = foundry.utils.deepClone(systemData);
+		if (!data) return {};
+
+		let values = data.value;
+		if (!values) values = [];
+		else if (values instanceof Set) values = Array.from(values);
+		else if (!Array.isArray(values)) values = [values];
+
+		data.selected = values.reduce((obj, key) => {
+			obj[key] = Trait.keyLabel("pericia", key) ?? key;
+			return obj;
+		}, {});
+
+		if (data.custom) data.custom.split(/[,;]/).forEach((c, i) => (data.selected[`custom${i + 1}`] = c.trim()));
+
+		return data;
 	}
 
 	/* -------------------------------------------- */

@@ -4,8 +4,8 @@
 		<i class="fas fa-edit"></i>
 	</a>
 	<ol class="traits-list">
-		{{#each pericias as |pericia|}}
-			<li class="tag">{{pericia}}</li>
+		{{#each pericias.selected as |v k|}}
+			<li class="tag {{k}}">{{v}}</li>
 		{{/each}}
 	</ol>
 </ol>
