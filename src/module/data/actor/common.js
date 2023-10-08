@@ -29,6 +29,7 @@ export class ActorData extends foundry.abstract.DataModel {
 						initial: 1,
 					}),
 				}),
+				experiencia: new fields.SchemaField(createPointsField(0, null, { nullMax: true })),
 				mana: new fields.SchemaField({
 					...createPointsField(),
 					mult: new fields.NumberField({
