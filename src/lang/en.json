@@ -8,7 +8,6 @@
 		"Item": {
 			"item": "Item",
 			"tecnica": "Técnica",
-			"pericia": "Perícia",
 			"vantagem": "Vantagem",
 			"desvantagem": "Desvantagem"
 		}
