@@ -96,7 +96,6 @@ export default class ActorSheet3DeTV extends ActorSheet {
 
 		// Iterate through items, allocating to containers
 		for (let i of context.items) {
-			i.img = i.img || DEFAULT_TOKEN;
 			if (i.type === "item") {
 				itens.push(i);
 			} else if (i.type === "vantagem") {

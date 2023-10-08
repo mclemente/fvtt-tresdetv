@@ -36,7 +36,6 @@ module.exports = {
 	globals: {
 		tresdetv: false,
 		globalThis: false,
-		DEFAULT_TOKEN: false,
 	},
 
 	overrides: [
