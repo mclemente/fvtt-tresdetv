@@ -593,8 +593,12 @@
 	margin: 2px;
 }
 
-.dnd5e.sheet .skills {
+.tresdetv.sheet .skills {
 	margin: 5px 0 0;
+}
+.tresdetv.sheet.actor .skills label {
+	line-height: 20px;
+	font-weight: bold;
 }
 .tresdetv.sheet .skills .traits-list {
 	flex: 0 0 100%;
