@@ -250,7 +250,8 @@
 	font-weight: 700;
 }
 
-.tresdetv.sheet.actor {
+.tresdetv.sheet.actor,
+.tresdetv.sheet.item {
 	min-width: 500px;
 	min-height: 460px;
 }

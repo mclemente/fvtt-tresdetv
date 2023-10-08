@@ -9,8 +9,8 @@ export default class ItemSheet3DeTV extends ItemSheet {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: ["tresdetv", "sheet", "item"],
-			width: 520,
-			height: 480,
+			width: 500,
+			height: 485,
 			tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
 		});
 	}
