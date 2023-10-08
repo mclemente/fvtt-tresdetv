@@ -1,3 +1,5 @@
+import { onManageActiveEffect, prepareActiveEffectCategories } from "../../helpers/effects.js";
+
 /**
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
@@ -47,6 +49,9 @@ export default class ItemSheet3DeTV extends ItemSheet {
 		context.flags = itemData.flags;
 		context.skills = CONFIG.tresdetv;
 
+		// Prepare active effects
+		context.effects = prepareActiveEffectCategories(this.item.effects);
+
 		context.isGM = game.user.isGM;
 
 		return context;
@@ -62,5 +67,8 @@ export default class ItemSheet3DeTV extends ItemSheet {
 		if (!this.isEditable) return;
 
 		// Roll handlers, click handlers, etc. would go here.
+
+		// Active Effect management
+		html.find(".effect-control").click((ev) => onManageActiveEffect(ev, this.item));
 	}
 }

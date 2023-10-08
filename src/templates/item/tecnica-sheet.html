@@ -18,6 +18,7 @@
 	<nav class="sheet-tabs tabs" data-group="primary">
 		<a class="item" data-tab="description">Descrição</a>
 		<a class="item" data-tab="attributes">Atributos</a>
+		<a class="item" data-tab="effects">Efeitos</a>
 	</nav>
 
 	{{!-- Sheet Body --}}
@@ -79,5 +80,8 @@
 			</div>
 			{{/with}}
 		</div>
+
+		{{!-- Active Effects Tab --}}
+		<div class="tab effects flexcol" data-group="primary" data-tab="effects">{{> "tresdetv.actor-effects"}}</div>
 	</section>
 </form>
