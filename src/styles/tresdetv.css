@@ -350,6 +350,10 @@
 	/* margin-bottom: 3px; */
 }
 
+.tresdetv .ability.atributos .dados a {
+	margin: 0 3px;
+}
+
 .tresdetv .ability.atributos input,
 .tresdetv .ability.pontos input {
 	max-width: 35px;

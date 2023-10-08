@@ -24,7 +24,7 @@ export default class RollTresDeTV extends Roll {
 		// Step 3 - Evaluate remaining terms
 		for (let term of this.terms) {
 			if (!term._evaluated) await term.evaluate({ minimize, maximize, async: true });
-			if (term instanceof Die) {
+			if (term instanceof Die && this.data.atr) {
 				const crits = term.values.filter((v) => v === term.faces).length;
 				if (crits) {
 					const formula = "+@atr".repeat(crits);

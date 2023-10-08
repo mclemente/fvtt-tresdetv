@@ -177,7 +177,8 @@ export default class ActorSheet3DeTV extends ActorSheet {
 		// Rollable abilities.
 		html.find(".item .rollable").click(this._onRoll.bind(this));
 
-		html.find(".ability .rollable").click(this._onRollTest.bind(this));
+		html.find(".ability .dados .rollable").click(this._onRollDice.bind(this));
+		html.find(".ability label.rollable").click(this._onRollTest.bind(this));
 
 		// Drag events for macros.
 		if (this.actor.owner) {
@@ -234,6 +235,12 @@ export default class ActorSheet3DeTV extends ActorSheet {
 				return item.roll(event);
 			}
 		}
+	}
+
+	_onRollDice(event) {
+		event.preventDefault();
+		const { key, dice } = event.currentTarget.dataset;
+		this.actor.rollDice(key, dice, { event });
 	}
 
 	_onRollTest(event) {

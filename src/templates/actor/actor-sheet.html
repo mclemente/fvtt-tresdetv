@@ -72,11 +72,36 @@
 		<div class="tab features" data-group="primary" data-tab="features">
 			<section class="grid grid-2col">
 				<aside class="sidebar">
-					<h3 style="border: none; font-weight: bold; text-align: center">Atributos</h3>
 					<div class="abilities flexrow">
 						{{#each system.atributos as |ability key|}}
 						<div class="ability atributos flexcol flex-group-center">
-							<label class="rollable resource-label" data-key="{{key}}" data-tooltip-direction="UP"
+							<div class="dados flexrow">
+								<a
+									class="rollable"
+									data-key="{{key}}"
+									data-dice="1"
+									data-tooltip="1D"
+									data-tooltip-direction="UP"
+									><i class="fas fa-dice-one"></i
+								></a>
+								<a
+									class="rollable"
+									data-key="{{key}}"
+									data-dice="2"
+									data-tooltip="2D"
+									data-tooltip-direction="UP"
+									><i class="fas fa-dice-two"></i
+								></a>
+								<a
+									class="rollable"
+									data-key="{{key}}"
+									data-dice="3"
+									data-tooltip="3D"
+									data-tooltip-direction="UP"
+									><i class="fas fa-dice-three"></i
+								></a>
+							</div>
+							<label class="rollable resource-label" data-key="{{key}}"
 								>{{localize (concat "TRESDETV.Atributos." key ".label")}}</label
 							>
 							<input
