@@ -31,7 +31,7 @@ export default class ItemSheet3DeTV extends ItemSheet {
 	/* -------------------------------------------- */
 
 	/** @override */
-	getData() {
+	async getData() {
 		// Retrieve base data structure.
 		const context = super.getData();
 
@@ -56,6 +56,13 @@ export default class ItemSheet3DeTV extends ItemSheet {
 
 		// Prepare active effects
 		context.effects = prepareActiveEffectCategories(this.item.effects);
+
+		context.descriptionHTML = await TextEditor.enrichHTML(itemData.system.descricao, {
+			secrets: itemData.isOwner,
+			async: true,
+			relativeTo: this.item,
+			rollData: context.rollData,
+		});
 
 		context.isGM = game.user.isGM;
 
