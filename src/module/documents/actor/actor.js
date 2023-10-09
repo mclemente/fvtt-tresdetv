@@ -120,7 +120,10 @@ export default class ActorTresDeTV extends Actor {
 		// if (this.type !== "npc") return;
 	}
 
-	async rollDice(key, dice) {
+	async rollDice(key, dice, event) {
+		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
+		// TODO habilitar após implementar modificadores
+		const configure = false; // event.altKey || event.ctrlKey || event.shiftKey;
 		const data = this.getRollData();
 		let formula = `${dice}d6`;
 		const atr = this.system.atributos[key].value;
@@ -129,14 +132,29 @@ export default class ActorTresDeTV extends Actor {
 			formula += `+ ${atr}`;
 		}
 		const roll = new CONFIG.Dice.RollTresDeTV(formula, data);
+		if (configure) {
+			const choice = await roll.configureDialog({
+				title: `Teste de ${label}`,
+				actor: this,
+				data,
+				event,
+				rollDice: dice,
+			});
+			if (choice === null) return;
+		}
 		return roll.toMessage();
 	}
 
 	async rollTest(key, event) {
 		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
 		const data = this.getRollData();
-		data.atr = this.system.atributos[key].value;
-		const roll = new CONFIG.Dice.RollTresDeTV("2d6 + @atr", data);
+		let formula = "2d6";
+		const atr = this.system.atributos[key].value;
+		if (atr) {
+			data.atr = atr;
+			formula += `+ ${atr}`;
+		}
+		const roll = new CONFIG.Dice.RollTresDeTV(formula, data);
 		const choice = await roll.configureDialog({
 			title: `Teste de ${label}`,
 			actor: this,

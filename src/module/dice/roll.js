@@ -52,7 +52,7 @@ export default class RollTresDeTV extends Roll {
 	 * @returns {Promise<D20Roll|null>}         A resulting D20Roll object constructed with the dialog, or null if the
 	 *                                          dialog was closed
 	 */
-	async configureDialog({ title, template } = {}, options = {}) {
+	async configureDialog({ title, template, rollDice = false } = {}, options = {}) {
 		// Render the Dialog inner HTML
 		// TODO adicionar lembrete das abilidades que podem afetar uma rolagem
 		// TODO adicionar campos para bônus e maestria/critico
@@ -66,25 +66,33 @@ export default class RollTresDeTV extends Roll {
 					content,
 					buttons: {
 						um: {
+							condition: !rollDice,
 							icon: '<i class="fas fa-dice"></i>',
 							label: "1D",
 							callback: (html) => resolve(this._onDialogSubmit(html, 1)),
 						},
 						dois: {
+							condition: !rollDice,
 							icon: '<i class="fas fa-dice"></i>',
 							label: "2D",
 							callback: (html) => resolve(this._onDialogSubmit(html, 2)),
 						},
 						tres: {
+							condition: !rollDice,
 							icon: '<i class="fas fa-dice"></i>',
 							label: "3D",
 							callback: (html) => resolve(this._onDialogSubmit(html, 3)),
 						},
+						teste: {
+							condition: rollDice,
+							label: `Rolar ${rollDice}D`,
+							callback: (html) => resolve(this._onDialogSubmit(html)),
+						},
 					},
-					default: "dois",
+					default: rollDice ? "teste" : "dois",
 					close: () => resolve(null),
 				},
-				options,
+				mergeObject({ width: 250 }, options),
 			).render(true);
 		});
 	}
@@ -101,8 +109,8 @@ export default class RollTresDeTV extends Roll {
 	_onDialogSubmit(html, dice) {
 		// const form = html[0].querySelector("form");
 
-		// Apply advantage or disadvantage
-		this.terms[0].number = dice;
+		if (dice) this.terms[0].number = dice;
+		this.resetFormula();
 		return this;
 	}
 }
