@@ -88,7 +88,7 @@ export default class ActorTresDeTV extends Actor {
 	 * Prepare NPC type specific data.
 	 */
 	_prepareNpcData() {
-		if (this.type !== "npc") return;
+		// if (this.type !== "npc") return;
 	}
 
 	/**
@@ -109,7 +109,7 @@ export default class ActorTresDeTV extends Actor {
 	 */
 	// eslint-disable-next-line no-unused-vars
 	_getCharacterRollData(data) {
-		if (this.type !== "personagem") return;
+		// if (this.type !== "personagem") return;
 	}
 
 	/**
@@ -117,7 +117,7 @@ export default class ActorTresDeTV extends Actor {
 	 */
 	// eslint-disable-next-line no-unused-vars
 	_getNpcRollData(data) {
-		if (this.type !== "npc") return;
+		// if (this.type !== "npc") return;
 	}
 
 	async rollDice(key, dice) {

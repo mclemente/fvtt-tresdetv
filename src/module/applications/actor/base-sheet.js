@@ -51,7 +51,7 @@ export default class ActorSheet3DeTV extends ActorSheet {
 
 		// Prepare character data and items.
 		this._prepareItems(context);
-		if (actorData.type == "personagem") {
+		if (actorData.type === "personagem") {
 			this._prepareCharacterData(context);
 		}
 
@@ -159,7 +159,7 @@ export default class ActorSheet3DeTV extends ActorSheet {
 			ev.preventDefault();
 			const li = $(ev.currentTarget).parents(".item");
 			const item = this.actor.items.get(li.data("itemId"));
-			return item.update({ ["system.equipped"]: !foundry.utils.getProperty(item, "system.equipped") });
+			return item.update({ "system.equipped": !foundry.utils.getProperty(item, "system.equipped") });
 		});
 
 		// Delete Inventory Item
@@ -211,7 +211,7 @@ export default class ActorSheet3DeTV extends ActorSheet {
 			system: data,
 		};
 		// Remove the type from the dataset since it's in the itemData.type prop.
-		delete itemData.system["type"];
+		delete itemData.system.type;
 
 		// Finally, create the item!
 		return await Item.create(itemData, { parent: this.actor });
@@ -227,7 +227,7 @@ export default class ActorSheet3DeTV extends ActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.rollType == "item") {
+		if (dataset.rollType === "item") {
 			const itemId = element.closest(".item").dataset.itemId;
 			const item = this.actor.items.get(itemId);
 			if (item) {

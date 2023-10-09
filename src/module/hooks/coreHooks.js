@@ -20,7 +20,6 @@ export default class CoreHooks {
 		  >${periciasInput.val()}</textarea>`);
 		periciasInput.parent().prepend(periciasTextarea);
 		periciasInput.remove();
-		return;
 	}
 
 	static renderSidebarTab(app, html) {

@@ -1,7 +1,7 @@
 export default class CombatTresDeTV extends Combat {
-	//TODO add rollInitiative
-	//TODO add a RollDialog when rolling initiative for a single character
-	//TODO add a field to define initiative for NPCs
+	// TODO add rollInitiative
+	// TODO add a RollDialog when rolling initiative for a single character
+	// TODO add a field to define initiative for NPCs
 
 	_sortCombatants(a, b) {
 		const ia = Number.isNumeric(a.initiative) ? a.initiative : -Infinity;

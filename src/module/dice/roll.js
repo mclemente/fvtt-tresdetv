@@ -64,17 +64,17 @@ export default class RollTresDeTV extends Roll {
 					content,
 					buttons: {
 						um: {
-							icon: `<i class="fas fa-dice"></i>`,
+							icon: '<i class="fas fa-dice"></i>',
 							label: "1D",
 							callback: (html) => resolve(this._onDialogSubmit(html, 1)),
 						},
 						dois: {
-							icon: `<i class="fas fa-dice"></i>`,
+							icon: '<i class="fas fa-dice"></i>',
 							label: "2D",
 							callback: (html) => resolve(this._onDialogSubmit(html, 2)),
 						},
 						tres: {
-							icon: `<i class="fas fa-dice"></i>`,
+							icon: '<i class="fas fa-dice"></i>',
 							label: "3D",
 							callback: (html) => resolve(this._onDialogSubmit(html, 3)),
 						},
