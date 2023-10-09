@@ -239,7 +239,7 @@ export default class ActorSheet3DeTV extends ActorSheet {
 	_onRollDice(event) {
 		event.preventDefault();
 		const { key, dice } = event.currentTarget.dataset;
-		this.actor.rollDice(key, dice);
+		this.actor.rollDice(key, dice, { event });
 	}
 
 	_onRollTest(event) {
