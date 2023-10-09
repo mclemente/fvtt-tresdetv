@@ -123,7 +123,7 @@ export default class ActorTresDeTV extends Actor {
 	async rollDice(key, dice, event) {
 		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
 		// TODO habilitar após implementar modificadores
-		const configure = false; // event.altKey || event.ctrlKey || event.shiftKey;
+		const configure = !event.altKey && !event.ctrlKey && !event.shiftKey;
 		const data = this.getRollData();
 		let formula = `${dice}d6`;
 		const atr = this.system.atributos[key].value;

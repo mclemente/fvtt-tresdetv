@@ -1,5 +1,10 @@
 /* eslint-disable no-undef */
 export default class RollTresDeTV extends Roll {
+	constructor(formula, data = {}, options = {}) {
+		super(formula, data, options);
+		this.critRange = 0;
+	}
+
 	static EVALUATION_TEMPLATE = "systems/tresdetv/templates/apps/roll-dialog.hbs";
 
 	async _evaluate({ minimize = false, maximize = false } = {}) {
@@ -25,7 +30,7 @@ export default class RollTresDeTV extends Roll {
 		for (let term of this.terms) {
 			if (!term._evaluated) await term.evaluate({ minimize, maximize, async: true });
 			if (term instanceof Die && this.data.atr) {
-				const crits = term.values.filter((v) => v === term.faces).length;
+				const crits = term.values.filter((v) => v >= term.faces - this.critRange).length;
 				if (crits) {
 					const formula = "+@atr".repeat(crits);
 					this.terms = this.terms.concat(this.constructor.parse(formula, this.data));
@@ -107,7 +112,16 @@ export default class RollTresDeTV extends Roll {
 	 * @private
 	 */
 	_onDialogSubmit(html, dice) {
-		// const form = html[0].querySelector("form");
+		const form = html[0].querySelector("form");
+
+		if (form.modificador.value !== "0") {
+			const modificador = new Roll(form.modificador.value, this.data);
+			if (!(modificador.terms[0] instanceof OperatorTerm)) this.terms.push(new OperatorTerm({ operator: "+" }));
+			this.terms = this.terms.concat(modificador.terms);
+		}
+		if (form.maestria.checked && form.maestriaMod.value !== 6) {
+			this.critRange += 6 - form.maestriaMod.value;
+		}
 
 		if (dice) this.terms[0].number = dice;
 		this.resetFormula();

@@ -1,13 +1,22 @@
 <form autocomplete="off">
 
-	{{!-- <fieldset>
+	{{! <fieldset> }}
+	<div style="margin-bottom: 10px">
 		<div class="form-group">
-			<label>Atributo</label>
-			<select name="atributo">
-				{{#each data.atributos as |data key|}}
-					<option value="{{key}}">{{localize (concat "TRESDETV.Atributos." key)}} ({{data.value}})</option>
-				{{/each}}
-			</select>
+			<label>Modificador</label>
+			<div class="form-fields">
+				<input type="number" name="modificador" value="0" step="1" autofocus />
+			</div>
 		</div>
-	</fieldset> --}}
+		<div class="form-group">
+			<label>Maestria</label>
+			<div class="form-fields">
+				<input type="checkbox" name="maestria" />
+			</div>
+			<div class="form-fields">
+				<input type="number" name="maestriaMod" value="6" max="6" min="1" />
+			</div>
+		</div>
+	</div>
+	{{! </fieldset> }}
 </form>
