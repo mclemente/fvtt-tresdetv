@@ -224,6 +224,14 @@
 	text-align: center;
 }
 
+.combat-sidebar li.combatant .roll {
+	background: url(../assets/icons/svg/perspective-dice-six-faces-three.svg) no-repeat 50% 50%;
+}
+
+.combat-sidebar li.combatant .roll:hover {
+	background-image: url(../assets/icons/svg/perspective-dice-six-faces-three-highlight.svg);
+}
+
 /* Styles limited to tresdetv sheets */
 .tresdetv h3 {
 	border-bottom: none;

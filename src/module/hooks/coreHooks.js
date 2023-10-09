@@ -5,6 +5,10 @@ import { createMacro } from "../documents/macro";
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unreachable */
 export default class CoreHooks {
+	static chatMessage() {
+		// TODO adicionar checagem de comando inline como "/r poder"
+	}
+
 	static hotbarDrop(bar, data, slot) {
 		if (["ActiveEffect", "Item"].includes(data.type)) {
 			createMacro(data, slot);
