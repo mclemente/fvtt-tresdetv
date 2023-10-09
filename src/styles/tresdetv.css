@@ -653,6 +653,10 @@
 	font-size: 10px;
 }
 
+.tresdetv.sheet a.trait-selector:hover {
+	color: initial;
+}
+
 /* ----------------------------------------- */
 /*  Chat Cards
 /* ----------------------------------------- */
