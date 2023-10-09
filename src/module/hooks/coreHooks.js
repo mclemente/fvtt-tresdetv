@@ -11,6 +11,22 @@ export default class CoreHooks {
 		}
 	}
 
+	static renderChatMessage(message, html, data) {
+		if (message.isRoll) {
+			const critRange = message.getFlag("tresdetv", "critRange");
+			if (critRange) {
+				const diceRolls = html.find(".dice-rolls")[0].children;
+				for (let dieRoll of diceRolls) {
+					if (dieRoll.classList.contains("max")) continue;
+					if (Number(dieRoll.innerText) >= 6 - critRange) {
+						dieRoll.classList.add("max");
+						dieRoll.classList.remove("min");
+					}
+				}
+			}
+		}
+	}
+
 	static renderSettingsConfig(settingsConfig, html) {
 		const periciasInput = html.find('input[name="tresdetv.pericias"]');
 		const periciasTextarea = $(`<textarea

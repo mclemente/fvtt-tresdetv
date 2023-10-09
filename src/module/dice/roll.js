@@ -32,8 +32,8 @@ export default class RollTresDeTV extends Roll {
 			if (term instanceof Die && this.data.atr) {
 				const crits = term.values.filter((v) => v >= term.faces - this.critRange).length;
 				if (crits) {
-					const formula = "+@atr".repeat(crits);
-					this.terms = this.terms.concat(this.constructor.parse(formula, this.data));
+					const atrRoll = this.terms.find((t) => t instanceof NumericTerm);
+					atrRoll.number *= 1 + crits;
 					this._formula = this.resetFormula();
 				}
 			}
@@ -57,10 +57,9 @@ export default class RollTresDeTV extends Roll {
 	 * @returns {Promise<D20Roll|null>}         A resulting D20Roll object constructed with the dialog, or null if the
 	 *                                          dialog was closed
 	 */
-	async configureDialog({ title, template, rollDice = false } = {}, options = {}) {
+	async configureDialog({ title, template, rollDice = false } = {}, options = { focus: false }) {
 		// Render the Dialog inner HTML
 		// TODO adicionar lembrete das abilidades que podem afetar uma rolagem
-		// TODO adicionar campos para bônus e maestria/critico
 		const content = await renderTemplate(template ?? this.constructor.EVALUATION_TEMPLATE, {});
 
 		// Create the Dialog window and await submission of the form
@@ -114,7 +113,7 @@ export default class RollTresDeTV extends Roll {
 	_onDialogSubmit(html, dice) {
 		const form = html[0].querySelector("form");
 
-		if (form.modificador.value !== "0") {
+		if (form.modificador.value && form.modificador.value !== "0") {
 			const modificador = new Roll(form.modificador.value, this.data);
 			if (!(modificador.terms[0] instanceof OperatorTerm)) this.terms.push(new OperatorTerm({ operator: "+" }));
 			this.terms = this.terms.concat(modificador.terms);

@@ -121,15 +121,19 @@ export default class ActorTresDeTV extends Actor {
 	}
 
 	async rollDice(key, dice, event) {
-		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
-		// TODO habilitar após implementar modificadores
 		const configure = !event.altKey && !event.ctrlKey && !event.shiftKey;
+		this.rollTest(key, event, dice, configure);
+	}
+
+	async rollTest(key, event, dice = false, configure = true) {
+		const short = game.i18n.localize(`TRESDETV.Atributos.${key}.short`);
+		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
 		const data = this.getRollData();
-		let formula = `${dice}d6`;
+		let formula = dice ? `${dice}d6` : "2d6";
 		const atr = this.system.atributos[key].value;
 		if (atr) {
 			data.atr = atr;
-			formula += `+ ${atr}`;
+			formula += `+ ${atr}[${short}]`;
 		}
 		const roll = new CONFIG.Dice.RollTresDeTV(formula, data);
 		if (configure) {
@@ -142,27 +146,15 @@ export default class ActorTresDeTV extends Actor {
 			});
 			if (choice === null) return;
 		}
-		return roll.toMessage();
+		const messageData = {
+			flags: {},
+		};
+		if (roll.critRange) messageData.flags.tresdetv = { critRange: roll.critRange };
+		return roll.toMessage(messageData);
 	}
 
-	async rollTest(key, event) {
+	async makeRoll(key, formula, event) {
 		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
-		const data = this.getRollData();
-		let formula = "2d6";
-		const atr = this.system.atributos[key].value;
-		if (atr) {
-			data.atr = atr;
-			formula += `+ ${atr}`;
-		}
-		const roll = new CONFIG.Dice.RollTresDeTV(formula, data);
-		const choice = await roll.configureDialog({
-			title: `Teste de ${label}`,
-			actor: this,
-			data,
-			event,
-		});
-		if (choice === null) return; // Closed dialog
-		return roll.toMessage();
 	}
 
 	/* -------------------------------------------- */
