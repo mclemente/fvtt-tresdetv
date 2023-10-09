@@ -6,7 +6,7 @@
 		</div>
 	</li>
 	{{#each vantagens as |item id|}}
-		<li class="item item-detail flexrow" data-item-id="{{item._id}}">
+		<li class="item item-detail flexrow {{#if item.isExpanded}}expanded{{/if}}" data-item-id="{{item._id}}">
 			<div class="item-name flexrow rollable">
 				<div
 					class="item-image"
@@ -21,6 +21,9 @@
 				<a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
 				<a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
 			</div>
+			{{#if item.isExpanded}}
+				{{> "tresdetv.item-summary" (lookup @root.expandedData item._id)}}
+			{{/if}}
 		</li>
 	{{/each}}
 </ol>
@@ -35,7 +38,7 @@
 	</li>
 	{{#each desvantagens as |item id|}}
 		<li class="item flexrow" data-item-id="{{item._id}}">
-			<div class="item-name flexrow rollable">
+			<div class="item-name flexrow rollable {{#if item.isExpanded}}expanded{{/if}}">
 				<div
 					class="item-image"
 					tabindex="0"
@@ -49,6 +52,9 @@
 				<a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
 				<a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
 			</div>
+			{{#if item.isExpanded}}
+				{{> "tresdetv.item-summary" (lookup @root.expandedData item._id)}}
+			{{/if}}
 		</li>
 	{{/each}}
 </ol>

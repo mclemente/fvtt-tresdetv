@@ -7,6 +7,8 @@ import TraitSelector from "./trait-selector.js";
  * @extends {ActorSheet}
  */
 export default class ActorSheet3DeTV extends ActorSheet {
+	_expanded = new Set();
+
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
@@ -51,6 +53,12 @@ export default class ActorSheet3DeTV extends ActorSheet {
 
 		// Prepare character data and items.
 		this._prepareItems(context);
+		context.expandedData = {};
+		for (const id of this._expanded) {
+			const item = this.actor.items.get(id);
+			if (item) context.expandedData[id] = await item.getChatData({ secrets: this.actor.isOwner });
+		}
+
 		if (actorData.type === "personagem") {
 			this._prepareCharacterData(context);
 		}
@@ -103,6 +111,7 @@ export default class ActorSheet3DeTV extends ActorSheet {
 
 		// Iterate through items, allocating to containers
 		for (let i of context.items) {
+			i.isExpanded = this._expanded.has(i._id);
 			if (i.type === "item") {
 				itens.push(i);
 			} else if (i.type === "vantagem") {
@@ -235,11 +244,13 @@ export default class ActorSheet3DeTV extends ActorSheet {
 		if (li.hasClass("expanded")) {
 			const summary = li.children(".item-summary");
 			summary.slideUp(200, () => summary.remove());
+			this._expanded.delete(item.id);
 		} else {
 			const chatData = await item.getChatData({ secrets: this.actor.isOwner });
 			const summary = $(await renderTemplate("systems/tresdetv/templates/item/parts/item-summary.hbs", chatData));
 			li.append(summary.hide());
 			summary.slideDown(200);
+			this._expanded.add(item.id);
 		}
 		li.toggleClass("expanded");
 	}
