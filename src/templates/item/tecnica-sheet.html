@@ -47,7 +47,9 @@
 			</div>
 			<div class="form-group">
 				<label class="resource-label">Teste</label>
-				<input type="text" name="system.ativacao.teste" value="{{teste}}" data-dtype="String" />
+				<select name="system.ativacao.teste">
+					{{selectOptions ../atrChoices selected=teste}}
+				</select>
 			</div>
 			{{/with}}
 			<h3>Duração</h3>

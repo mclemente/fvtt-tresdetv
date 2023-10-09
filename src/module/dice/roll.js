@@ -54,6 +54,8 @@ export default class RollTresDeTV extends Roll {
 	 */
 	async configureDialog({ title, template } = {}, options = {}) {
 		// Render the Dialog inner HTML
+		// TODO adicionar lembrete das abilidades que podem afetar uma rolagem
+		// TODO adicionar campos para bônus e maestria/critico
 		const content = await renderTemplate(template ?? this.constructor.EVALUATION_TEMPLATE, {});
 
 		// Create the Dialog window and await submission of the form

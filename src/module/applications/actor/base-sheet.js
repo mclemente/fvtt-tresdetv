@@ -146,6 +146,8 @@ export default class ActorSheet3DeTV extends ActorSheet {
 			item.sheet.render(true);
 		});
 
+		html.find(".item .item-name.rollable h4").click((event) => this._onItemSummary(event));
+
 		// -------------------------------------------------------------
 		// Everything below here is only needed if the sheet is editable
 		if (!this.isEditable) return;
@@ -174,7 +176,7 @@ export default class ActorSheet3DeTV extends ActorSheet {
 		html.find(".effect-control").click((ev) => onManageActiveEffect(ev, this.actor));
 
 		// Rollable abilities.
-		html.find(".item .rollable").click(this._onRoll.bind(this));
+		html.find(".rollable .item-image").click(this._onRoll.bind(this));
 
 		html.find(".ability .dados .rollable").click(this._onRollDice.bind(this));
 		html.find(".ability label.rollable").click(this._onRollTest.bind(this));
@@ -217,6 +219,24 @@ export default class ActorSheet3DeTV extends ActorSheet {
 		return await Item.create(itemData, { parent: this.actor });
 	}
 
+	async _onItemSummary(event) {
+		event.preventDefault();
+		const li = $(event.currentTarget).parents(".item");
+		const item = this.actor.items.get(li.data("item-id"));
+
+		// Toggle summary
+		if (li.hasClass("expanded")) {
+			const summary = li.children(".item-summary");
+			summary.slideUp(200, () => summary.remove());
+		} else {
+			const chatData = await item.getChatData({ secrets: this.actor.isOwner });
+			const summary = $(await renderTemplate("systems/tresdetv/templates/item/parts/item-summary.hbs", chatData));
+			li.append(summary.hide());
+			summary.slideDown(200);
+		}
+		li.toggleClass("expanded");
+	}
+
 	/**
 	 * Handle clickable rolls.
 	 * @param {Event} event   The originating click event
@@ -224,16 +244,9 @@ export default class ActorSheet3DeTV extends ActorSheet {
 	 */
 	_onRoll(event) {
 		event.preventDefault();
-		const element = event.currentTarget;
-		const dataset = element.dataset;
-
-		if (dataset.rollType === "item") {
-			const itemId = element.closest(".item").dataset.itemId;
-			const item = this.actor.items.get(itemId);
-			if (item) {
-				return item.roll(event);
-			}
-		}
+		const itemId = event.currentTarget.closest(".item").dataset.itemId;
+		const item = this.actor.items.get(itemId);
+		return item.roll(event);
 	}
 
 	_onRollDice(event) {

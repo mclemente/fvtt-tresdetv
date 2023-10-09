@@ -23,4 +23,15 @@ export default class TecnicaData extends BaseItemData {
 			}),
 		};
 	}
+
+	get chatProperties() {
+		const { alcance, custo, teste } = this.ativacao;
+		const { value, unidade } = this.duracao;
+		return [
+			alcance ? `Alcance: ${alcance}` : "",
+			custo ? `Custo: ${custo}` : "",
+			teste ? CONFIG.TRESDETV.atributos[teste] : "",
+			value && unidade ? `${value} ${unidade}` : "",
+		];
+	}
 }

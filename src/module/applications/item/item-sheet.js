@@ -44,6 +44,10 @@ export default class ItemSheet3DeTV extends ItemSheet {
 			context.rollData = actor.getRollData();
 		}
 
+		if (this.object.type === "tecnica") {
+			context.atrChoices = CONFIG.TRESDETV.atributos;
+		}
+
 		// Add the actor's data to context.data for easier access, as well as flags.
 		context.system = itemData.system;
 		context.flags = itemData.flags;

@@ -13,6 +13,9 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/tresdetv/templates/actor/parts/actor-spells.hbs",
 		"systems/tresdetv/templates/actor/parts/actor-effects.hbs",
 
+		// Item partials
+		"systems/tresdetv/templates/item/parts/item-summary.hbs",
+
 		// Apps
 		"systems/tresdetv/templates/apps/parts/trait-list.hbs",
 

@@ -53,4 +53,27 @@ export default class ItemTresDeTV extends Item {
 			event,
 		});
 	}
+
+	// TODO adicionar displayCard
+
+	async getChatData(htmlOptions = {}) {
+		const data = this.toObject().system;
+
+		// Rich text description
+		data.descricao = await TextEditor.enrichHTML(data.descricao, {
+			async: true,
+			relativeTo: this,
+			rollData: this.getRollData(),
+			...htmlOptions,
+		});
+
+		// Type specific properties
+		data.properties = [
+			...(this.system.chatProperties ?? []),
+			...(this.system.equippableItemChatProperties ?? []),
+			...(this.system.activatedEffectChatProperties ?? []),
+		].filter((p) => p);
+
+		return data;
+	}
 }
