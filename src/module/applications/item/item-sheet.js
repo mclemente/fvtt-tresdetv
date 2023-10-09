@@ -24,6 +24,7 @@ export default class ItemSheet3DeTV extends ItemSheet {
 
 		// Alternatively, you could use the following return statement to do a
 		// unique item sheet by type, like `weapon-sheet.html`.
+		if (this.object.type === "desvantagem") return `${path}/vantagem-sheet.html`;
 		return `${path}/${this.item.type}-sheet.html`;
 	}
 

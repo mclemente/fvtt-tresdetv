@@ -1,9 +1,9 @@
 // eslint-disable-next-line no-unused-vars
-import { BaseItemData, createConcessao } from "./templates/common.js";
+import { BaseItemTemplate, createConcessao } from "./templates/common.js";
 
 const fields = foundry.data.fields;
 
-export default class TecnicaData extends BaseItemData {
+export default class TecnicaData extends BaseItemTemplate {
 	static defineSchema() {
 		const superFields = super.defineSchema();
 		return {

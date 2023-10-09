@@ -1,6 +1,6 @@
 const fields = foundry.data.fields;
 
-export class BaseItemData extends foundry.abstract.DataModel {
+export class BaseItemTemplate extends foundry.abstract.DataModel {
 	static defineSchema() {
 		return {
 			descricao: new fields.HTMLField(),
