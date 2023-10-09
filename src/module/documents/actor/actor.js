@@ -153,10 +153,6 @@ export default class ActorTresDeTV extends Actor {
 		return roll.toMessage(messageData);
 	}
 
-	async makeRoll(key, formula, event) {
-		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
-	}
-
 	/* -------------------------------------------- */
 
 	/**
