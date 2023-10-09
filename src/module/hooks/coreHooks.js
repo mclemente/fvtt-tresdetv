@@ -1,3 +1,4 @@
+import ItemTresDeTV from "../documents/item";
 import { createMacro } from "../documents/macro";
 
 /* eslint-disable no-undef */
@@ -9,6 +10,14 @@ export default class CoreHooks {
 			createMacro(data, slot);
 			return false;
 		}
+	}
+
+	static renderChatLog(app, html, data) {
+		html.on("click", ".item-name", ItemTresDeTV._onChatCardToggleContent.bind(this));
+	}
+
+	static renderChatPopout(app, html, data) {
+		this.renderChatLog(app, html, data);
 	}
 
 	static renderChatMessage(message, html, data) {
@@ -25,6 +34,12 @@ export default class CoreHooks {
 				}
 			}
 		}
+		const chatCard = html.find(".tresdetv.chat-card");
+		if (chatCard.length > 0) {
+			const flavor = html.find(".flavor-text");
+			if (flavor.text() === html.find(".item-name").text()) flavor.remove();
+		}
+		if (game.settings.get("tresdetv", "autoCollapseItemCards")) html.find(".card-content").hide();
 	}
 
 	static renderSettingsConfig(settingsConfig, html) {

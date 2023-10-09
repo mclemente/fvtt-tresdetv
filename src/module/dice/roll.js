@@ -5,7 +5,7 @@ export default class RollTresDeTV extends Roll {
 		this.critRange = 0;
 	}
 
-	static EVALUATION_TEMPLATE = "systems/tresdetv/templates/apps/roll-dialog.hbs";
+	static EVALUATION_TEMPLATE = "systems/tresdetv/templates/chat/roll-dialog.hbs";
 
 	async _evaluate({ minimize = false, maximize = false } = {}) {
 		// Step 1 - Replace intermediate terms with evaluated numbers

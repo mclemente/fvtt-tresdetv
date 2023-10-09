@@ -33,4 +33,17 @@ export default function registerSettings() {
 			tresdetv.utils.getSkills();
 		},
 	});
+
+	// Collapse Item Cards (by default)
+	game.settings.register("tresdetv", "autoCollapseItemCards", {
+		name: "TRESDETV.Settings.AutoCollapseCard.name",
+		hint: "TRESDETV.Settings.AutoCollapseCard.hint",
+		scope: "client",
+		config: true,
+		default: false,
+		type: Boolean,
+		onChange: (s) => {
+			ui.chat.render();
+		},
+	});
 }

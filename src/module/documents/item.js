@@ -39,22 +39,41 @@ export default class ItemTresDeTV extends Item {
 	 */
 	async roll(event) {
 		const item = this;
-
-		// Initialize chat data.
-		const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-		const rollMode = game.settings.get("core", "rollMode");
-		const label = `[${item.type}] ${item.name}`;
-
-		ChatMessage.create({
-			speaker: speaker,
-			rollMode: rollMode,
-			flavor: label,
-			content: item.system.descricao ?? "",
-			event,
-		});
+		return item.displayCard();
 	}
 
-	// TODO adicionar displayCard
+	async displayCard(options = {}) {
+		// Render the chat card template
+		const token = this.actor.token;
+		const templateData = {
+			actor: this.actor,
+			tokenId: token?.uuid || null,
+			item: this,
+			data: await this.getChatData(),
+		};
+		const html = await renderTemplate("systems/tresdetv/templates/chat/item-card.hbs", templateData);
+
+		// Create the ChatMessage data object
+		const chatData = {
+			user: game.user.id,
+			type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+			content: html,
+			flavor: this.system.chatFlavor || this.name,
+			speaker: ChatMessage.getSpeaker({ actor: this.actor, token }),
+			flags: { "core.canPopout": true },
+		};
+
+		// Merge in the flags from options
+		chatData.flags = foundry.utils.mergeObject(chatData.flags, options.flags);
+
+		// Apply the roll mode to adjust message visibility
+		ChatMessage.applyRollMode(chatData, options.rollMode ?? game.settings.get("core", "rollMode"));
+
+		// Create the Chat Message or return its data
+		const card = options.createMessage !== false ? await ChatMessage.create(chatData) : chatData;
+
+		return card;
+	}
 
 	async getChatData(htmlOptions = {}) {
 		const data = this.toObject().system;
@@ -75,5 +94,13 @@ export default class ItemTresDeTV extends Item {
 		].filter((p) => p);
 
 		return data;
+	}
+
+	static _onChatCardToggleContent(event) {
+		event.preventDefault();
+		const header = event.currentTarget;
+		const card = header.closest(".chat-card");
+		const content = card.querySelector(".card-content");
+		content.style.display = content.style.display === "none" ? "" : "none";
 	}
 }

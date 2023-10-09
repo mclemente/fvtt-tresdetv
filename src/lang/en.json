@@ -55,7 +55,11 @@
 			},
 			"pericias": {
 				"name": "Perícias",
-				"hint": "As perícias disponíveis a todos os personagens."
+				"hint": "Define as perícias disponíveis a todos os personagens."
+			},
+			"AutoCollapseCard": {
+				"name": "Fechar Descrições de Item no chat",
+				"hint": "Fechar automaticamente as descrições de Itens no chat."
 			}
 		},
 		"Aria": {

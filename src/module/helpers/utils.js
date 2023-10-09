@@ -17,11 +17,12 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/tresdetv/templates/item/parts/item-summary.hbs",
 
 		// Apps
+		"systems/tresdetv/templates/apps/trait-selector.hbs",
 		"systems/tresdetv/templates/apps/parts/trait-list.hbs",
 
-		// Roll Dialog
-		"systems/tresdetv/templates/apps/dialog.hbs",
-		"systems/tresdetv/templates/apps/roll-dialog.hbs",
+		// Chat
+		"systems/tresdetv/templates/chat/item-card.hbs",
+		"systems/tresdetv/templates/chat/roll-dialog.hbs",
 	];
 
 	const paths = {};
