@@ -19,6 +19,7 @@ export class VantagemDesvantagemTemplate extends BaseItemTemplate {
 		const atributos = Object.entries(this.afeta)
 			.map(([key, value]) => {
 				if (value) return key.capitalize();
+				return "";
 			})
 			.filter((atr) => atr);
 		return [...atributos];
