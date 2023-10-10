@@ -139,6 +139,7 @@ module.exports = {
 				ignoreUrls: true,
 				ignoreStrings: true,
 				ignoreTemplateLiterals: true,
+				ignoreRegExpLiterals: true,
 			},
 		],
 		"no-extra-boolean-cast": ["warn", { enforceForLogicalOperands: true }],
