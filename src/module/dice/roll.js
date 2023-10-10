@@ -59,12 +59,24 @@ export default class RollTresDeTV extends Roll {
 	 *                                          dialog was closed
 	 */
 	async configureDialog(
-		{ title, template, rollDice = false, bonus = 0, maestria = 6, semCrit = false } = {},
+		{
+			title,
+			template,
+			actor,
+			rollDice = false,
+			bonus = 0,
+			maestria = 6,
+			semCrit = false,
+			isInitiative = false,
+		} = {},
 		options = {},
 	) {
 		// Render the Dialog inner HTML
 		// TODO adicionar lembrete das abilidades que podem afetar uma rolagem
 		const content = await renderTemplate(template ?? this.constructor.EVALUATION_TEMPLATE, {
+			name: actor.isToken ? actor.parent.name : actor.name,
+			img: actor.isToken ? actor.parent.texture.src : actor.img,
+			isInitiative,
 			bonus,
 			maestria,
 			semCrit,

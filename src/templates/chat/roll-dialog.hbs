@@ -1,6 +1,12 @@
 <form autocomplete="off">
 
 	{{! <fieldset> }}
+	{{#if isInitiative}}
+		<header class="flexrow">
+			<img src="{{img}}" width="50" height="50" style="flex: 0 0 50px; margin-right: 5px;" />
+			<h3 style="border-bottom: none">{{name}}</h3>
+		</header>
+	{{/if}}
 	<div style="margin-bottom: 10px">
 		<div class="form-group">
 			<label>Modificador</label>

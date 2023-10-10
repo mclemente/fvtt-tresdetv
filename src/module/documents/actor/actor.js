@@ -125,12 +125,12 @@ export default class ActorTresDeTV extends Actor {
 	}
 
 	async rollTest(key, event, { dice = false, configure = true, bonus = 0, maestria = 6 }) {
-		const short = game.i18n.localize(`TRESDETV.Atributos.${key}.short`);
 		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
 		const data = this.getRollData();
 		let formula = dice ? `${dice}d6` : "2d6";
 		const atr = this.system.atributos[key].value;
 		if (atr) {
+			const short = game.i18n.localize(`TRESDETV.Atributos.${key}.short`);
 			data.atr = atr;
 			formula += `+ ${atr}[${short}]`;
 		}
@@ -163,7 +163,7 @@ export default class ActorTresDeTV extends Actor {
 	 * @param {string} [options.flavor]                     Special flavor text to apply
 	 * @returns {D20Roll}                               The constructed but unevaluated D20Roll
 	 */
-	getInitiativeRoll(options = {}) {
+	async getInitiativeRoll(options = {}) {
 		// Use a temporarily cached initiative roll
 		if (this._cachedInitiativeRoll) return this._cachedInitiativeRoll.clone();
 
@@ -171,13 +171,19 @@ export default class ActorTresDeTV extends Actor {
 		const data = this.getRollData();
 
 		// Standard initiative formula
-		const parts = ["2d6", "@atr"];
+		let formula = "2d6";
 		data.atr = this.system.atributos.habilidade.value;
+		const atr = this.system.atributos.habilidade.value;
+		if (atr) {
+			const short = game.i18n.localize("TRESDETV.Atributos.habilidade.short");
+			data.atr = atr;
+			formula += `+ ${atr}[${short}]`;
+		}
 
 		// Tiebreaker
 		const tiebreaker = game.settings.get("tresdetv", "initiativeTiebreaker");
 		if (tiebreaker) {
-			parts.push(String(Math.trunc(Math.random() * 100) / 100));
+			formula += `+ ${String(Math.trunc(Math.random() * 100) / 100)}`;
 		}
 
 		options = foundry.utils.mergeObject(
@@ -188,8 +194,15 @@ export default class ActorTresDeTV extends Actor {
 		);
 
 		// Create the d20 roll
-		const formula = parts.join(" + ");
-		return new CONFIG.Dice.RollTresDeTV(formula, data, options);
+		const roll = new CONFIG.Dice.RollTresDeTV(formula, data, options);
+		const choice = await roll.configureDialog({
+			title: "Teste de Iniciativa",
+			actor: this,
+			data,
+			isInitiative: true,
+		});
+		if (choice === null) return;
+		return roll;
 	}
 
 	/* -------------------------------------------- */
@@ -201,11 +214,11 @@ export default class ActorTresDeTV extends Actor {
 	 */
 	async rollInitiativeDialog(rollOptions = {}) {
 		// Create and configure the Initiative roll
-		const roll = this.getInitiativeRoll(rollOptions);
-		const choice = await roll.configureDialog({
-			title: `Rolagem de Iniciativa: ${this.name}`,
+		const roll = await this.getInitiativeRoll({
+			...rollOptions,
+			name: this.isToken ? this.parent.name : this.name,
 		});
-		if (choice === null) return; // Closed dialog
+		if (!roll) return;
 
 		// Temporarily cache the configured roll and use it to roll initiative for the Actor
 		this._cachedInitiativeRoll = roll;

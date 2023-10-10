@@ -160,8 +160,8 @@ export function getMacroTarget(name, documentType) {
 }
 
 export function getInitiativeRoll(formula) {
-	if (!this.actor) return new CONFIG.Dice.RollTresDeTV(formula ?? "2d6 + 0");
-	return this.actor.getInitiativeRoll();
+	if (!this.actor) return new CONFIG.Dice.RollTresDeTV(formula ?? "2d6");
+	return this.actor.getInitiativeRoll({ name: this.actor.isToken ? this.parent.name : this.name });
 }
 
 export function getSkills() {
