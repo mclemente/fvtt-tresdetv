@@ -744,3 +744,9 @@
 .dice-roll .dice-total.fumble {
 	color: red;
 }
+
+.dice-calculator__btn-group:last-child {
+	display: grid;
+	grid-column: span 3 / span 3;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
