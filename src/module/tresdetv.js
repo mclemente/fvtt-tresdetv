@@ -1,6 +1,7 @@
 // Import helper/utility classes and constants.
 import TRESDETV from "./helpers/config.js";
 import registerSettings from "./helpers/settings.js";
+import { setTextEnrichers } from "./helpers/text-editor-enrichers.js";
 
 import * as applications from "./applications/_module.js";
 import * as dataModels from "./data/_module.js";
@@ -91,6 +92,8 @@ Hooks.once("init", async () => {
 	// Register custom system settings
 	registerSettings();
 	utils.getSkills();
+
+	setTextEnrichers();
 
 	for (let group of Object.keys(hooks)) {
 		for (let hook of Object.getOwnPropertyNames(hooks[group])) {

@@ -96,6 +96,20 @@ export default class ItemTresDeTV extends Item {
 		return data;
 	}
 
+	/**
+	 * Get the Actor which is the author of a chat card
+	 * @returns {Actor[]}            An Array of Actor documents, if any
+	 * @private
+	 */
+	static _getChatCardTargets() {
+		let targets = canvas.tokens.controlled.filter((t) => !!t.actor);
+		if (!targets.length && game.user.character) targets = targets.concat(game.user.character.getActiveTokens());
+		if (!targets.length) {
+			ui.notifications.warn("Você precisa ter pelo menos um Token controlado para usar esta opção.");
+		}
+		return targets;
+	}
+
 	static _onChatCardToggleContent(event) {
 		event.preventDefault();
 		const header = event.currentTarget;
