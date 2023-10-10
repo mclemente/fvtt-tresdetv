@@ -22,7 +22,6 @@ function createRollAtr(match, options) {
 			args[key] = Number(value);
 		}
 	}
-	// const atr = match[2];
 	const flavor = match[3];
 	const label = CONFIG.TRESDETV.atributos[atr]?.label ?? atr;
 	const title = `Teste de ${label.capitalize()}`;
