@@ -269,14 +269,15 @@ export default class ActorSheet3DeTV extends ActorSheet {
 
 	_onRollDice(event) {
 		event.preventDefault();
+		const configure = !event.altKey && !event.ctrlKey && !event.shiftKey;
 		const { key, dice } = event.currentTarget.dataset;
-		this.actor.rollDice(key, dice, event);
+		this.actor.rollTest(key, event, { dice, configure });
 	}
 
 	_onRollTest(event) {
 		event.preventDefault();
 		const key = event.currentTarget.dataset.key;
-		this.actor.rollTest(key, event);
+		this.actor.rollTest(key, event, {});
 	}
 
 	/**

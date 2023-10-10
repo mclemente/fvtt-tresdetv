@@ -120,11 +120,6 @@ export default class ActorTresDeTV extends Actor {
 		// if (this.type !== "npc") return;
 	}
 
-	async rollDice(key, dice, event) {
-		const configure = !event.altKey && !event.ctrlKey && !event.shiftKey;
-		this.rollTest(key, event, { dice, configure });
-	}
-
 	async rollTest(key, event, { dice = false, configure = true, bonus = 0, maestria = 6 }) {
 		const short = game.i18n.localize(`TRESDETV.Atributos.${key}.short`);
 		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
