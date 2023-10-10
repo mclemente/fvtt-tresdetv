@@ -1,10 +1,21 @@
 <form class="{{cssClass}}" autocomplete="off">
 	<header class="sheet-header">
-		<img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+		<img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" height="100" width="100" />
 		<div class="header-fields">
-			<h1 class="charname">
-				<input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'Name' }}" />
-			</h1>
+			<div class="main-fields flexrow">
+				<h1 class="charname">
+					<input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'Name' }}" />
+				</h1>
+				<input
+					class="ponto-personagem"
+					type="text"
+					name="system.custo"
+					value="{{system.custo}}"
+					data-dtype="Number"
+					data-tooltip="Custo"
+					data-tooltip-direction="UP"
+				/>
+			</div>
 			<!-- <div class="grid grid-2col">
 				<div class="resource">
 					<label class="resource-label">Custo</label>

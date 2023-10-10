@@ -45,7 +45,6 @@ export default class CoreHooks {
 	static renderSettingsConfig(settingsConfig, html) {
 		const periciasInput = html.find('input[name="tresdetv.pericias"]');
 		const periciasTextarea = $(`<textarea
-			style='resize: vertical; min-height: 57px;'
 			name='tresdetv.pericias'
 			data-dtype='String'
 		  >${periciasInput.val()}</textarea>`);

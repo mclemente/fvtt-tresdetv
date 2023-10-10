@@ -232,6 +232,11 @@
 	background-image: url(../assets/icons/svg/perspective-dice-six-faces-three-highlight.svg);
 }
 
+form .form-group .form-fields > textarea[name="tresdetv.pericias"] {
+	resize: vertical;
+	min-height: 57px;
+}
+
 /* Styles limited to tresdetv sheets */
 .tresdetv h3 {
 	border-bottom: none;
@@ -309,7 +314,7 @@
 }
 
 .tresdetv .sheet-header h1.charname {
-	padding: 0px;
+	flex: 6;
 	border-bottom: 0;
 }
 
@@ -744,6 +749,21 @@
 .dice-roll .dice-total.fumble {
 	color: red;
 }
+
+/* Roll Dialog */
+
+.tresdetv.rollDialog .initiative img {
+	flex: 0 0 50px;
+	margin-right: 5px;
+}
+.tresdetv.rollDialog .initiative h3 {
+	border-bottom: none;
+}
+.tresdetv.rollDialog .categories {
+	margin-bottom: 10px;
+}
+
+/* Modules */
 
 .dice-calculator__btn-group:last-child {
 	display: grid;
