@@ -3,6 +3,7 @@ export default class RollTresDeTV extends Roll {
 	constructor(formula, data = {}, options = {}) {
 		super(formula, data, options);
 		this.critRange = 0;
+		this.crits = true;
 	}
 
 	static EVALUATION_TEMPLATE = "systems/tresdetv/templates/chat/roll-dialog.hbs";
@@ -29,7 +30,7 @@ export default class RollTresDeTV extends Roll {
 		// Step 3 - Evaluate remaining terms
 		for (let term of this.terms) {
 			if (!term._evaluated) await term.evaluate({ minimize, maximize, async: true });
-			if (term instanceof Die && this.data.atr) {
+			if (this.crits && term instanceof Die && this.data.atr) {
 				const crits = term.values.filter((v) => v >= term.faces - this.critRange).length;
 				if (crits) {
 					const atrRoll = this.terms.find((t) => t instanceof NumericTerm);
@@ -57,13 +58,16 @@ export default class RollTresDeTV extends Roll {
 	 * @returns {Promise<D20Roll|null>}         A resulting D20Roll object constructed with the dialog, or null if the
 	 *                                          dialog was closed
 	 */
-	async configureDialog({ title, template, rollDice = false, bonus = 0, maestria = 6 } = {}, options = {}) {
+	async configureDialog(
+		{ title, template, rollDice = false, bonus = 0, maestria = 6, semCrit = false } = {},
+		options = {},
+	) {
 		// Render the Dialog inner HTML
 		// TODO adicionar lembrete das abilidades que podem afetar uma rolagem
 		const content = await renderTemplate(template ?? this.constructor.EVALUATION_TEMPLATE, {
 			bonus,
-			maestriaCheck: maestria !== 6,
 			maestria,
+			semCrit,
 		});
 
 		// Create the Dialog window and await submission of the form
@@ -123,7 +127,10 @@ export default class RollTresDeTV extends Roll {
 			if (!(modificador.terms[0] instanceof OperatorTerm)) this.terms.push(new OperatorTerm({ operator: "+" }));
 			this.terms = this.terms.concat(modificador.terms);
 		}
-		if (form.maestriaCheck.checked && form.maestria.value !== 6) {
+
+		if (form.semCrit.checked) {
+			this.crits = false;
+		} else if (form.maestria.value !== 6) {
 			this.critRange += 6 - form.maestria.value;
 		}
 
