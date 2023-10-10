@@ -122,10 +122,10 @@ export default class ActorTresDeTV extends Actor {
 
 	async rollDice(key, dice, event) {
 		const configure = !event.altKey && !event.ctrlKey && !event.shiftKey;
-		this.rollTest(key, event, dice, configure);
+		this.rollTest(key, event, { dice, configure });
 	}
 
-	async rollTest(key, event, dice = false, configure = true) {
+	async rollTest(key, event, { dice = false, configure = true, bonus = 0, maestria = 6 }) {
 		const short = game.i18n.localize(`TRESDETV.Atributos.${key}.short`);
 		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
 		const data = this.getRollData();
@@ -143,6 +143,8 @@ export default class ActorTresDeTV extends Actor {
 				data,
 				event,
 				rollDice: dice,
+				bonus,
+				maestria: maestria,
 			});
 			if (choice === null) return;
 		}

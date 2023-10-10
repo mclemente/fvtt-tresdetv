@@ -57,10 +57,14 @@ export default class RollTresDeTV extends Roll {
 	 * @returns {Promise<D20Roll|null>}         A resulting D20Roll object constructed with the dialog, or null if the
 	 *                                          dialog was closed
 	 */
-	async configureDialog({ title, template, rollDice = false } = {}, options = { focus: false }) {
+	async configureDialog({ title, template, rollDice = false, bonus = 0, maestria = 6 } = {}, options = {}) {
 		// Render the Dialog inner HTML
 		// TODO adicionar lembrete das abilidades que podem afetar uma rolagem
-		const content = await renderTemplate(template ?? this.constructor.EVALUATION_TEMPLATE, {});
+		const content = await renderTemplate(template ?? this.constructor.EVALUATION_TEMPLATE, {
+			bonus,
+			maestriaCheck: maestria !== 6,
+			maestria,
+		});
 
 		// Create the Dialog window and await submission of the form
 		return new Promise((resolve) => {
@@ -114,12 +118,13 @@ export default class RollTresDeTV extends Roll {
 		const form = html[0].querySelector("form");
 
 		if (form.modificador.value && form.modificador.value !== "0") {
-			const modificador = new Roll(form.modificador.value, this.data);
+			const bonusPen = Number(form.modificador.value) > 0 ? "Bônus" : "Penalidade";
+			const modificador = new Roll(`${form.modificador.value}[${bonusPen}]`, this.data);
 			if (!(modificador.terms[0] instanceof OperatorTerm)) this.terms.push(new OperatorTerm({ operator: "+" }));
 			this.terms = this.terms.concat(modificador.terms);
 		}
-		if (form.maestria.checked && form.maestriaMod.value !== 6) {
-			this.critRange += 6 - form.maestriaMod.value;
+		if (form.maestriaCheck.checked && form.maestria.value !== 6) {
+			this.critRange += 6 - form.maestria.value;
 		}
 
 		if (dice) this.terms[0].number = dice;
