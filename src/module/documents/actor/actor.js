@@ -97,6 +97,10 @@ export default class ActorTresDeTV extends Actor {
 	getRollData() {
 		const data = super.getRollData();
 
+		data.poder = data.atributos.poder.value;
+		data.habilidade = data.atributos.habilidade.value;
+		data.resistencia = data.atributos.resistencia.value;
+
 		// Prepare character roll data.
 		// this._getCharacterRollData(data);
 		// this._getNpcRollData(data);
