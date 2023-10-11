@@ -124,7 +124,7 @@ export default class ActorTresDeTV extends Actor {
 		// if (this.type !== "npc") return;
 	}
 
-	async rollTest(key, event, { flavor, dice = false, configure = true, bonus = 0, maestria = 6 }) {
+	async rollTest(key, event, { flavor, dice = false, configure = true, bonus = 0, maestria = 6, semCrit = false }) {
 		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
 		const data = this.getRollData();
 		let formula = dice ? `${dice}d6` : "2d6";
@@ -143,7 +143,8 @@ export default class ActorTresDeTV extends Actor {
 				event,
 				rollDice: dice,
 				bonus,
-				maestria: maestria,
+				maestria,
+				semCrit,
 			});
 			if (choice === null) return;
 		}

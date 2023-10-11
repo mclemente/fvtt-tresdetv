@@ -55,14 +55,22 @@ async function inlineRollOnClick(event) {
 	const rollMode = a.dataset.mode === "roll" ? undefined : a.dataset.mode;
 
 	const flavor = a.dataset.flavor;
-	const bonus = a.dataset.bonus ?? 0;
-	const maestria = a.dataset.maestria;
+	const bonus = Number(a.dataset.bonus) ?? 0;
+	const maestria = Number(a.dataset.maestria);
+	const semCrit = Boolean(a.dataset.semCrit);
 
 	switch (a.dataset.func) {
 		case "atr":
 			for (const token of tokens) {
 				const speaker = ChatMessage.getSpeaker({ scene: canvas.scene, token: token.document });
-				await token.actor.rollTest(a.dataset.atr, event, { flavor, rollMode, speaker, bonus, maestria });
+				await token.actor.rollTest(a.dataset.atr, event, {
+					flavor,
+					rollMode,
+					speaker,
+					bonus,
+					maestria,
+					semCrit,
+				});
 			}
 			break;
 	}
