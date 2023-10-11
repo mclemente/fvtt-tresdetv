@@ -59,7 +59,7 @@
 			},
 			"AutoCollapseCard": {
 				"name": "Fechar Descrições de Item no chat",
-				"hint": "Fechar automaticamente as descrições de Itens no chat."
+				"hint": "Fecha automaticamente as descrições de Itens no chat."
 			}
 		},
 		"Aria": {
