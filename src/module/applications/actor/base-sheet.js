@@ -6,7 +6,7 @@ import TraitSelector from "./trait-selector.js";
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export default class ActorSheet3DeTV extends ActorSheet {
+export default class ActorSheetTresDeTV extends ActorSheet {
 	_expanded = new Set();
 
 	/** @override */

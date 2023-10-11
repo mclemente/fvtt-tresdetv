@@ -79,12 +79,12 @@ Hooks.once("init", async () => {
 
 	// Register sheet application classes
 	Actors.unregisterSheet("core", ActorSheet);
-	Actors.registerSheet("tresdetv", applications.actor.ActorSheet3DeTV, {
+	Actors.registerSheet("tresdetv", applications.actor.ActorSheetTresDeTV, {
 		label: "Ficha de Personagem 3DeTV",
 		makeDefault: true,
 	});
 	Items.unregisterSheet("core", ItemSheet);
-	Items.registerSheet("tresdetv", applications.item.ItemSheet3DeTV, {
+	Items.registerSheet("tresdetv", applications.item.ItemSheetTresDeTV, {
 		label: "Ficha de Item 3DeTV",
 		makeDefault: true,
 	});

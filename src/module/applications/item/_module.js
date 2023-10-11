@@ -1,1 +1,1 @@
-export { default as ItemSheet3DeTV } from "./item-sheet.js";
+export { default as ItemSheetTresDeTV } from "./item-sheet.js";

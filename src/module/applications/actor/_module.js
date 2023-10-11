@@ -1,2 +1,2 @@
-export { default as ActorSheet3DeTV } from "./base-sheet.js";
-export { default as FichaPersonagem3DeTV } from "./personagem-sheet.js";
+export { default as ActorSheetTresDeTV } from "./base-sheet.js";
+export { default as FichaPersonagemTresDeTV } from "./personagem-sheet.js";
