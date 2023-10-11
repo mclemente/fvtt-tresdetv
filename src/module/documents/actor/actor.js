@@ -3,6 +3,20 @@
  * @extends {Actor}
  */
 export default class ActorTresDeTV extends Actor {
+	static getDefaultArtwork(actorData) {
+		if (actorData.type === "personagem") return super.getDefaultArtwork(actorData);
+		const img = {
+			pdm: "orc-head",
+			veiculo: "megabot",
+		};
+		return {
+			img: `systems/tresdetv/assets/icons/svg/${img[actorData.type]}.svg`,
+			texture: {
+				src: `systems/tresdetv/assets/icons/svg/${img[actorData.type]}.svg`,
+			},
+		};
+	}
+
 	/** @override */
 	prepareData() {
 		// Prepare data for the actor. Calling the super version of this executes
@@ -35,31 +49,17 @@ export default class ActorTresDeTV extends Actor {
 
 	async _preCreate(data, options, user) {
 		await super._preCreate(data, options, user);
+		const sourceId = this.getFlag("core", "sourceId");
+		if (sourceId?.startsWith("Compendium.")) return;
 
 		// Configure prototype token settings
 		const changes = {};
-		const prototypeToken = {};
 		if (this.type === "personagem") {
-			Object.assign(prototypeToken, {
+			changes.prototypeToken = {
 				sight: { enabled: true },
 				actorLink: true,
 				disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
-			});
-			changes.prototypeToken = prototypeToken;
-		} else if (this.type === "pdm") {
-			const img = "systems/tresdetv/assets/icons/svg/orc-head.svg";
-			Object.assign(prototypeToken, {
-				texture: { src: img },
-			});
-			changes.prototypeToken = prototypeToken;
-			changes.img = img;
-		} else if (this.type === "veiculo") {
-			const img = "systems/tresdetv/assets/icons/svg/megabot.svg";
-			Object.assign(prototypeToken, {
-				texture: { src: img },
-			});
-			changes.prototypeToken = prototypeToken;
-			changes.img = img;
+			};
 		}
 		this.updateSource(changes);
 	}

@@ -3,6 +3,19 @@
  * @extends {Item}
  */
 export default class ItemTresDeTV extends Item {
+	static getDefaultArtwork(itemData) {
+		if (itemData.type === "vantagem") {
+			return { img: "icons/svg/upgrade.svg" };
+		} else if (itemData.type === "desvantagem") {
+			return { img: "icons/svg/downgrade.svg" };
+		} else if (itemData.type === "pericia") {
+			return { img: "icons/svg/d20.svg" };
+		} else if (itemData.type === "tecnica") {
+			return { img: "icons/svg/book.svg" };
+		}
+		return { img: this.DEFAULT_ICON };
+	}
+
 	/**
 	 * Augment the basic Item data model with additional dynamic data.
 	 */
@@ -16,19 +29,11 @@ export default class ItemTresDeTV extends Item {
 		super.prepareDerivedData();
 	}
 
-	async _preCreate(data, options, user) {
-		await super._preCreate(data, options, user);
-
-		if (this.type === "vantagem") {
-			this.updateSource({ img: "icons/svg/upgrade.svg" });
-		} else if (this.type === "desvantagem") {
-			this.updateSource({ img: "icons/svg/downgrade.svg" });
-		} else if (this.type === "pericia") {
-			this.updateSource({ img: "icons/svg/d20.svg" });
-		} else if (this.type === "tecnica") {
-			this.updateSource({ img: "icons/svg/book.svg" });
-		}
-	}
+	// async _preCreate(data, options, user) {
+	// 	await super._preCreate(data, options, user);
+	// 	const sourceId = this.getFlag("core", "sourceId");
+	// 	if (sourceId?.startsWith("Compendium.")) return;
+	// }
 
 	/* ----------------- */
 
