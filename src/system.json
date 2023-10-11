@@ -56,8 +56,7 @@
 	},
 	"flags": {
 		"hotReload": {
-			"extensions": ["js", "css", "html", "hbs", "json"],
-			"paths": ["templates", "lang/en.json", "module/tresdetv.js", "styles/tresdetv.css"]
+			"extensions": ["js", "css", "html", "hbs", "json"]
 		}
 	},
 	"manifest": "This is auto replaced",
