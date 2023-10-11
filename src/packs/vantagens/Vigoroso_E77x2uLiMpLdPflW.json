@@ -1,0 +1,32 @@
+{
+	"folder": null,
+	"name": "Vigoroso",
+	"type": "vantagem",
+	"img": "icons/svg/upgrade.svg",
+	"system": {
+		"descricao": "<p>+2 em testes de Resistência relacionados à saúde física. [[/ra resistencia bonus=2]]{Vigoroso}</p>\n<p>Acerto crítico 5-6 ao gastar 2 PM. [[/ra resistencia bonus=2 maestria=5]]{Vigoroso (Maestria)}</p>\n<p>Veja o Kit Introdutório para mais informações.</p>",
+		"afeta": {
+			"poder": false,
+			"habilidade": false,
+			"resistencia": false
+		},
+		"custo": 1
+	},
+	"effects": [],
+	"flags": {},
+	"_stats": {
+		"systemId": "tresdetv",
+		"systemVersion": "This is auto replaced",
+		"coreVersion": "11.313",
+		"createdTime": 1696978096431,
+		"modifiedTime": 1696980977119,
+		"lastModifiedBy": "DWd2C94jSJS8Hhsd"
+	},
+	"_id": "E77x2uLiMpLdPflW",
+	"sort": 0,
+	"ownership": {
+		"default": 0,
+		"DWd2C94jSJS8Hhsd": 3
+	},
+	"_key": "!items!E77x2uLiMpLdPflW"
+}

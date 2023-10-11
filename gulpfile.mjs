@@ -10,10 +10,11 @@ import path from "node:path";
 import buffer from "vinyl-buffer";
 import source from "vinyl-source-stream";
 import yargs from "yargs";
+
+import { compilePack } from "@foundryvtt/foundryvtt-cli";
 import { hideBin } from "yargs/helpers";
 
 import rollupStream from "@rollup/stream";
-
 import rollupConfig from "./rollup.config.mjs";
 
 /********************/
@@ -26,7 +27,7 @@ const distDirectory = "./dist";
 const stylesDirectory = `${sourceDirectory}/styles`;
 const stylesExtension = "css";
 const sourceFileExtension = "js";
-const staticFiles = ["assets", "fonts", "lang", "packs", "templates", "system.json", "template.json"];
+const staticFiles = ["assets", "fonts", "lang", "templates", "system.json", "template.json"];
 
 /********************/
 /*      BUILD       */
@@ -168,5 +169,12 @@ export async function link() {
 		} else {
 			console.log(`Skipped linking to ${linkDirectory}, as it already exists.`);
 		}
+	}
+}
+
+export async function compilePacks() {
+	const packs = await fs.readdir(`${sourceDirectory}/packs`);
+	for (const pack of packs) {
+		await compilePack(`${sourceDirectory}/packs/${pack}`, `dist/packs/${pack}`);
 	}
 }

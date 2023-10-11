@@ -2,6 +2,7 @@
 	"scripts": {
 		"build": "gulp build",
 		"build:watch": "gulp watch",
+		"build:packs": "gulp compilePacks",
 		"link-project": "gulp link",
 		"clean": "gulp clean",
 		"clean:link": "gulp link --clean",
@@ -12,6 +13,7 @@
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.22.9",
+		"@foundryvtt/foundryvtt-cli": "github:foundryvtt/foundryvtt-cli",
 		"@rollup/plugin-node-resolve": "^15.1.0",
 		"@rollup/stream": "^3.0.0",
 		"@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",

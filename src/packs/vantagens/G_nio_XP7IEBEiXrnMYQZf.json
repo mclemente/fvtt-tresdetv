@@ -1,0 +1,34 @@
+{
+	"name": "Gênio",
+	"type": "vantagem",
+	"img": "icons/svg/upgrade.svg",
+	"system": {
+		"descricao": "<p>+2 em testes de Habilidade relacionados à inteligência. [[/ra habilidade bonus=2]]{Gênio}</p>\n<p>Acerto crítico 5-6 ao gastar 2 PM. [[/ra habilidade bonus=2 maestria=5]]{Gênio (Maestria)}</p>\n<p>Veja o Kit Introdutório para mais informações.</p>",
+		"afeta": {
+			"poder": false,
+			"habilidade": true,
+			"resistencia": false
+		},
+		"custo": 1
+	},
+	"effects": [],
+	"folder": null,
+	"flags": {
+		"core": {}
+	},
+	"_stats": {
+		"systemId": "tresdetv",
+		"systemVersion": "This is auto replaced",
+		"coreVersion": "11.313",
+		"createdTime": 1696974580109,
+		"modifiedTime": 1696980977119,
+		"lastModifiedBy": "DWd2C94jSJS8Hhsd"
+	},
+	"_id": "XP7IEBEiXrnMYQZf",
+	"sort": 0,
+	"ownership": {
+		"default": 0,
+		"DWd2C94jSJS8Hhsd": 3
+	},
+	"_key": "!items!XP7IEBEiXrnMYQZf"
+}

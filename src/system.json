@@ -17,7 +17,32 @@
 	},
 	"esmodules": ["module/tresdetv.js"],
 	"styles": ["styles/tresdetv.css"],
-	"packs": [],
+	"packs": [
+		{
+			"name": "vantagens",
+			"label": "Vantagens",
+			"system": "tresdetv",
+			"path": "packs/vantagens",
+			"type": "Item",
+			"ownership": {
+				"PLAYER": "LIMITED",
+				"ASSISTANT": "OWNER"
+			},
+			"flags": {}
+		},
+		{
+			"name": "desvantagens",
+			"label": "Desvantagens",
+			"system": "tresdetv",
+			"path": "packs/desvantagens.db",
+			"type": "Item",
+			"ownership": {
+				"PLAYER": "LIMITED",
+				"ASSISTANT": "OWNER"
+			},
+			"flags": {}
+		}
+	],
 	"languages": [
 		{
 			"lang": "en",

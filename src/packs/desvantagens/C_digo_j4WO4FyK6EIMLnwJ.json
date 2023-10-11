@@ -1,0 +1,32 @@
+{
+  "folder": null,
+  "name": "Código",
+  "type": "desvantagem",
+  "_id": "j4WO4FyK6EIMLnwJ",
+  "img": "icons/svg/downgrade.svg",
+  "system": {
+    "descricao": "<p>Você segue um código de conduta.</p>\n<p>Sempre que violar seu código, você terá Perda em todos os testes até que consiga se redima.</p>\n<p>Veja o Kit Introdutório para mais informações.</p>",
+    "afeta": {
+      "poder": true,
+      "habilidade": true,
+      "resistencia": true
+    },
+    "custo": -1
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "tresdetv",
+    "systemVersion": "This is auto replaced",
+    "coreVersion": "11.313",
+    "createdTime": 1696991951097,
+    "modifiedTime": 1696992707091,
+    "lastModifiedBy": "DWd2C94jSJS8Hhsd"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "DWd2C94jSJS8Hhsd": 3
+  },
+  "_key": "!items!j4WO4FyK6EIMLnwJ"
+}

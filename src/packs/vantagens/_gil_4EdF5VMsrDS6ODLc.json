@@ -1,0 +1,32 @@
+{
+  "name": "Ágil",
+  "type": "vantagem",
+  "_id": "4EdF5VMsrDS6ODLc",
+  "img": "icons/skills/movement/feet-winged-boots-glowing-yellow.webp",
+  "system": {
+    "descricao": "<p>+2 em testes de Habilidade relacionados à agilidade, incluindo Iniciativa. [[/ra habilidade bonus=2]]{Ágil}</p>\n<p>Acerto crítico 5-6 ao gastar 2 PM. [[/ra habilidade bonus=2 maestria=5]]{Ágil (Maestria)}</p>\n<p>Veja o Kit Introdutório para mais informações.</p>",
+    "afeta": {
+      "poder": false,
+      "habilidade": true,
+      "resistencia": false
+    },
+    "custo": 1
+  },
+  "effects": [],
+  "folder": null,
+  "flags": {},
+  "_stats": {
+    "systemId": "tresdetv",
+    "systemVersion": "This is auto replaced",
+    "coreVersion": "11.313",
+    "createdTime": 1696974580109,
+    "modifiedTime": 1696980977119,
+    "lastModifiedBy": "DWd2C94jSJS8Hhsd"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "DWd2C94jSJS8Hhsd": 3
+  },
+  "_key": "!items!4EdF5VMsrDS6ODLc"
+}

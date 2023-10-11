@@ -1,0 +1,32 @@
+{
+  "folder": null,
+  "name": "Antipático",
+  "type": "desvantagem",
+  "_id": "aglFkm0Gvly4L5ET",
+  "img": "icons/svg/downgrade.svg",
+  "system": {
+    "descricao": "<p>Você tem Perda e nunca tem acertos críticos em testes de Poder envolvendo interação social. [[/ra poder semCrit]]{Antipático}</p>\n<p>Veja o Kit Introdutório para mais informações.</p>",
+    "afeta": {
+      "poder": true,
+      "habilidade": false,
+      "resistencia": false
+    },
+    "custo": -1
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "tresdetv",
+    "systemVersion": "This is auto replaced",
+    "coreVersion": "11.313",
+    "createdTime": 1696991347305,
+    "modifiedTime": 1696992707091,
+    "lastModifiedBy": "DWd2C94jSJS8Hhsd"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "DWd2C94jSJS8Hhsd": 3
+  },
+  "_key": "!items!aglFkm0Gvly4L5ET"
+}

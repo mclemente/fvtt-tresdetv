@@ -1,0 +1,32 @@
+{
+	"folder": null,
+	"name": "Alcance",
+	"type": "vantagem",
+	"_id": "BPdGfftOwWZTBtFC",
+	"img": "icons/svg/upgrade.svg",
+	"system": {
+		"descricao": "<p>Você pode atacar alvos a uma distância Longe sem penalidades, ou Muito Longe com Perda.</p>\n<p>Por 2 Pontos de Personagem, evita a Perda contra alvos Muito Longe.</p>\n<p>Veja o Kit Introdutório para mais informações.</p>",
+		"afeta": {
+			"poder": true,
+			"habilidade": false,
+			"resistencia": false
+		},
+		"custo": 1
+	},
+	"effects": [],
+	"flags": {},
+	"_stats": {
+		"systemId": "tresdetv",
+		"systemVersion": "This is auto replaced",
+		"coreVersion": "11.313",
+		"createdTime": 1696976655667,
+		"modifiedTime": 1696980977119,
+		"lastModifiedBy": "DWd2C94jSJS8Hhsd"
+	},
+	"sort": 0,
+	"ownership": {
+		"default": 0,
+		"DWd2C94jSJS8Hhsd": 3
+	},
+	"_key": "!items!BPdGfftOwWZTBtFC"
+}

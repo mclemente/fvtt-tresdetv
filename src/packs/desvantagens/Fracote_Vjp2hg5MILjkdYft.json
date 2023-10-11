@@ -1,0 +1,32 @@
+{
+  "folder": null,
+  "name": "Fracote",
+  "type": "desvantagem",
+  "_id": "Vjp2hg5MILjkdYft",
+  "img": "icons/svg/downgrade.svg",
+  "system": {
+    "descricao": "<p>Você tem Perda e nunca tem acertos críticos em testes de Poder envolvendo esforço físico. [[/ra poder semCrit]]{Fracote}</p>\n<p>Veja o Kit Introdutório para mais informações.</p>",
+    "afeta": {
+      "poder": true,
+      "habilidade": false,
+      "resistencia": false
+    },
+    "custo": -1
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "tresdetv",
+    "systemVersion": "This is auto replaced",
+    "coreVersion": "11.313",
+    "createdTime": 1696992119900,
+    "modifiedTime": 1696992707091,
+    "lastModifiedBy": "DWd2C94jSJS8Hhsd"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "DWd2C94jSJS8Hhsd": 3
+  },
+  "_key": "!items!Vjp2hg5MILjkdYft"
+}

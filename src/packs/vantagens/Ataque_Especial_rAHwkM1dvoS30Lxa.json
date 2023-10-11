@@ -1,0 +1,32 @@
+{
+	"folder": null,
+	"name": "Ataque Especial",
+	"type": "vantagem",
+	"_id": "rAHwkM1dvoS30Lxa",
+	"img": "icons/svg/upgrade.svg",
+	"system": {
+		"descricao": "<p>Custo de PM variável. Veja o Kit Introdutório para mais informações.</p>\n<p>[[/ra poder bonus=2]]{Potente +2}</p>\n<p>[[/ra poder bonus=4]]{Potente +4}</p>\n<p>[[/ra poder bonus=6]]{Potente +6}</p>\n<p>[[/ra poder maestria=5]]{Penetrante}</p>",
+		"afeta": {
+			"poder": true,
+			"habilidade": false,
+			"resistencia": false
+		},
+		"custo": 1
+	},
+	"effects": [],
+	"flags": {},
+	"_stats": {
+		"systemId": "tresdetv",
+		"systemVersion": "This is auto replaced",
+		"coreVersion": "11.313",
+		"createdTime": 1696976793316,
+		"modifiedTime": 1696980977119,
+		"lastModifiedBy": "DWd2C94jSJS8Hhsd"
+	},
+	"sort": 0,
+	"ownership": {
+		"default": 0,
+		"DWd2C94jSJS8Hhsd": 3
+	},
+	"_key": "!items!rAHwkM1dvoS30Lxa"
+}

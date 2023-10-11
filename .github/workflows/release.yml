@@ -80,6 +80,9 @@ jobs:
             - name: Build
               run: npm run build
 
+            - name: Build
+              run: npm run build:packs
+
             - name: Archive production artifacts
               uses: actions/upload-artifact@v2
               with:
