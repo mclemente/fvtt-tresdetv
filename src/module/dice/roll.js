@@ -33,7 +33,7 @@ export default class RollTresDeTV extends Roll {
 			if (this.crits && term instanceof Die && this.data.atr) {
 				const crits = term.values.filter((v) => v >= term.faces - this.critRange).length;
 				if (crits) {
-					const atrRoll = this.terms.find((t) => t instanceof NumericTerm);
+					const atrRoll = this.terms.find((t) => t instanceof NumericTerm && t.options.flavor);
 					atrRoll.number *= 1 + crits;
 					this._formula = this.resetFormula();
 				}
@@ -43,6 +43,20 @@ export default class RollTresDeTV extends Roll {
 		// Step 4 - Evaluate the final expression
 		this._total = this._evaluateTotal();
 		return this;
+	}
+
+	get validD6Roll() {
+		return this.terms[0] instanceof Die && this.terms[0].faces === 6;
+	}
+
+	get isCritical() {
+		if (!this.validD6Roll || !this._evaluated) return undefined;
+		return this.dice[0].results.every((r) => r.result === 6);
+	}
+
+	get isFumble() {
+		if (!this.validD6Roll || !this._evaluated) return undefined;
+		return this.dice[0].results.every((r) => r.result === 1);
 	}
 
 	/* -------------------------------------------- */

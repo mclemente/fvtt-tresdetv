@@ -21,7 +21,7 @@ export default class CoreHooks {
 	}
 
 	static renderChatMessage(message, html, data) {
-		if (message.isRoll) {
+		if (message.isRoll && message.isContentVisible && message.rolls.length) {
 			const critRange = message.getFlag("tresdetv", "critRange");
 			if (critRange) {
 				const diceRolls = html.find(".dice-rolls")[0].children;
@@ -31,6 +31,17 @@ export default class CoreHooks {
 						dieRoll.classList.add("max");
 						dieRoll.classList.remove("min");
 					}
+				}
+			}
+
+			// Highlight rolls where the first part is a d6 roll
+			let d6Roll = message.rolls.find((r) => r.validD6Roll);
+			if (d6Roll) {
+				if (d6Roll.isCritical) {
+					html.find(".dice-total").addClass("critical");
+				}
+				if (d6Roll.isFumble) {
+					html.find(".dice-total").addClass("fumble");
 				}
 			}
 		}
