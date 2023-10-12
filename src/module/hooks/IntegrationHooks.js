@@ -1,4 +1,5 @@
 export default class IntegrationHooks {
+	// Dice Tray module
 	static dcCalcWhitelist(whitelist, actor) {
 		// Add whitelist support for the calculator.
 		whitelist.tresdetv = {
