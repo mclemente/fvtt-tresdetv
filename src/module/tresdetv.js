@@ -76,6 +76,24 @@ Hooks.once("init", async () => {
 		pdm: trackableAttributes,
 		veiculo: trackableAttributes,
 	};
+	CONFIG.statusEffects = [
+		...CONFIG.statusEffects.slice(0, 1),
+		{
+			icon: "systems/tresdetv/assets/icons/svg/cycle.svg",
+			id: "karma",
+			name: "Karma",
+			description: "<i>O que vai, volta.</i>",
+			get() {
+				return this.name;
+			},
+			set(value) {
+				this.name = value;
+			},
+			enumerable: false,
+			configurable: true,
+		},
+		...CONFIG.statusEffects.slice(1),
+	];
 
 	// Register sheet application classes
 	Actors.unregisterSheet("core", ActorSheet);
