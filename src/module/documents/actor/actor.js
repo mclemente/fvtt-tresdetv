@@ -167,11 +167,9 @@ export default class ActorTresDeTV extends Actor {
 		const data = this.getRollData();
 		let formula = dice ? `${dice}d6` : "2d6";
 		const atr = this.system.atributos[key].value;
-		if (atr) {
-			const short = game.i18n.localize(`TRESDETV.Atributos.${key}.short`);
-			data.atr = atr;
-			formula += `+ ${atr}[${short}]`;
-		}
+		const short = game.i18n.localize(`TRESDETV.Atributos.${key}.short`);
+		data.atr = atr;
+		formula += `+ ${atr}[${short}]`;
 		const roll = new CONFIG.Dice.RollTresDeTV(formula, data);
 		if (configure) {
 			const choice = await roll.configureDialog({
@@ -213,13 +211,10 @@ export default class ActorTresDeTV extends Actor {
 
 		// Standard initiative formula
 		let formula = "2d6";
-		data.atr = this.system.atributos.habilidade.value;
 		const atr = this.system.atributos.habilidade.value;
-		if (atr) {
-			const short = game.i18n.localize("TRESDETV.Atributos.habilidade.short");
-			data.atr = atr;
-			formula += `+ ${atr}[${short}]`;
-		}
+		data.atr = atr;
+		const short = game.i18n.localize("TRESDETV.Atributos.habilidade.short");
+		formula += `+ ${atr}[${short}]`;
 
 		// Tiebreaker
 		const tiebreaker = game.settings.get("tresdetv", "initiativeTiebreaker");
