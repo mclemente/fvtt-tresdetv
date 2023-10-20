@@ -170,10 +170,10 @@ export default class ActorTresDeTV extends Actor {
 		const short = game.i18n.localize(`TRESDETV.Atributos.${key}.short`);
 		data.atr = atr;
 		formula += `+ ${atr}[${short}]`;
-		const roll = new CONFIG.Dice.RollTresDeTV(formula, data);
+		const roll = new CONFIG.Dice.RollTresDeTV(formula, data, { flavor: `Teste de ${label}` });
 		if (configure) {
 			const choice = await roll.configureDialog({
-				title: title ?? `Teste de ${label}`,
+				title: title ?? `Teste de ${label}: ${this.name}`,
 				actor: this,
 				data,
 				event,

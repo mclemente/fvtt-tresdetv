@@ -132,7 +132,7 @@ export default class RollTresDeTV extends Roll {
 					default: rollDice ? "teste" : "dois",
 					close: () => resolve(null),
 				},
-				mergeObject({ width: 250 }, options),
+				options,
 			).render(true);
 		});
 	}
@@ -158,12 +158,12 @@ export default class RollTresDeTV extends Roll {
 
 		if (form.semCrit.checked) {
 			this.crits = false;
-		} else if (form.maestria.value !== 6) {
-			this.critRange += 6 - form.maestria.value;
+		} else if (form.maestria.value !== "6") {
+			this.critRange += 6 - Number(form.maestria.value);
 		}
 
 		if (form.target.value) {
-			this.options.target = form.target.value;
+			this.options.target = Number(form.target.value);
 		}
 
 		if (dice) this.terms[0].number = dice;
