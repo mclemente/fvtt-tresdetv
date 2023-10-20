@@ -139,6 +139,25 @@ export default class RollTresDeTV extends Roll {
 
 	/* -------------------------------------------- */
 
+	/** @inheritdoc */
+	async toMessage(messageData = {}, { rollMode, create = true } = {}) {
+		if (!this._evaluated) await this.evaluate({ async: true });
+		messageData.flavor = [messageData.flavor || this.options.flavor];
+
+		if (this.options.target) {
+			messageData.flavor.push(`Meta: ${this.options.target}`);
+		}
+
+		if (this.critRange) {
+			const range = 6 - this.critRange;
+			messageData.flavor.push(`Chance de Crítico: 6-${range}`);
+		}
+		messageData.flavor = messageData.flavor.join(". ");
+		return super.toMessage(messageData, { rollMode, create });
+	}
+
+	/* -------------------------------------------- */
+
 	/**
 	 * Handle submission of the Roll evaluation configuration Dialog
 	 * @param {jQuery} html            The submitted dialog content

@@ -186,7 +186,6 @@ export default class ActorTresDeTV extends Actor {
 			if (choice === null) return;
 		}
 		const messageData = {
-			flavor,
 			flags: {},
 		};
 		if (roll.critRange) messageData.flags.tresdetv = { critRange: roll.critRange };
