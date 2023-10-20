@@ -10,6 +10,10 @@ export default class CoreHooks {
 			const message = game.messages.get(li.data("messageId"));
 			return message?.isRoll && message?.isContentVisible && canvas.tokens?.controlled.length;
 		};
+		const isTresDeTVroll = (li) => {
+			const message = game.messages.get(li.data("messageId"));
+			return message.rolls[0] instanceof CONFIG.Dice.RollTresDeTV;
+		};
 		const hasTargetMessage = (li) => {
 			const message = game.messages.get(li.data("messageId"));
 			const flag = message.getFlag("tresdetv", "targetMessage");
@@ -21,19 +25,19 @@ export default class CoreHooks {
 			{
 				name: "Aplicar Dano",
 				icon: '<i class="fas fa-user-minus"></i>',
-				condition: (li) => canApply(li) && hasTargetMessage(li),
+				condition: (li) => canApply(li) && (!isTresDeTVroll(li) || hasTargetMessage(li)),
 				callback: (li) => applyChatCardDamage(li, 1),
 			},
 			{
 				name: "Aplicar Cura",
 				icon: '<i class="fas fa-user-plus"></i>',
-				condition: (li) => canApply(li) && !hasTargetMessage(li),
+				condition: (li) => canApply(li) && (!isTresDeTVroll(li) || !hasTargetMessage(li)),
 				callback: (li) => applyChatCardHeal(li, -1),
 			},
 			{
 				name: "Resistir",
 				icon: '<i class="fas fa-shield"></i>',
-				condition: (li) => canApply(li) && !hasTargetMessage(li),
+				condition: (li) => canApply(li) && (!isTresDeTVroll(li) || !hasTargetMessage(li)),
 				callback: (li) => rollResist(li),
 			},
 		);
@@ -113,11 +117,14 @@ function applyChatCardDamage(li, multiplier) {
 	const message = game.messages.get(li.data("messageId"));
 	const roll = message.rolls[0];
 	const flag = message.getFlag("tresdetv", "targetMessage");
-	const targetMessage = game.messages.get(flag);
-	const damage = targetMessage.rolls[0];
-	const dano = roll.total - damage.total;
-	const defesaTotal = dano + roll.total === 0;
-	if (defesaTotal) return;
+	let dano = roll.total;
+	if (flag) {
+		const targetMessage = game.messages.get(flag);
+		const damage = targetMessage.rolls[0];
+		dano = roll.total - damage.total;
+		const defesaTotal = dano + roll.total === 0;
+		if (defesaTotal) return;
+	}
 	return Promise.all(
 		canvas.tokens.controlled.map((token) => {
 			const actor = token.actor;
