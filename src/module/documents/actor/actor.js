@@ -161,7 +161,7 @@ export default class ActorTresDeTV extends Actor {
 	async rollTest(
 		key,
 		event,
-		{ title, flavor, dice = false, configure = true, bonus = 0, maestria = 6, semCrit = false, target = 0 },
+		{ title, dice = false, configure = true, bonus = 0, maestria = 6, semCrit = false, target = 0, targetMessage },
 	) {
 		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
 		const data = this.getRollData();
@@ -185,10 +185,14 @@ export default class ActorTresDeTV extends Actor {
 			});
 			if (choice === null) return;
 		}
+
 		const messageData = {
 			flags: {},
+			speaker: ChatMessage.getSpeaker({ actor: this }),
 		};
 		if (roll.critRange) messageData.flags.tresdetv = { critRange: roll.critRange };
+		if (targetMessage) messageData.flags.tresdetv = { targetMessage };
+
 		return roll.toMessage(messageData);
 	}
 

@@ -144,14 +144,27 @@ export default class RollTresDeTV extends Roll {
 		if (!this._evaluated) await this.evaluate({ async: true });
 		messageData.flavor = [messageData.flavor || this.options.flavor];
 
-		if (this.options.target) {
-			messageData.flavor.push(`Meta: ${this.options.target}`);
-		}
-
-		if (this.critRange) {
+		if (!this.crits) {
+			messageData.flavor.push("Sem Críticos");
+		} else if (this.critRange) {
 			const range = 6 - this.critRange;
 			messageData.flavor.push(`Chance de Crítico: 6-${range}`);
 		}
+
+		if (this.options.target) {
+			messageData.flavor.push(`Meta: ${this.options.target}`);
+
+			if (messageData.flags?.tresdetv?.targetMessage) {
+				const dano = this.total - this.options.target;
+				const defesaTotal = dano + this.total === 0;
+				if (defesaTotal) {
+					messageData.flavor.push("Defesa Total");
+				} else {
+					messageData.flavor.push(`Dano: ${Math.max(dano, 1)}`);
+				}
+			}
+		}
+
 		messageData.flavor = messageData.flavor.join(". ");
 		return super.toMessage(messageData, { rollMode, create });
 	}
