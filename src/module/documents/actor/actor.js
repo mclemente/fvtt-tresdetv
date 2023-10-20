@@ -125,6 +125,18 @@ export default class ActorTresDeTV extends Actor {
 	}
 
 	/* -------------------------------------------- */
+	/*  Gameplay Mechanics                          */
+	/* -------------------------------------------- */
+
+	/** @override */
+	async modifyTokenAttribute(attribute, value, isDelta, isBar) {
+		if (attribute === "pontos.vida") {
+			const vida = this.system.pontos.vida;
+			const delta = isDelta ? -1 * value : vida.value - value;
+			return this.applyDamage(delta);
+		}
+		return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+	}
 
 	/**
 	 * Apply a certain amount of damage or healing to the health pool for Actor
@@ -155,8 +167,42 @@ export default class ActorTresDeTV extends Actor {
 			},
 			updates,
 		);
-		return allowed !== false ? this.update(updates) : this;
+		return allowed !== false ? this.update(updates, { dhp: -amount }) : this;
 	}
+
+	/* -------------------------------------------- */
+
+	/** @inheritdoc */
+	_onUpdate(data, options, userId) {
+		super._onUpdate(data, options, userId);
+		this._displayScrollingDamage(options.dhp);
+	}
+
+	/**
+	 * Display changes to health as scrolling combat text.
+	 * Adapt the font size relative to the Actor's HP total to emphasize more significant blows.
+	 * @param {number} dhp      The change in hit points that was applied
+	 * @private
+	 */
+	_displayScrollingDamage(dhp) {
+		if (!dhp) return;
+		dhp = Number(dhp);
+		const tokens = this.isToken ? [this.token?.object] : this.getActiveTokens(true);
+		for (const t of tokens) {
+			if (!t.visible || !t.renderable) continue;
+			const pct = Math.clamped(Math.abs(dhp) / this.system.pontos.vida.max, 0, 1);
+			canvas.interface.createScrollingText(t.center, dhp.signedString(), {
+				anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
+				fontSize: 16 + 32 * pct, // Range between [16, 48]
+				fill: CONFIG.TRESDETV.tokenHPColors[dhp < 0 ? "damage" : "healing"],
+				stroke: 0x000000,
+				strokeThickness: 4,
+				jitter: 0.25,
+			});
+		}
+	}
+
+	/* -------------------------------------------- */
 
 	async rollTest(
 		key,
