@@ -124,7 +124,45 @@ export default class ActorTresDeTV extends Actor {
 		// if (this.type !== "npc") return;
 	}
 
-	async rollTest(key, event, { flavor, dice = false, configure = true, bonus = 0, maestria = 6, semCrit = false }) {
+	/* -------------------------------------------- */
+
+	/**
+	 * Apply a certain amount of damage or healing to the health pool for Actor
+	 * @param {number} amount       An amount of damage (positive) or healing (negative) to sustain
+	 * @param {number} multiplier   A multiplier which allows for resistance, vulnerability, or healing
+	 * @returns {Promise<Actor5e>}  A Promise which resolves once the damage has been applied
+	 */
+	async applyDamage(amount = 0, multiplier = 1) {
+		amount = Math.floor(parseInt(amount) * multiplier);
+		const pv = this.system.pontos.vida;
+		if (!pv) return this; // Group actors don't have HP at the moment
+
+		// Deduct damage from HP
+		const dh = Math.clamped(pv.value - amount, 0, Math.max(0, pv.max));
+
+		// Update the Actor
+		const updates = { "system.pontos.vida.value": dh };
+
+		// Delegate damage application to a hook
+		// TODO replace this in the future with a better modifyTokenAttribute function in the core
+		const allowed = Hooks.call(
+			"modifyTokenAttribute",
+			{
+				attribute: "pontos.vida",
+				value: amount,
+				isDelta: false,
+				isBar: true,
+			},
+			updates,
+		);
+		return allowed !== false ? this.update(updates) : this;
+	}
+
+	async rollTest(
+		key,
+		event,
+		{ title, flavor, dice = false, configure = true, bonus = 0, maestria = 6, semCrit = false, target = 0 },
+	) {
 		const label = game.i18n.localize(`TRESDETV.Atributos.${key}.label`);
 		const data = this.getRollData();
 		let formula = dice ? `${dice}d6` : "2d6";
@@ -137,7 +175,7 @@ export default class ActorTresDeTV extends Actor {
 		const roll = new CONFIG.Dice.RollTresDeTV(formula, data);
 		if (configure) {
 			const choice = await roll.configureDialog({
-				title: `Teste de ${label}`,
+				title: title ?? `Teste de ${label}`,
 				actor: this,
 				data,
 				event,
@@ -145,6 +183,7 @@ export default class ActorTresDeTV extends Actor {
 				bonus,
 				maestria,
 				semCrit,
+				target,
 			});
 			if (choice === null) return;
 		}

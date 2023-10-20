@@ -5,6 +5,34 @@ import { createMacro } from "../documents/macro";
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unreachable */
 export default class CoreHooks {
+	static getChatLogEntryContext(html, options) {
+		const canApply = (li) => {
+			const message = game.messages.get(li.data("messageId"));
+			return message?.isRoll && message?.isContentVisible && canvas.tokens?.controlled.length;
+		};
+		options.push(
+			{
+				name: "Aplicar Dano",
+				icon: '<i class="fas fa-user-minus"></i>',
+				condition: canApply,
+				callback: (li) => applyChatCardDamage(li, 1),
+			},
+			{
+				name: "Aplicar Cura",
+				icon: '<i class="fas fa-user-plus"></i>',
+				condition: canApply,
+				callback: (li) => applyChatCardDamage(li, -1),
+			},
+			{
+				name: "Resistir",
+				icon: '<i class="fas fa-shield"></i>',
+				condition: canApply,
+				callback: (li) => rollResist(li),
+			},
+		);
+		return options;
+	}
+
 	static hotbarDrop(bar, data, slot) {
 		if (["ActiveEffect", "Item"].includes(data.type)) {
 			createMacro(data, slot);
@@ -35,13 +63,13 @@ export default class CoreHooks {
 			}
 
 			// Highlight rolls where the first part is a d6 roll
-			let d6Roll = message.rolls.find((r) => r.validD6Roll);
+			const d6Roll = message.rolls.find((r) => r.validD6Roll);
 			if (d6Roll) {
-				if (d6Roll.isCritical) {
-					html.find(".dice-total").addClass("critical");
-				}
-				if (d6Roll.isFumble) {
-					html.find(".dice-total").addClass("fumble");
+				if (d6Roll.isCritical) html.find(".dice-total").addClass("critical");
+				else if (d6Roll.isFumble) html.find(".dice-total").addClass("fumble");
+				if (d6Roll.options.target) {
+					if (d6Roll.total >= d6Roll.options.target) html.find(".dice-total").addClass("success");
+					else html.find(".dice-total").addClass("failure");
 				}
 			}
 		}
@@ -72,4 +100,26 @@ export default class CoreHooks {
 			html.find("#game-details").append(jambo);
 		}
 	}
+}
+
+function applyChatCardDamage(li, multiplier) {
+	const message = game.messages.get(li.data("messageId"));
+	const roll = message.rolls[0];
+	return Promise.all(
+		canvas.tokens.controlled.map((token) => {
+			const actor = token.actor;
+			return actor.applyDamage(roll.total, multiplier);
+		}),
+	);
+}
+
+function rollResist(li) {
+	const message = game.messages.get(li.data("messageId"));
+	const roll = message.rolls[0];
+	return Promise.all(
+		canvas.tokens.controlled.map((token) => {
+			const actor = token.actor;
+			return actor.rollTest("resistencia", null, { target: roll.total });
+		}),
+	);
 }

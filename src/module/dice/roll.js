@@ -82,11 +82,12 @@ export default class RollTresDeTV extends Roll {
 			maestria = 6,
 			semCrit = false,
 			isInitiative = false,
+			target = 0,
 		} = {},
 		options = {},
 	) {
 		// Render the Dialog inner HTML
-		// TODO adicionar lembrete das abilidades que podem afetar uma rolagem
+		// TODO adicionar lembrete das habilidades que podem afetar uma rolagem
 		const content = await renderTemplate(template ?? this.constructor.EVALUATION_TEMPLATE, {
 			name: actor.isToken ? actor.parent.name : actor.name,
 			img: actor.isToken ? actor.parent.texture.src : actor.img,
@@ -94,6 +95,7 @@ export default class RollTresDeTV extends Roll {
 			bonus,
 			maestria,
 			semCrit,
+			target,
 		});
 
 		// Create the Dialog window and await submission of the form
@@ -158,6 +160,10 @@ export default class RollTresDeTV extends Roll {
 			this.crits = false;
 		} else if (form.maestria.value !== 6) {
 			this.critRange += 6 - form.maestria.value;
+		}
+
+		if (form.target.value) {
+			this.options.target = form.target.value;
 		}
 
 		if (dice) this.terms[0].number = dice;

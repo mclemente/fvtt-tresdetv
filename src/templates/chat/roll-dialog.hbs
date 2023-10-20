@@ -1,13 +1,13 @@
 <form class="tresdetv rollDialog" autocomplete="off">
 
-	{{! <fieldset> }}
-	{{#if isInitiative}}
+	{{#if (or isInitiative target)}}
 		<header class="initiative flexrow">
 			<img src="{{img}}" width="50" height="50" />
 			<h3>{{name}}</h3>
 		</header>
 	{{/if}}
 	<div class="categories">
+		<input style="display: none" type="number" name="target" value="{{target}}" />
 		<div class="form-group">
 			<label>Modificador</label>
 			<div class="form-fields">
@@ -27,5 +27,4 @@
 			</div>
 		</div>
 	</div>
-	{{! </fieldset> }}
 </form>
