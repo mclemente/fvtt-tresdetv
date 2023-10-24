@@ -50,15 +50,6 @@
 			"path": "lang/en.json"
 		}
 	],
-	"relationships": {
-		"requires": [],
-		"conflicts": []
-	},
-	"flags": {
-		"hotReload": {
-			"extensions": ["js", "css", "html", "hbs", "json"]
-		}
-	},
 	"manifest": "This is auto replaced",
 	"download": "This is auto replaced",
 	"initiative": "",
