@@ -52,6 +52,8 @@ export default class CoreHooks {
 	}
 
 	static renderChatLog(app, html, data) {
+		const diceIconSelector = html.find("#chat-controls .chat-control-icon i");
+		diceIconSelector.removeClass("fa-dice-d20").addClass("fa-dice-d6");
 		html.on("click", ".item-name", ItemTresDeTV._onChatCardToggleContent.bind(this));
 	}
 
