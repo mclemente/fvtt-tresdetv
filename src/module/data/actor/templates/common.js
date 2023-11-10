@@ -25,6 +25,10 @@ export class ActorData extends foundry.abstract.DataModel {
 			pontos: new fields.SchemaField({
 				acao: new fields.SchemaField({
 					...createPointsField(),
+					bonus: new fields.NumberField({
+						required: true,
+						initial: 0,
+					}),
 					mult: new fields.NumberField({
 						required: true,
 						initial: 1,
@@ -33,6 +37,10 @@ export class ActorData extends foundry.abstract.DataModel {
 				experiencia: new fields.SchemaField(createPointsField(0, null, { nullMax: true })),
 				mana: new fields.SchemaField({
 					...createPointsField(),
+					bonus: new fields.NumberField({
+						required: true,
+						initial: 0,
+					}),
 					mult: new fields.NumberField({
 						required: true,
 						initial: 5,
@@ -41,6 +49,10 @@ export class ActorData extends foundry.abstract.DataModel {
 				personagem: new fields.SchemaField(createPointsField(10, null, { nullMax: true })),
 				vida: new fields.SchemaField({
 					...createPointsField(),
+					bonus: new fields.NumberField({
+						required: true,
+						initial: 0,
+					}),
 					mult: new fields.NumberField({
 						required: true,
 						initial: 5,

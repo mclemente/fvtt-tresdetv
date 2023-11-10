@@ -1,6 +1,7 @@
 import * as Trait from "../../documents/actor/trait.js";
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../../helpers/effects.js";
 import TraitSelector from "./trait-selector.js";
+import ActorTweaks from "./tweaks.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -290,5 +291,16 @@ export default class ActorSheetTresDeTV extends ActorSheet {
 		event.preventDefault();
 		const trait = event.currentTarget.dataset.trait;
 		return new TraitSelector(this.actor, trait).render(true);
+	}
+
+	_getHeaderButtons() {
+		let buttons = super._getHeaderButtons();
+		buttons.unshift({
+			label: "Ajustes",
+			class: "configure-sheet",
+			icon: "fas fa-gears",
+			onclick: (ev) => new ActorTweaks(this.actor).render(true),
+		});
+		return buttons;
 	}
 }

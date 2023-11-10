@@ -17,6 +17,7 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/tresdetv/templates/item/parts/item-summary.hbs",
 
 		// Apps
+		"systems/tresdetv/templates/apps/actor-tweaks.hbs",
 		"systems/tresdetv/templates/apps/trait-selector.hbs",
 		"systems/tresdetv/templates/apps/parts/trait-list.hbs",
 
