@@ -72,7 +72,7 @@ module.exports = {
 		"no-misleading-character-class": "warn",
 		"no-mixed-operators": "warn",
 		"no-multi-str": "warn",
-		"no-multiple-empty-lines": "warn",
+		"no-multiple-empty-lines": ["warn", { max: 1 }],
 		"no-new-func": "warn",
 		"no-new-object": "warn",
 		"no-new-symbol": "warn",
@@ -135,6 +135,7 @@ module.exports = {
 			"warn",
 			{
 				code: 120,
+				ignoreComments: true,
 				ignoreTrailingComments: true,
 				ignoreUrls: true,
 				ignoreStrings: true,
