@@ -67,9 +67,9 @@ export default class ActorTresDeTV extends Actor {
 	_preparePointsData() {
 		const { poder, habilidade, resistencia } = this.system.atributos;
 		const { acao, vida, mana } = this.system.pontos;
-		acao.max = Math.max(poder.value * acao.mult, 1);
-		vida.max = Math.max(resistencia.value * vida.mult, 1);
-		mana.max = Math.max(habilidade.value * mana.mult, 1);
+		acao.max = Math.max(poder.value * acao.mult, 1) + acao.bonus;
+		vida.max = Math.max(resistencia.value * vida.mult, 1) + vida.bonus;
+		mana.max = Math.max(habilidade.value * mana.mult, 1) + mana.bonus;
 	}
 
 	/**
