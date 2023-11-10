@@ -1,62 +1,58 @@
-<div class="abilities flexrow">
-	<div class="ability pontos flexcol flex-group-center">
-		<label for="system.pontos.acao.value" class="resource-label align-left">
-			{{localize "TRESDETV.Pontos.acao.name"}}
+<div class="abilities flexcol">
+	<div class="ability pontos flexrow flex-group-center">
+		<label
+			for="system.pontos.acao.value"
+			class="resource-label align-left"
+			data-tooltip="TRESDETV.Pontos.acao.label"
+			data-tooltip-direction="UP"
+		>
+			{{localize "TRESDETV.Pontos.acao.short"}}
 		</label>
-		<div class="flexrow">
-			<input
-				type="text"
-				name="system.pontos.acao.value"
-				value="{{system.pontos.acao.value}}"
-				data-dtype="Number"
-			/>
-			<input
-				type="text"
-				name="system.pontos.acao.max"
-				value="{{system.pontos.acao.max}}"
-				data-dtype="Number"
-				disabled
-			/>
-		</div>
+		{{! <div class="flexrow"> }}
+		<input
+			type="text"
+			name="system.pontos.acao.max"
+			value="{{system.pontos.acao.max}}"
+			data-dtype="Number"
+			disabled
+		/>
+		<input type="text" name="system.pontos.acao.value" value="{{system.pontos.acao.value}}" data-dtype="Number" />
+		{{! </div> }}
 	</div>
-	<div class="ability pontos flexcol flex-group-center">
-		<label for="system.pontos.mana.value" class="resource-label align-left">
-			{{localize "TRESDETV.Pontos.mana.name"}}
+	<div class="ability pontos flexrow flex-group-center">
+		<label
+			for="system.pontos.mana.value"
+			class="resource-label align-left"
+			data-tooltip="TRESDETV.Pontos.mana.label"
+			data-tooltip-direction="UP"
+		>
+			{{localize "TRESDETV.Pontos.mana.short"}}
 		</label>
-		<div class="flexrow">
-			<input
-				type="text"
-				name="system.pontos.mana.value"
-				value="{{system.pontos.mana.value}}"
-				data-dtype="Number"
-			/>
-			<input
-				type="text"
-				name="system.pontos.mana.max"
-				value="{{system.pontos.mana.max}}"
-				data-dtype="Number"
-				disabled
-			/>
-		</div>
+		<input
+			type="text"
+			name="system.pontos.mana.max"
+			value="{{system.pontos.mana.max}}"
+			data-dtype="Number"
+			disabled
+		/>
+		<input type="text" name="system.pontos.mana.value" value="{{system.pontos.mana.value}}" data-dtype="Number" />
 	</div>
-	<div class="ability pontos flexcol flex-group-center">
-		<label for="system.pontos.vida.value" class="resource-label align-left">
-			{{localize "TRESDETV.Pontos.vida.name"}}
+	<div class="ability pontos flexrow flex-group-center">
+		<label
+			for="system.pontos.vida.value"
+			class="resource-label align-left"
+			data-tooltip="TRESDETV.Pontos.vida.label"
+			data-tooltip-direction="UP"
+		>
+			{{localize "TRESDETV.Pontos.vida.short"}}
 		</label>
-		<div class="flexrow">
-			<input
-				type="text"
-				name="system.pontos.vida.value"
-				value="{{system.pontos.vida.value}}"
-				data-dtype="Number"
-			/>
-			<input
-				type="text"
-				name="system.pontos.vida.max"
-				value="{{system.pontos.vida.max}}"
-				data-dtype="Number"
-				disabled
-			/>
-		</div>
+		<input
+			type="text"
+			name="system.pontos.vida.max"
+			value="{{system.pontos.vida.max}}"
+			data-dtype="Number"
+			disabled
+		/>
+		<input type="text" name="system.pontos.vida.value" value="{{system.pontos.vida.value}}" data-dtype="Number" />
 	</div>
 </div>

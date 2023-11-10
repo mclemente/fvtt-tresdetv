@@ -360,23 +360,44 @@ form .form-group .form-fields > textarea[name="tresdetv.pericias"] {
 	text-align: center;
 }
 
-.tresdetv .abilities {
-	margin-bottom: 3px;
+.tresdetv .atributos-pontos {
+	margin: 2px 0;
 }
 
-.tresdetv .ability.atributos .dados a {
-	margin: 0 3px;
-	font-size: 20px;
+.tresdetv .ability.atributos input {
+	max-width: 25px;
+	border: none;
+	color: fieldtext;
+	height: inherit;
 }
-
-.tresdetv .ability.atributos input,
 .tresdetv .ability.pontos input {
 	max-width: 35px;
+	color: fieldtext;
+	height: inherit;
+}
+.tresdetv .ability.pontos input:disabled {
+	color: var(--color-text-dark-secondary);
+}
+.tresdetv .ability.atributos input:hover:not(:disabled),
+.tresdetv .ability.atributos .atributo input:hover:not(:disabled),
+.tresdetv .ability.pontos input:hover:not(:disabled) {
+	box-shadow: 0 0 5px var(--color-shadow-primary);
 }
 
-.tresdetv .ability label {
-	flex: 0 25px;
-	margin-right: 3px;
+.tresdetv .ability.atributos label,
+.tresdetv .ability.pontos label {
+	flex: 0 0 30px;
+	text-transform: uppercase;
+}
+
+.tresdetv .ability.pontos div {
+	flex: 2;
+}
+
+.tresdetv .ability.atributos,
+.tresdetv .ability.pontos {
+	align-items: center;
+	font-size: 16px;
 }
 
 .tresdetv .items-header {
@@ -643,12 +664,15 @@ form .form-group .form-fields > textarea[name="tresdetv.pericias"] {
 	line-height: 20px;
 	font-weight: bold;
 }
+.tresdetv.sheet .skills .form-group {
+	padding: 0 0 0 0.5em;
+}
 .tresdetv.sheet .skills .traits-list {
 	flex: 0 0 100%;
 	line-height: 20px;
 	list-style: none;
 	margin: 0;
-	padding: 0;
+	padding: 0 0 0 0.5em;
 }
 .tresdetv.sheet .trait-selector,
 .tresdetv.sheet .proficiency-selector {

@@ -71,57 +71,63 @@
 		<div class="tab features" data-group="primary" data-tab="features">
 			<section class="grid grid-2col">
 				<aside class="sidebar">
-					<div class="abilities flexrow">
-						{{#each system.atributos as |ability key|}}
-						<div class="ability atributos flexcol flex-group-center">
-							<div class="dados flexrow">
-								<a
-									class="rollable"
+					<div class="atributos-pontos flexrow">
+						<div class="abilities flexcol">
+							{{#each system.atributos as |ability key|}}
+							<div class="ability atributos flexrow flex-group-center">
+								<div class="dados flexrow">
+									<a
+										class="rollable"
+										data-key="{{key}}"
+										data-dice="1"
+										aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=1 nome=key}}"
+										><i class="fas fa-dice-one"></i
+									></a>
+									<a
+										class="rollable"
+										data-key="{{key}}"
+										data-dice="2"
+										aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=2 nome=key}}"
+										><i class="fas fa-dice-two"></i
+									></a>
+									<a
+										class="rollable"
+										data-key="{{key}}"
+										data-dice="3"
+										aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=3 nome=key}}"
+										><i class="fas fa-dice-three"></i
+									></a>
+								</div>
+								<label
+									class="rollable resource-label"
 									data-key="{{key}}"
-									data-dice="1"
-									aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=1 nome=key}}"
-									><i class="fas fa-dice-one"></i
-								></a>
-								<a
-									class="rollable"
-									data-key="{{key}}"
-									data-dice="2"
-									aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=2 nome=key}}"
-									><i class="fas fa-dice-two"></i
-								></a>
-								<a
-									class="rollable"
-									data-key="{{key}}"
-									data-dice="3"
-									aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=3 nome=key}}"
-									><i class="fas fa-dice-three"></i
-								></a>
+									data-tooltip="{{concat 'TRESDETV.Atributos.' key '.label'}}"
+									data-tooltip-direction="UP"
+									aria-label="Rolar Poder"
+									>{{localize (concat "TRESDETV.Atributos." key ".short")}}</label
+								>
+								<input
+									type="text"
+									name="system.atributos.{{key}}.value"
+									value="{{ability.value}}"
+									data-dtype="Number"
+								/>
 							</div>
-							<label class="rollable resource-label" data-key="{{key}}" aria-label="Rolar Poder"
-								>{{localize (concat "TRESDETV.Atributos." key ".label")}}</label
-							>
-							<input
-								type="text"
-								name="system.atributos.{{key}}.value"
-								value="{{ability.value}}"
-								data-dtype="Number"
-							/>
+							{{/each}}
 						</div>
-						{{/each}}
+						<!-- Points -->
+						{{> "tresdetv.actor-points"}}
 					</div>
 					<hr />
-					<!-- Points -->
-					{{> "tresdetv.actor-points"}}
 					<!-- Perícias -->
 					<div class="skills">{{> "tresdetv.actor-skills"}}</div>
+					<!-- Técnicas -->
+					{{> "tresdetv.actor-spells"}}
 				</aside>
 
 				<section>
 					<!-- Habilidades -->
 					{{> "tresdetv.actor-features"}}
-
-					<!-- Técnicas -->
-					{{> "tresdetv.actor-spells"}}
 
 					<!-- Itens -->
 					{{> "tresdetv.actor-items"}}
