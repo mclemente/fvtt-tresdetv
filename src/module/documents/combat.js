@@ -66,6 +66,6 @@ export default class CombatTresDeTV extends Combat {
 		const ib = Number.isNumeric(b.initiative) ? b.initiative : -Infinity;
 		const atrA = a.token.actor.system.atributos.habilidade.value;
 		const atrB = b.token.actor.system.atributos.habilidade.value;
-		return ib - ia || atrA > atrB ? -1 : 1 || (a.id > b.id ? 1 : -1);
+		return ib - ia || (atrA > atrB ? -1 : 1) || (a.id > b.id ? 1 : -1);
 	}
 }
