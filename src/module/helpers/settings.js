@@ -42,8 +42,5 @@ export default function registerSettings() {
 		config: true,
 		default: false,
 		type: Boolean,
-		onChange: (s) => {
-			ui.chat.render();
-		},
 	});
 }
