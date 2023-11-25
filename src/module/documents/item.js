@@ -37,16 +37,6 @@ export default class ItemTresDeTV extends Item {
 
 	/* ----------------- */
 
-	/**
-	 * Handle clickable rolls.
-	 * @param {Event} event   The originating click event
-	 * @private
-	 */
-	async roll(event) {
-		const item = this;
-		return item.displayCard();
-	}
-
 	async displayCard(options = {}) {
 		// Render the chat card template
 		const token = this.actor.token;
