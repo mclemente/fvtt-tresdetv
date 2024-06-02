@@ -18,12 +18,3 @@ export function createConcessao() {
 		),
 	};
 }
-
-export function createObjeto() {
-	return {
-		objeto: new fields.SchemaField({
-			custo: new fields.NumberField({ initial: 0 }),
-			quantidade: new fields.NumberField({ initial: 1 }),
-		}),
-	};
-}

@@ -9,6 +9,8 @@ export default class ItemData extends BaseItemTemplate {
 		const superFields = super.defineSchema();
 		return {
 			...superFields,
+			quantidade: new fields.NumberField({ required: true, initial: 1, min: 0 }),
+			valor: new fields.NumberField({ required: true, initial: 0, min: 0 }),
 			// ...createConcessao(),
 		};
 	}
