@@ -49,7 +49,7 @@ export default class ActorTresDeTV extends Actor {
 
 	async _preCreate(data, options, user) {
 		await super._preCreate(data, options, user);
-		const sourceId = this.getFlag("core", "sourceId");
+		const sourceId = this._stats.compendiumSource;
 		if (sourceId?.startsWith("Compendium.")) return;
 
 		// Configure prototype token settings

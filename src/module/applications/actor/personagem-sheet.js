@@ -8,7 +8,7 @@ import ActorSheetTresDeTV from "./base-sheet.js";
 export default class FichaPersonagemTresDeTV extends ActorSheetTresDeTV {
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["tresdetv", "sheet", "actor", "personagem"],
 		});
 	}

@@ -7,7 +7,7 @@ import { onManageActiveEffect, prepareActiveEffectCategories } from "../../helpe
 export default class ItemSheetTresDeTV extends ItemSheet {
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["tresdetv", "sheet", "item"],
 			width: 500,
 			height: 485,
