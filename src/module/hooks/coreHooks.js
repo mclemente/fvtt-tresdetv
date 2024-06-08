@@ -119,14 +119,9 @@ function applyChatCardDamage(li, multiplier) {
 	const message = game.messages.get(li.data("messageId"));
 	const roll = message.rolls[0];
 	const flag = message.getFlag("tresdetv", "targetMessage");
-	let dano = roll.total;
-	if (flag) {
-		const targetMessage = game.messages.get(flag);
-		const damage = targetMessage.rolls[0];
-		dano = roll.total - damage.total;
-		const defesaTotal = dano + roll.total === 0;
-		if (defesaTotal) return;
-	}
+	const dano = roll.options.target - roll.total;
+	// Defesa Perfeita
+	if (flag && roll.options.target * 2 <= roll.total) return;
 	return Promise.all(
 		canvas.tokens.controlled.map((token) => {
 			const actor = token.actor;
