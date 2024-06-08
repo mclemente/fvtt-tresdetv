@@ -12,13 +12,13 @@ export default class RollTresDeTV extends Roll {
 		// Step 1 - Replace intermediate terms with evaluated numbers
 		const intermediate = [];
 		for (let term of this.terms) {
-			if (!(term instanceof RollTerm)) {
+			if (!(term instanceof foundry.dice.terms.RollTerm)) {
 				throw new Error("Roll evaluation encountered an invalid term which was not a RollTerm instance");
 			}
 			if (term.isIntermediate) {
 				await term.evaluate({ minimize, maximize, async: true });
 				this._dice = this._dice.concat(term.dice);
-				term = new NumericTerm({ number: term.total, options: term.options });
+				term = new foundry.dice.terms.NumericTerm({ number: term.total, options: term.options });
 			}
 			intermediate.push(term);
 		}
@@ -33,7 +33,9 @@ export default class RollTresDeTV extends Roll {
 			if (this.crits && term instanceof Die && this.data.atr) {
 				const crits = term.values.filter((v) => v >= term.faces - this.critRange).length;
 				if (crits) {
-					const atrRoll = this.terms.find((t) => t instanceof NumericTerm && t.options.flavor);
+					const atrRoll = this.terms.find(
+						(t) => t instanceof foundry.dice.terms.NumericTerm && t.options.flavor,
+					);
 					atrRoll.number *= 1 + crits;
 					this._formula = this.resetFormula();
 				}
@@ -184,7 +186,9 @@ export default class RollTresDeTV extends Roll {
 		if (form.modificador.value && form.modificador.value !== "0") {
 			const bonusPen = Number(form.modificador.value) > 0 ? "Bônus" : "Penalidade";
 			const modificador = new Roll(`${form.modificador.value}[${bonusPen}]`, this.data);
-			if (!(modificador.terms[0] instanceof OperatorTerm)) this.terms.push(new OperatorTerm({ operator: "+" }));
+			if (!(modificador.terms[0] instanceof foundry.dice.terms.OperatorTerm)) {
+				this.terms.push(new foundry.dice.terms.OperatorTerm({ operator: "+" }));
+			}
 			this.terms = this.terms.concat(modificador.terms);
 		}
 
