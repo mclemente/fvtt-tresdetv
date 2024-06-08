@@ -30,7 +30,7 @@ export default class RollTresDeTV extends Roll {
 		// Step 3 - Evaluate remaining terms
 		for (let term of this.terms) {
 			if (!term._evaluated) await term.evaluate({ minimize, maximize, async: true });
-			if (this.crits && term instanceof Die && this.data.atr) {
+			if (this.crits && term instanceof foundry.dice.terms.Die && this.data.atr) {
 				const crits = term.values.filter((v) => v >= term.faces - this.critRange).length;
 				if (crits) {
 					const atrRoll = this.terms.find(
@@ -48,7 +48,7 @@ export default class RollTresDeTV extends Roll {
 	}
 
 	get validD6Roll() {
-		return this.terms[0] instanceof Die && this.terms[0].faces === 6;
+		return this.terms[0] instanceof foundry.dice.terms.Die && this.terms[0].faces === 6;
 	}
 
 	get isCritical() {
@@ -143,7 +143,7 @@ export default class RollTresDeTV extends Roll {
 
 	/** @inheritdoc */
 	async toMessage(messageData = {}, { rollMode, create = true } = {}) {
-		if (!this._evaluated) await this.evaluate({ async: true });
+		if (!this._evaluated) await this.evaluate();
 		messageData.flavor = [messageData.flavor || this.options.flavor];
 
 		if (!this.crits) {
