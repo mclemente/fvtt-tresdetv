@@ -155,10 +155,10 @@ export default class RollTresDeTV extends Roll {
 			messageData.flavor.push(`Meta: ${this.options.target}`);
 
 			if (messageData.flags?.tresdetv?.targetMessage) {
-				const dano = this.total - this.options.target;
-				const defesaTotal = dano + this.total === 0;
-				if (defesaTotal) {
-					messageData.flavor.push("Defesa Total");
+				const dano = this.options.target - this.total;
+				const defesaPerfeita = this.options.target * 2 <= this.total;
+				if (defesaPerfeita) {
+					messageData.flavor.push("Defesa Perfeita");
 				} else {
 					messageData.flavor.push(`Dano: ${Math.max(dano, 1)}`);
 				}
