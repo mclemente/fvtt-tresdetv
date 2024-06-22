@@ -13,8 +13,7 @@ export async function createMacro(dropData, slot) {
 	}
 	const macroData = { type: "script", scope: "actor" };
 	switch (dropData.type) {
-		case "Item":
-			// eslint-disable-next-line no-case-declarations
+		case "Item": {
 			const itemData = await Item.implementation.fromDropData(dropData);
 			foundry.utils.mergeObject(macroData, {
 				name: itemData.name,
@@ -23,8 +22,8 @@ export async function createMacro(dropData, slot) {
 				flags: { "tresdetv.itemMacro": true },
 			});
 			break;
-		case "ActiveEffect":
-			// eslint-disable-next-line no-case-declarations
+		}
+		case "ActiveEffect": {
 			const effectData = await ActiveEffect.implementation.fromDropData(dropData);
 			foundry.utils.mergeObject(macroData, {
 				name: effectData.label,
@@ -33,6 +32,7 @@ export async function createMacro(dropData, slot) {
 				flags: { "tresdetv.effectMacro": true },
 			});
 			break;
+		}
 		default:
 			return;
 	}

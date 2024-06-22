@@ -6,7 +6,6 @@ export class VantagemDesvantagemTemplate extends BaseItemTemplate {
 		const superFields = super.defineSchema();
 		return {
 			...superFields,
-			// ...createConcessao(),
 			afeta: new fields.SchemaField({
 				poder: new fields.BooleanField({ initial: false }),
 				habilidade: new fields.BooleanField({ initial: false }),

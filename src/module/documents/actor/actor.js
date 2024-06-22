@@ -101,27 +101,7 @@ export default class ActorTresDeTV extends Actor {
 		data.habilidade = data.atributos.habilidade.value;
 		data.resistencia = data.atributos.resistencia.value;
 
-		// Prepare character roll data.
-		// this._getCharacterRollData(data);
-		// this._getNpcRollData(data);
-
 		return data;
-	}
-
-	/**
-	 * Prepare character roll data.
-	 */
-	// eslint-disable-next-line no-unused-vars
-	_getCharacterRollData(data) {
-		// if (this.type !== "personagem") return;
-	}
-
-	/**
-	 * Prepare NPC roll data.
-	 */
-	// eslint-disable-next-line no-unused-vars
-	_getNpcRollData(data) {
-		// if (this.type !== "npc") return;
 	}
 
 	/* -------------------------------------------- */
@@ -150,7 +130,7 @@ export default class ActorTresDeTV extends Actor {
 		if (!pv) return this; // Group actors don't have HP at the moment
 
 		// Deduct damage from HP
-		const dh = Math.clamped(pv.value - amount, 0, Math.max(0, pv.max));
+		const dh = Math.clamp(pv.value - amount, 0, Math.max(0, pv.max));
 
 		// Update the Actor
 		const updates = { "system.pontos.vida.value": dh };
@@ -190,7 +170,7 @@ export default class ActorTresDeTV extends Actor {
 		const tokens = this.isToken ? [this.token?.object] : this.getActiveTokens(true);
 		for (const t of tokens) {
 			if (!t.visible || !t.renderable) continue;
-			const pct = Math.clamped(Math.abs(dhp) / this.system.pontos.vida.max, 0, 1);
+			const pct = Math.clamp(Math.abs(dhp) / this.system.pontos.vida.max, 0, 1);
 			canvas.interface.createScrollingText(t.center, dhp.signedString(), {
 				anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
 				fontSize: 16 + 32 * pct, // Range between [16, 48]

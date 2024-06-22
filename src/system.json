@@ -8,12 +8,10 @@
 			"discord": "mclemente#5524"
 		}
 	],
-	"url": "This is auto replaced",
-	"license": "MIT",
-	"version": "This is auto replaced",
 	"compatibility": {
-		"minimum": "11",
-		"verified": "12"
+		"minimum": "12",
+		"verified": "12",
+		"maximum": "12"
 	},
 	"esmodules": ["module/tresdetv.js"],
 	"styles": ["styles/tresdetv.css"],
@@ -50,11 +48,14 @@
 			"path": "lang/en.json"
 		}
 	],
-	"manifest": "This is auto replaced",
-	"download": "This is auto replaced",
-	"initiative": "",
-	"gridDistance": 1,
-	"gridUnits": "sq",
+	"grid": {
+		"distance": 1,
+		"units": "q"
+	},
 	"primaryTokenAttribute": "pontos.vida",
-	"secondaryTokenAttribute": "pontos.mana"
+	"secondaryTokenAttribute": "pontos.mana",
+	"url": "This is auto replaced",
+	"version": "This is auto replaced",
+	"manifest": "This is auto replaced",
+	"download": "This is auto replaced"
 }

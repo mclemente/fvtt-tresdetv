@@ -55,7 +55,8 @@ Hooks.once("init", async () => {
 	// Patch Core Functions
 	Combatant.prototype.getInitiativeRoll = utils.getInitiativeRoll;
 
-	CONFIG.ui.combat = applications.combat.CombatTrackerTresDeTV;
+	CONFIG.ui.chat = applications.sidebar.ChatLogTresDeTV;
+	CONFIG.ui.combat = applications.sidebar.CombatTrackerTresDeTV;
 
 	// Define DataModels
 	CONFIG.Actor.dataModels.personagem = dataModels.ActorData;

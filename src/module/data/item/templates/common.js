@@ -7,14 +7,3 @@ export class BaseItemTemplate extends foundry.abstract.DataModel {
 		};
 	}
 }
-
-export function createConcessao() {
-	return {
-		concessao: new fields.ArrayField(
-			new fields.SchemaField({
-				id: new fields.StringField({ initial: "" }),
-				type: new fields.StringField({ initial: "" }),
-			}),
-		),
-	};
-}

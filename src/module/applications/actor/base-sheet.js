@@ -60,10 +60,6 @@ export default class ActorSheetTresDeTV extends ActorSheet {
 			if (item) context.expandedData[id] = await item.getChatData({ secrets: this.actor.isOwner });
 		}
 
-		if (actorData.type === "personagem") {
-			this._prepareCharacterData(context);
-		}
-
 		// Prepare NPC data and items.
 		// if (actorData.type == "npc") {
 		// }
@@ -85,16 +81,6 @@ export default class ActorSheetTresDeTV extends ActorSheet {
 
 		return context;
 	}
-
-	/**
-	 * Organize and classify Items for Character sheets.
-	 *
-	 * @param {Object} actorData The actor to prepare.
-	 *
-	 * @return {undefined}
-	 */
-	// eslint-disable-next-line no-unused-vars
-	_prepareCharacterData(context) {}
 
 	/**
 	 * Organize and classify Items for Character sheets.
