@@ -27,7 +27,7 @@ export async function createMacro(dropData, slot) {
 			const effectData = await ActiveEffect.implementation.fromDropData(dropData);
 			foundry.utils.mergeObject(macroData, {
 				name: effectData.label,
-				img: effectData.icon,
+				img: effectData.img,
 				command: `tresdetv.documents.macro.toggleEffect("${effectData.label}")`,
 				flags: { "tresdetv.effectMacro": true },
 			});
