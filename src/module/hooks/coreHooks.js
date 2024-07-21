@@ -36,6 +36,11 @@ export default class CoreHooks {
 			const flavor = html.find(".flavor-text");
 			if (flavor.text() === html.find(".item-name").text()) flavor.remove();
 		}
+		const diceFlavor = html.find(".dice-flavor");
+		if (diceFlavor.length > 0) {
+			const flavorText = html.find(".flavor-text");
+			if (flavorText.text().includes(diceFlavor.text())) diceFlavor.remove();
+		}
 		if (game.settings.get("tresdetv", "autoCollapseItemCards")) html.find(".card-content").hide();
 	}
 
