@@ -16,7 +16,7 @@ export default class CombatTresDeTV extends Combat {
 			// Produce an initiative roll for the Combatant
 			const roll = await combatant.getInitiativeRoll({ name: combatant.name });
 			if (!roll) continue;
-			await roll.evaluate({ async: true });
+			await roll.evaluate();
 			updates.push({ _id: id, initiative: roll.total });
 
 			// Construct chat message data
