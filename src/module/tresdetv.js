@@ -84,12 +84,6 @@ Hooks.once("init", async () => {
 			id: "karma",
 			name: "Karma",
 			description: "<i>O que vai, volta.</i>",
-			get() {
-				return this.name;
-			},
-			set(value) {
-				this.name = value;
-			},
 			enumerable: false,
 			configurable: true,
 		},
