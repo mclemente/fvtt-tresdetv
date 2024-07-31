@@ -6,7 +6,7 @@ export function setTextEnrichers() {
 
 	// activate listeners
 	const body = $("body");
-	body.on("click", "a.tresdetv-inline-roll", inlineRollOnClick);
+	body.on("click", "a.tresdetv.inline-roll", inlineRollOnClick);
 }
 
 function createRollAtr(match, options) {
@@ -32,7 +32,7 @@ function createRollAtr(match, options) {
 function createButton(mode, func, commandArgs, flavor, title) {
 	const a = document.createElement("a");
 	// add classes
-	a.classList.add("tresdetv-inline-roll", mode);
+	a.classList.add("tresdetv", "inline-roll", mode);
 	// add dataset
 	a.dataset.mode = mode;
 	a.dataset.func = func;
@@ -47,6 +47,7 @@ function createButton(mode, func, commandArgs, flavor, title) {
 
 async function inlineRollOnClick(event) {
 	event.preventDefault();
+	event.stopImmediatePropagation();
 	const a = event.currentTarget;
 
 	// Get the tokens to roll with (like the Saving Throw button)
