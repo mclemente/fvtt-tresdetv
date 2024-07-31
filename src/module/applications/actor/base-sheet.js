@@ -219,7 +219,7 @@ export default class ActorSheetTresDeTV extends ActorSheet {
 		delete itemData.system.type;
 
 		// Finally, create the item!
-		return await Item.create(itemData, { parent: this.actor });
+		return await Item.create(itemData, { parent: this.actor, renderSheet: true });
 	}
 
 	async _onItemSummary(event) {
