@@ -226,6 +226,7 @@
 
 .combat-sidebar li.combatant .roll {
 	background: url(../assets/icons/svg/perspective-dice-six-faces-three.svg) no-repeat 50% 50%;
+	background-size: 32px;
 }
 
 .combat-sidebar li.combatant .roll:hover {
