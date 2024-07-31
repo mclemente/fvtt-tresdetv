@@ -6,7 +6,7 @@
 
 .rollable:hover,
 .rollable:focus {
-	color: #000;
+	color: #fff;
 	text-shadow: 0 0 10px red;
 	cursor: pointer;
 }
@@ -266,6 +266,31 @@ form .form-group .form-fields > textarea[name="tresdetv.pericias"] {
 
 .tresdetv.sheet .sheet-tabs.tabs {
 	font-weight: 700;
+	border-top: 0;
+	border-bottom: 2px solid #f7a723;
+}
+
+.tresdetv.sheet .sheet-tabs.tabs .item {
+	border-radius: 12px 12px 0 0;
+}
+
+.tresdetv.sheet .sheet-tabs.tabs .item.active {
+	color: #fff;
+}
+
+.tresdetv.sheet .sheet-tabs.tabs .item.active {
+	background-color: #f7a723;
+	text-shadow: none;
+}
+
+.tresdetv.sheet .sheet-tabs.tabs .item:hover {
+	border-color: #f7c623;
+	background-color: #f7c623;
+	text-shadow: none;
+}
+
+.tresdetv.sheet .sheet-tabs.tabs .item:active {
+	background-color: #f7bf23;
 }
 
 .tresdetv.sheet.actor,
@@ -317,6 +342,13 @@ form .form-group .form-fields > textarea[name="tresdetv.pericias"] {
 .tresdetv .sheet-header h1.charname {
 	flex: 6;
 	border-bottom: 0;
+}
+
+.tresdetv .sheet-header input {
+	border: none;
+	border-bottom: 1px solid #f7a723;
+	border-radius: 0;
+	background: none;
 }
 
 .tresdetv .sheet-header h1.charname input {
@@ -399,6 +431,10 @@ form .form-group .form-fields > textarea[name="tresdetv.pericias"] {
 .tresdetv .ability.pontos {
 	align-items: center;
 	font-size: 16px;
+}
+
+.tresdetv .ability.atributos .dados {
+	color: #f7a723;
 }
 
 .tresdetv .items-header {
@@ -490,6 +526,11 @@ form .form-group .form-fields > textarea[name="tresdetv.pericias"] {
 	font-size: 12px;
 	text-align: center;
 	margin: 0 6px;
+	color: #999;
+}
+
+.tresdetv .items-list .item-controls a:hover {
+	color: #000;
 }
 
 .tresdetv .items-list .item-controls .item-toggle {
@@ -555,9 +596,10 @@ form .form-group .form-fields > textarea[name="tresdetv.pericias"] {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
-	background: rgba(0, 0, 0, 0.05);
-	border: 2px groove #eeede0;
+	background: none;
 	font-weight: bold;
+	border: none;
+	border-bottom: 3px solid #f7a723;
 }
 
 .tresdetv .items-list .items-header > * {
@@ -664,6 +706,7 @@ form .form-group .form-fields > textarea[name="tresdetv.pericias"] {
 .tresdetv.sheet.actor .skills label {
 	line-height: 20px;
 	font-weight: bold;
+	border-bottom: 3px solid #f7a723;
 }
 .tresdetv.sheet .skills .form-group {
 	padding: 0 0 0 0.5em;
