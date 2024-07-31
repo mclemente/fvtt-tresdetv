@@ -80,7 +80,7 @@ Hooks.once("init", async () => {
 	CONFIG.statusEffects = [
 		...CONFIG.statusEffects.slice(0, 1),
 		{
-			icon: "systems/tresdetv/assets/icons/svg/cycle.svg",
+			img: "systems/tresdetv/assets/icons/svg/cycle.svg",
 			id: "karma",
 			name: "Karma",
 			description: "<i>O que vai, volta.</i>",
