@@ -5,6 +5,8 @@
 
 import fs from "fs-extra";
 import gulp from "gulp";
+import prefix from "gulp-autoprefixer";
+import sass from "gulp-dart-sass";
 import sourcemaps from "gulp-sourcemaps";
 import path from "node:path";
 import buffer from "vinyl-buffer";
@@ -25,7 +27,7 @@ const packageId = "tresdetv";
 const sourceDirectory = "./src";
 const distDirectory = "./dist";
 const stylesDirectory = `${sourceDirectory}/styles`;
-const stylesExtension = "css";
+const stylesExtension = "scss";
 const sourceFileExtension = "js";
 const staticFiles = ["assets", "fonts", "lang", "templates", "system.json", "template.json"];
 
@@ -54,6 +56,14 @@ function buildCode() {
  * Build style sheets
  */
 function buildStyles() {
+	return gulp.src([`${stylesDirectory}/${packageId}.${stylesExtension}`], { base: stylesDirectory })
+		.pipe(sourcemaps.init({ loadMaps: true }))
+		.pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
+		.pipe(prefix({
+			cascade: false
+		}))
+		.pipe(sourcemaps.write("."))
+		.pipe(gulp.dest(`${distDirectory}/styles`));
 	return gulp.src(`${stylesDirectory}/${packageId}.${stylesExtension}`).pipe(gulp.dest(`${distDirectory}/styles`));
 }
 

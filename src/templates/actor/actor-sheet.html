@@ -1,4 +1,4 @@
-<form class="{{cssClass}} {{actor.type}}" autocomplete="off">
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 	<header class="sheet-header">
 		<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
 		<div class="header-fields">
@@ -18,7 +18,7 @@
 			</div>
 			{{#unless veiculo}}
 			<!--  -->
-			<div class="grid grid-{{colunasDetalhes}}col">
+			<div class="flexrow">
 				<div class="resource flexcol flex-group-center">
 					<label class="resource-label">Conceito</label>
 					<input
@@ -69,7 +69,7 @@
 	<section class="sheet-body">
 		{{!-- Owned Features Tab --}}
 		<div class="tab features" data-group="primary" data-tab="features">
-			<section class="grid grid-2col">
+			<section class="flexrow">
 				<aside class="sidebar">
 					<div class="atributos-pontos flexrow">
 						<div class="abilities flexcol">
@@ -118,9 +118,8 @@
 						<!-- Points -->
 						{{> "tresdetv.actor-points"}}
 					</div>
-					<hr />
 					<!-- Perícias -->
-					<div class="skills">{{> "tresdetv.actor-skills"}}</div>
+					{{> "tresdetv.actor-skills"}}
 					<!-- Técnicas -->
 					{{> "tresdetv.actor-spells"}}
 				</aside>
@@ -133,6 +132,10 @@
 					{{> "tresdetv.actor-items"}}
 				</section>
 			</section>
+		</div>
+
+		<div class="tab details" data-group="primary" data-tab="details">
+
 		</div>
 
 		<div class="tab notes flexcol" data-group="primary" data-tab="notes">

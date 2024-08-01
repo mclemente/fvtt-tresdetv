@@ -1,8 +1,12 @@
-<ol class="form-group">
-	<label>Perícias</label>
-	<a class="trait-selector" data-trait="pericia">
-		<i class="fas fa-edit"></i>
-	</a>
+<ol class="items-list">
+	<li class="item flexrow items-header">
+		<div class="item-name">Perícias</div>
+		<div class="item-controls">
+			<a class="trait-selector item-controls" data-trait="pericia">
+				<i class="fas fa-edit"></i>
+			</a>
+		</div>
+	</li>
 	<ol class="traits-list">
 		{{#each pericias.selected as |v k|}}
 			<li class="tag {{k}}">{{v}}</li>
