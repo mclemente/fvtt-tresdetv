@@ -8,6 +8,7 @@ export const preloadHandlebarsTemplates = async function () {
 		// Actor partials.
 		"systems/tresdetv/templates/actor/parts/actor-points.hbs",
 		"systems/tresdetv/templates/actor/parts/actor-features.hbs",
+		"systems/tresdetv/templates/actor/parts/actor-header.hbs",
 		"systems/tresdetv/templates/actor/parts/actor-items.hbs",
 		"systems/tresdetv/templates/actor/parts/actor-skills.hbs",
 		"systems/tresdetv/templates/actor/parts/actor-spells.hbs",

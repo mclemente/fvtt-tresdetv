@@ -1,0 +1,77 @@
+<header class="sheet-header">
+	<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200" />
+	<div class="header-fields">
+		<div class="main-fields flexrow">
+			<h1 class="charname">
+				<input name="name" type="text" value="{{actor.name}}" placeholder="{{ localize 'Name' }}" />
+			</h1>
+			{{#if veiculo}}
+			<input
+				class="ponto-personagem"
+				type="number"
+				name="system.pontos.personagem.value"
+				value="{{system.pontos.personagem.value}}"
+				data-dtype="Number"
+				data-tooltip="Pontos de Personagem"
+				data-tooltip-direction="UP"
+			/>
+			{{/if}}
+			{{#unless veiculo}}
+			<button
+				class="darma unbutton"
+				type="button"
+				data-tooltip="Darma/Karma"
+				data-tooltip-direction="UP"
+				aria-pressed="{{karma}}"
+				data-action="toggleDarma">
+			</button>
+			{{/unless}}
+		</div>
+		{{#unless veiculo}}
+		<!--  -->
+		<div class="resources flexrow">
+			<div class="resource flexrow">
+				<label class="resource-label">Arquétipo</label>
+				<input
+					type="text"
+					name="system.detalhes.arquetipo"
+					value="{{system.detalhes.arquetipo}}"
+					data-dtype="String"
+				/>
+			</div>
+			<div class="resource pontos flexrow">
+				<label class="resource-label">Pts</label>
+				<input
+					type="number"
+					name="system.pontos.personagem.value"
+					value="{{system.pontos.personagem.value}}"
+					data-dtype="Number"
+				/>
+			</div>
+
+			{{#if personagem}}
+			<div class="resource xp flexrow">
+				<label class="resource-label">XP</label>
+				<input
+					type="number"
+					name="system.pontos.experiencia.value"
+					value="{{system.pontos.experiencia.value}}"
+					data-dtype="Number"
+				/>
+			</div>
+			{{/if}}
+		</div>
+		<div class="resources flexrow">
+			<div class="resource flexrow">
+				<label class="resource-label">Conceito</label>
+				<input
+					type="text"
+					name="system.detalhes.conceito"
+					value="{{system.detalhes.conceito}}"
+					data-dtype="String"
+				/>
+			</div>
+		</div>
+		{{/unless}}
+	</div>
+</header>

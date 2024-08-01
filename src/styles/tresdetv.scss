@@ -18,7 +18,7 @@ $background-color_3: #f7bf23;
 $border-color_1: #f7c623;
 
 :root {
-	--tresdetv-sheet-header-height: 100px;
+	--tresdetv-sheet-header-height: 200px;
 }
 
 @import "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
@@ -112,13 +112,14 @@ form {
 		flex-wrap: wrap;
 		justify-content: flex-start;
 		.profile-img {
-			flex: 0 0 100px;
+			flex: 0 0 auto;
 			height: 100px;
 			margin-right: 10px;
 		}
 		.header-fields {
 			flex: 1;
 			.main-fields {
+				gap: 10px;
 				>* {
 					height: 45px;
 					padding: 0px;
@@ -152,12 +153,47 @@ form {
 	.resource-label {
 		font-weight: bold;
 	}
-	.resource {
-		label.resource-label {
-			text-align: center;
+	.resources {
+		gap: 20px;
+
+		+ .resources {
+			margin-top: 5px;
 		}
-		input {
-			text-align: center;
+
+		.resource {
+			font-size: var(--font-size-16);
+			border-bottom: 1px solid $background-color_1;
+			align-items: center;
+
+			label {
+				&.resource-label {
+					flex: 0;
+				}
+			}
+			input {
+				text-align: center;
+				&:focus {
+					box-shadow: none;
+				}
+			}
+			> * {
+				border-bottom: none;
+			}
+			&.pontos,
+			&.xp {
+				flex: 0 0 60px;
+			}
+			&.pontos {
+				input {
+					flex: 0 0 32px;
+				}
+			}
+			&.xp {
+				flex: 0 0 70px;
+				input {
+					flex: 0 0 45px
+				}
+			}
 		}
 	}
 	.atributos-pontos {
@@ -321,7 +357,7 @@ form {
 		}
 		.item-controls {
 			display: flex;
-			flex: 0 0 100px;
+			flex: 0 0 auto;
 			justify-content: flex-end;
 			a {
 				font-size: 12px;
@@ -501,6 +537,9 @@ form {
 		&.actor {
 			min-width: 500px;
 			min-height: 460px;
+			.profile-img {
+				height: 200px;
+			}
 			.items-list {
 				.item-summary {
 					flex: 0 0 100%;
