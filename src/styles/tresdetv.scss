@@ -378,6 +378,7 @@ form {
 		&.darma {
 			background: transparent url("../assets/icons/svg/cycle.svg") no-repeat center / contain;
 			flex: 0 0 40px;
+			transition: all ease-in-out 0.25s;
 
 			&:hover {
 				box-shadow: none;
