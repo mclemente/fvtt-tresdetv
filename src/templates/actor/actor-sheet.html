@@ -139,10 +139,8 @@
 		</div>
 
 		<div class="tab notes flexcol" data-group="primary" data-tab="notes">
-			<div>
-				{{editor descriptionHTML target="system.descricao" rollData=rollData button=true owner=owner
-				editable=editable}}
-			</div>
+			{{editor descriptionHTML target="system.descricao" button=true editable=editable
+					engine="prosemirror" collaborate=false}}
 		</div>
 
 		{{!-- Active Effects Tab --}}
