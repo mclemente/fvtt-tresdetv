@@ -15,7 +15,7 @@ export default class ActorSheetTresDeTV extends ActorSheet {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["tresdetv", "sheet", "actor", "personagem"],
 			width: 600,
-			height: 500,
+			height: 600,
 			tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }],
 		});
 	}
