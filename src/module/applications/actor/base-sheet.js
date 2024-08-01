@@ -44,6 +44,7 @@ export default class ActorSheetTresDeTV extends ActorSheet {
 		context.system = actorData.system;
 		context.flags = actorData.flags;
 		context.config = CONFIG.TRESDETV;
+		context.karma = Boolean(this.actor.effects.find((e) => e.statuses.has("karma")));
 
 		context.pericias = this._prepareSkills(context.system.pericias);
 
@@ -153,6 +154,10 @@ export default class ActorSheetTresDeTV extends ActorSheet {
 		// -------------------------------------------------------------
 		// Everything below here is only needed if the sheet is editable
 		if (!this.isEditable) return;
+
+		html.find("button[data-action=toggleDarma]").click(() => {
+			this.actor.toggleStatusEffect("karma");
+		});
 
 		// Add Inventory Item
 		html.find(".item-create").click(this._onItemCreate.bind(this));

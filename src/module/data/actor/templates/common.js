@@ -11,7 +11,6 @@ export class ActorData extends foundry.abstract.DataModel {
 				habilidade: new fields.SchemaField(createAttributeField()),
 				resistencia: new fields.SchemaField(createAttributeField()),
 			}),
-			darma: new fields.BooleanField(),
 			pericias: new fields.SchemaField(
 				{
 					value: new foundry.data.fields.SetField(new foundry.data.fields.StringField(), {

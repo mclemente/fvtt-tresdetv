@@ -48,10 +48,13 @@
 					/>
 				</div>
 				{{/if}}
-				<div class="resource flexcol flex-group-center">
-					<label class="resource-label"> {{localize "TRESDETV.Darma"}}/{{localize "TRESDETV.Karma"}} </label>
-					<input type="checkbox" name="system.darma" {{checked system.darma}} />
-				</div>
+				<button
+					class="darma unbutton"
+					type="button"
+					data-tooltip="Darma/Karma"
+					data-tooltip-direction="UP"
+					aria-pressed="{{karma}}"
+					data-action="toggleDarma"></button>
 			</div>
 			{{/unless}}
 		</div>

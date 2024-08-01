@@ -364,6 +364,35 @@ form {
 	button {
 		background: rgba(0, 0, 0, 0.1);
 		border: 2px groove #eeede0;
+
+		&.unbutton {
+			--border: none;
+			border: var(--border);
+			box-shadow: none;
+			background: none;
+			margin: 0;
+			border-radius: 0;
+			line-height: normal;
+		}
+
+		&.darma {
+			background: transparent url("../assets/icons/svg/cycle.svg") no-repeat center / contain;
+			flex: 0 0 40px;
+
+			&:hover {
+				box-shadow: none;
+				filter: drop-shadow(0 3px 4px $background-color_1);
+			}
+
+			&[aria-pressed="true"] {
+				filter: drop-shadow(0 3px 4px $background-color_1);
+				animation: spin 3s linear infinite;
+				@keyframes spin{
+					to{transform:rotate(0deg)}
+					from{transform:rotate(360deg)}
+				}
+			}
+		}
 	}
 	.abilities {
 		button {
