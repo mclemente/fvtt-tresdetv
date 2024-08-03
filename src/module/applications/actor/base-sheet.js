@@ -17,6 +17,7 @@ export default class ActorSheetTresDeTV extends ActorSheet {
 			width: 620,
 			height: 700,
 			tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }],
+			dragDrop: [{ dragSelector: ".items-list .item" }],
 		});
 	}
 
