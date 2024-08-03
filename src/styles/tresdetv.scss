@@ -111,10 +111,19 @@ form {
 		flex-direction: row;
 		flex-wrap: wrap;
 		justify-content: flex-start;
-		.profile-img {
+		.portrait {
 			flex: 0 0 auto;
 			height: 100px;
+			width: 100px;
+			text-align: center;
+			border: 1px solid var(--color-border-dark);
 			margin-right: 10px;
+
+			.profile-img {
+				height: inherit;
+				border: none;
+				margin-right: 0;
+			}
 		}
 		.header-fields {
 			flex: 1;
@@ -537,8 +546,9 @@ form {
 		&.actor {
 			min-width: 500px;
 			min-height: 460px;
-			.profile-img {
+			.portrait {
 				height: 200px;
+				width: 200px;
 			}
 			.items-list {
 				.item-summary {
