@@ -208,62 +208,48 @@ form {
 	.atributos-pontos {
 		margin: 2px 0;
 	}
-	.ability.atributos {
-		align-items: center;
-		font-size: 16px;
-		input {
-			max-width: 25px;
-			border: none;
-			color: fieldtext;
-			height: inherit;
-			&:hover {
-				&:not(:disabled) {
-					box-shadow: 0 0 5px var(--color-shadow-primary);
-				}
-			}
-		}
-		.atributo {
+	.ability {
+		&.atributos,
+		&.pontos {
+			align-items: center;
+			font-size: var(--font-size-16);
 			input {
+				color: fieldtext;
+				height: inherit;
+				&:disabled {
+					color: var(--color-text-dark-secondary);
+				}
 				&:hover {
 					&:not(:disabled) {
 						box-shadow: 0 0 5px var(--color-shadow-primary);
 					}
 				}
 			}
-		}
-		label {
-			flex: 0 0 30px;
-			text-transform: uppercase;
-		}
-		.dados {
-			color: $color_5;
-			.rollable {
-				transition: all ease-in-out 0.25s;
+			label {
+				flex: 0 0 30px;
+				text-transform: uppercase;
 			}
 		}
-	}
-	.ability.pontos {
-		align-items: center;
-		font-size: 16px;
-		input {
-			max-width: 35px;
-			color: fieldtext;
-			height: inherit;
-			&:disabled {
-				color: var(--color-text-dark-secondary);
+		&.atributos {
+			input {
+				max-width: 25px;
+				border: none;
 			}
-			&:hover {
-				&:not(:disabled) {
-					box-shadow: 0 0 5px var(--color-shadow-primary);
+			.dados {
+				color: $color_5;
+				font-size: var(--font-size-24);
+				.rollable {
+					transition: all ease-in-out 0.25s;
 				}
 			}
 		}
-		label {
-			flex: 0 0 30px;
-			text-transform: uppercase;
-		}
-		div {
-			flex: 2;
+		&.pontos {
+			input {
+				max-width: 35px;
+			}
+			div {
+				flex: 2;
+			}
 		}
 	}
 	.items-header {
@@ -274,10 +260,7 @@ form {
 		background: rgba(0, 0, 0, 0.05);
 		border: 2px groove #eeede0;
 		font-weight: bold;
-		>* {
-			font-size: 14px;
-			text-align: center;
-		}
+
 		.item-name {
 			font-weight: bold;
 			padding-left: 5px;
@@ -301,7 +284,7 @@ form {
 			flex: 2;
 			margin: 0;
 			overflow: hidden;
-			font-size: 16px;
+			font-size: var(--font-size-16);
 			text-align: left;
 			align-items: center;
 			display: flex;
@@ -369,7 +352,7 @@ form {
 			flex: 0 0 auto;
 			justify-content: flex-end;
 			a {
-				font-size: 12px;
+				font-size: var(--font-size-12);
 				text-align: center;
 				margin: 0 2px;
 				color: $color_7;
@@ -389,7 +372,7 @@ form {
 			text-align: center;
 			border-left: 1px solid #c9c7b8;
 			border-right: 1px solid #c9c7b8;
-			font-size: 12px;
+			font-size: var(--font-size-12);
 		}
 		.items-header {
 			height: 28px;
@@ -454,19 +437,19 @@ form {
 				text-align: center;
 				border-left: 1px solid #c9c7b8;
 				border-right: 1px solid #c9c7b8;
-				font-size: 12px;
+				font-size: var(--font-size-12);
 			}
 			.effect-duration {
 				text-align: center;
 				border-left: 1px solid #c9c7b8;
 				border-right: 1px solid #c9c7b8;
-				font-size: 12px;
+				font-size: var(--font-size-12);
 			}
 			.effect-controls {
 				text-align: center;
 				border-left: 1px solid #c9c7b8;
 				border-right: 1px solid #c9c7b8;
-				font-size: 12px;
+				font-size: var(--font-size-12);
 				border: none;
 			}
 		}
@@ -537,12 +520,6 @@ form {
 				}
 			}
 		}
-		.proficiency-selector {
-			flex: 0 0 16px;
-			padding: 2px 0;
-			color: $color_7;
-			font-size: 10px;
-		}
 		&.actor {
 			min-width: 500px;
 			min-height: 460px;
@@ -553,7 +530,7 @@ form {
 			.items-list {
 				.item-summary {
 					flex: 0 0 100%;
-					font-size: 12px;
+					font-size: var(--font-size-12);
 					line-height: 16px;
 					padding: 0.25em 0.5em;
 					color: var(--color-text-dark-primary);
@@ -569,7 +546,7 @@ form {
 	&.card-buttons {
 		margin-top: 5px;
 		button {
-			font-size: 12px;
+			font-size: var(--font-size-12);
 			height: 24px;
 			line-height: 20px;
 			margin: 2px 0;
@@ -577,7 +554,7 @@ form {
 	}
 	&.chat-card {
 		font-style: normal;
-		font-size: 12px;
+		font-size: var(--font-size-12);
 		.card-header {
 			padding: 3px 0;
 			border-top: 2px groove #fff;
@@ -603,7 +580,7 @@ form {
 		.card-content {
 			margin: 5px 0;
 			h3 {
-				font-size: 12px;
+				font-size: var(--font-size-12);
 				margin: 0;
 				font-weight: bold;
 			}
@@ -620,7 +597,7 @@ form {
 				border: 1px solid #ccc;
 			}
 			button {
-				font-size: 12px;
+				font-size: var(--font-size-12);
 				height: 24px;
 				line-height: 20px;
 				margin: 2px 0;
@@ -632,7 +609,7 @@ form {
 			span {
 				border-right: 2px groove #fff;
 				padding: 0 3px 0 0;
-				font-size: 10px;
+				font-size: var(--font-size-10);
 				&:last-child {
 					border-right: none;
 					padding-right: 0;
