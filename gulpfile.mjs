@@ -64,7 +64,6 @@ function buildStyles() {
 		}))
 		.pipe(sourcemaps.write("."))
 		.pipe(gulp.dest(`${distDirectory}/styles`));
-	return gulp.src(`${stylesDirectory}/${packageId}.${stylesExtension}`).pipe(gulp.dest(`${distDirectory}/styles`));
 }
 
 /**
