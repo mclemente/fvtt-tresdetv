@@ -74,7 +74,7 @@ export default class ActorSheetTresDeTV extends ActorSheet {
 		context.descriptionHTML = await TextEditor.enrichHTML(actorData.system.descricao, {
 			secrets: actorData.isOwner,
 			async: true,
-			relativeTo: this.item,
+			relativeTo: this.actor,
 			rollData: context.rollData,
 		});
 
