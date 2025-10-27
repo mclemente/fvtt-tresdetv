@@ -14,7 +14,7 @@ export function onManageActiveEffect(event, owner) {
 				"ActiveEffect",
 				[
 					{
-            name: game.i18n.localize("TRESDETV.EffectNew"),
+						name: game.i18n.localize("TRESDETV.EffectNew"),
 						label: game.i18n.localize("TRESDETV.EffectNew"),
 						icon: "icons/svg/aura.svg",
 						origin: owner.uuid,
