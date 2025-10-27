@@ -17,7 +17,7 @@
 		"@rollup/plugin-node-resolve": "^15.1.0",
 		"@rollup/stream": "^3.0.0",
 		"@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
-		"eslint": "^8.44.0",
+		"eslint": "^9.38.0",
 		"eslint-config-prettier": "^8.8.0",
 		"eslint-plugin-prettier": "^5.0.0",
 		"fs-extra": "^11.1.1",
