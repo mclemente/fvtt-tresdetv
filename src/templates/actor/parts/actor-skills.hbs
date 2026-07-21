@@ -7,9 +7,13 @@
 			</a>
 		</div>
 	</li>
-	<ol class="traits-list">
-		{{#each pericias.selected as |v k|}}
-			<li class="tag {{k}}">{{v}}</li>
-		{{/each}}
-	</ol>
+	<div class="traits-list">
+		{{#if pericias.selected}}
+			{{#each pericias.selected as |v k|}}
+				<li class="tag {{k}}">{{v}}</li>
+			{{/each}}
+		{{else}}
+			<li class="tag empty">Nenhuma perícia selecionada ainda.</li>
+		{{/if}}
+	</div>
 </ol>

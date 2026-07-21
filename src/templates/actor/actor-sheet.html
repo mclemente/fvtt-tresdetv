@@ -13,6 +13,20 @@
 	<section class="sheet-body">
 		{{!-- Owned Features Tab --}}
 		<div class="tab features" data-group="primary" data-tab="features">
+			{{#unless veiculo}}
+			<div class="sheet-overview">
+				<div class="overview-card">
+					<span class="overview-label">Arquétipo</span>
+					<span class="overview-value">{{#if
+						system.detalhes.arquetipo}}{{system.detalhes.arquetipo}}{{else}}—{{/if}}</span>
+				</div>
+				<div class="overview-card">
+					<span class="overview-label">Conceito</span>
+					<span class="overview-value">{{#if
+						system.detalhes.conceito}}{{system.detalhes.conceito}}{{else}}—{{/if}}</span>
+				</div>
+			</div>
+			{{/unless}}
 			<section class="flexrow">
 				<aside class="sidebar">
 					<div class="atributos-pontos flexrow">
@@ -20,42 +34,22 @@
 							{{#each system.atributos as |ability key|}}
 							<div class="ability atributos flexrow flex-group-center">
 								<div class="dados flexrow">
-									<a
-										class="rollable"
-										data-key="{{key}}"
-										data-dice="1"
-										aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=1 nome=key}}"
-										><i class="fas fa-dice-one"></i
-									></a>
-									<a
-										class="rollable"
-										data-key="{{key}}"
-										data-dice="2"
-										aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=2 nome=key}}"
-										><i class="fas fa-dice-two"></i
-									></a>
-									<a
-										class="rollable"
-										data-key="{{key}}"
-										data-dice="3"
-										aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=3 nome=key}}"
-										><i class="fas fa-dice-three"></i
-									></a>
+									<a class="rollable" data-key="{{key}}" data-dice="1"
+										aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=1 nome=key}}"><i
+											class="fas fa-dice-one"></i></a>
+									<a class="rollable" data-key="{{key}}" data-dice="2"
+										aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=2 nome=key}}"><i
+											class="fas fa-dice-two"></i></a>
+									<a class="rollable" data-key="{{key}}" data-dice="3"
+										aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=3 nome=key}}"><i
+											class="fas fa-dice-three"></i></a>
 								</div>
-								<label
-									class="rollable resource-label"
-									data-key="{{key}}"
+								<label class="rollable resource-label" data-key="{{key}}"
 									data-tooltip="{{concat 'TRESDETV.Atributos.' key '.label'}}"
-									data-tooltip-direction="UP"
-									aria-label="Rolar Poder"
-									>{{localize (concat "TRESDETV.Atributos." key ".short")}}</label
-								>
-								<input
-									type="number"
-									name="system.atributos.{{key}}.value"
-									value="{{ability.value}}"
-									data-dtype="Number"
-								/>
+									data-tooltip-direction="UP" aria-label="Rolar Poder">{{localize (concat
+									"TRESDETV.Atributos." key ".short")}}</label>
+								<input type="number" name="system.atributos.{{key}}.value" value="{{ability.value}}"
+									data-dtype="Number" />
 							</div>
 							{{/each}}
 						</div>
@@ -87,12 +81,12 @@
 				<div class="notes-section">
 					<h3 class="item-name">Anotações</h3>
 					{{editor content=system.descricao target="system.descricao" button=true editable=editable
-							engine="prosemirror" collaborate=false}}
+					engine="prosemirror" collaborate=false}}
 				</div>
 				<div class="notes-section">
 					<h3 class="item-name">História</h3>
 					{{editor content=system.historia target="system.historia" button=true editable=editable
-							engine="prosemirror" collaborate=false}}
+					engine="prosemirror" collaborate=false}}
 				</div>
 			</section>
 		</div>
