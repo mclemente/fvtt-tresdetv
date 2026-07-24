@@ -51,7 +51,7 @@ export default class ItemTresDeTV extends Item {
 		// Create the ChatMessage data object
 		const chatData = {
 			user: game.user.id,
-			type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+			style: CONST.CHAT_MESSAGE_STYLES.OTHER,
 			content: html,
 			flavor: this.system.chatFlavor || this.name,
 			speaker: ChatMessage.getSpeaker({ actor: this.actor, token }),
@@ -74,7 +74,7 @@ export default class ItemTresDeTV extends Item {
 		const data = this.toObject().system;
 
 		// Rich text description
-		data.descricao = await TextEditor.enrichHTML(data.descricao, {
+		data.descricao = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.descricao, {
 			async: true,
 			relativeTo: this,
 			rollData: this.getRollData(),

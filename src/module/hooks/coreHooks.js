@@ -6,11 +6,11 @@ export default class CoreHooks {
 		}
 	}
 
-	static renderChatMessage(message, html, data) {
+	static renderChatMessageHTML(message, html, data) {
 		if (message.isRoll && message.isContentVisible && message.rolls.length) {
 			const critRange = message.getFlag("tresdetv", "critRange");
 			if (critRange) {
-				const diceRolls = html.find(".dice-rolls")[0].children;
+				const diceRolls = html.querySelector(".dice-rolls").children;
 				for (let dieRoll of diceRolls) {
 					if (dieRoll.classList.contains("max")) continue;
 					if (Number(dieRoll.innerText) >= 6 - critRange) {
@@ -23,25 +23,26 @@ export default class CoreHooks {
 			// Highlight rolls where the first part is a d6 roll
 			const d6Roll = message.rolls.find((r) => r.validD6Roll);
 			if (d6Roll) {
-				if (d6Roll.isCritical) html.find(".dice-total").addClass("critical");
-				else if (d6Roll.isFumble) html.find(".dice-total").addClass("fumble");
+				if (d6Roll.isCritical) html.querySelector(".dice-total").classList.add("critical");
+				else if (d6Roll.isFumble) html.querySelector(".dice-total").classList.add("fumble");
 				if (d6Roll.options.target) {
-					if (d6Roll.total >= d6Roll.options.target) html.find(".dice-total").addClass("success");
-					else html.find(".dice-total").addClass("failure");
+					if (d6Roll.total >= d6Roll.options.target) html.querySelector(".dice-total").classList.add("success");
+					else html.querySelector(".dice-total").addClass("failure");
 				}
 			}
 		}
-		const chatCard = html.find(".tresdetv.chat-card");
-		if (chatCard.length > 0) {
-			const flavor = html.find(".flavor-text");
-			if (flavor.text() === html.find(".item-name").text()) flavor.remove();
+		const chatCard = html.querySelector(".tresdetv.chat-card");
+		if (chatCard) {
+			const flavor = html.querySelector(".flavor-text");
+			if (flavor.textContent === html.querySelector(".item-name").textContent) flavor.remove();
 		}
-		const diceFlavor = html.find(".dice-flavor");
-		if (diceFlavor.length > 0) {
-			const flavorText = html.find(".flavor-text");
-			if (flavorText.text().includes(diceFlavor.text())) diceFlavor.remove();
+		const diceFlavor = html.querySelector(".dice-flavor");
+		if (diceFlavor) {
+			const flavorText = html.querySelector(".flavor-text");
+			if (flavorText.textContent.includes(diceFlavor.textContent)) diceFlavor.remove();
 		}
-		if (game.settings.get("tresdetv", "autoCollapseItemCards")) html.find(".card-content").hide();
+		const cardContent = html.querySelector(".card-content");
+		if (cardContent && game.settings.get("tresdetv", "autoCollapseItemCards")) cardContent.hidden = true;
 	}
 
 	static renderSettingsConfig(settingsConfig, html) {

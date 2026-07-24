@@ -71,7 +71,7 @@ export default class ActorSheetTresDeTV extends ActorSheet {
 		// Prepare active effects
 		context.effects = prepareActiveEffectCategories(this.actor.effects);
 
-		context.descriptionHTML = await TextEditor.enrichHTML(actorData.system.descricao, {
+		context.descriptionHTML = await foundry.applications.ux.TextEditor.implementation.enrichHTML(actorData.system.descricao, {
 			secrets: actorData.isOwner,
 			async: true,
 			relativeTo: this.actor,
