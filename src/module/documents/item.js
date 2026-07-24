@@ -74,7 +74,7 @@ export default class ItemTresDeTV extends Item {
 		const data = this.toObject().system;
 
 		// Rich text description
-		data.descricao = await TextEditor.enrichHTML(data.descricao, {
+		data.descricao = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.descricao, {
 			async: true,
 			relativeTo: this,
 			rollData: this.getRollData(),

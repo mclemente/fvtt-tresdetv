@@ -33,7 +33,7 @@ export const preloadHandlebarsTemplates = async function () {
 		paths[`tresdetv.${path.split("/").pop().replace(".hbs", "")}`] = path;
 	}
 
-	return loadTemplates(paths);
+	return foundry.applications.handlebars.loadTemplates(paths);
 };
 
 /* -------------------------------------------- */

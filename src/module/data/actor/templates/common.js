@@ -5,7 +5,8 @@ const fields = foundry.data.fields;
 export class ActorData extends foundry.abstract.DataModel {
 	static defineSchema() {
 		return {
-			descricao: new fields.HTMLField(),
+			descricao: new fields.HTMLField({ initial: "" }),
+			historia: new fields.HTMLField({ initial: "" }),
 			atributos: new fields.SchemaField({
 				poder: new fields.SchemaField(createAttributeField()),
 				habilidade: new fields.SchemaField(createAttributeField()),

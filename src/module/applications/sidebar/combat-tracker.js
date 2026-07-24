@@ -1,4 +1,4 @@
-export default class CombatTrackerTresDeTV extends CombatTracker {
+export default class CombatTrackerTresDeTV extends foundry.applications.sidebar.tabs.CombatTracker {
 	async _onCombatantControl(event) {
 		const btn = event.currentTarget;
 		const combatantId = btn.closest(".combatant").dataset.combatantId;

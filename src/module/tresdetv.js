@@ -91,13 +91,13 @@ Hooks.once("init", async () => {
 	];
 
 	// Register sheet application classes
-	Actors.unregisterSheet("core", ActorSheet);
-	Actors.registerSheet("tresdetv", applications.actor.ActorSheetTresDeTV, {
+	foundry.documents.collections.Actors.unregisterSheet("core", ActorSheet);
+	foundry.documents.collections.Actors.registerSheet("tresdetv", applications.actor.ActorSheetTresDeTV, {
 		label: "Ficha de Personagem 3DeTV",
 		makeDefault: true,
 	});
-	Items.unregisterSheet("core", ItemSheet);
-	Items.registerSheet("tresdetv", applications.item.ItemSheetTresDeTV, {
+	foundry.documents.collections.Items.unregisterSheet("core", ItemSheet);
+	foundry.documents.collections.Items.registerSheet("tresdetv", applications.item.ItemSheetTresDeTV, {
 		label: "Ficha de Item 3DeTV",
 		makeDefault: true,
 	});

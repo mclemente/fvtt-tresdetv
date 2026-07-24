@@ -6,11 +6,12 @@ export default class CoreHooks {
 		}
 	}
 
-	static renderChatMessage(message, html, data) {
+	static renderChatMessageHTML(message, html, data) {
+		const $html = html instanceof HTMLElement ? $(html) : html;
 		if (message.isRoll && message.isContentVisible && message.rolls.length) {
 			const critRange = message.getFlag("tresdetv", "critRange");
 			if (critRange) {
-				const diceRolls = html.find(".dice-rolls")[0].children;
+				const diceRolls = $html.find(".dice-rolls")[0].children;
 				for (let dieRoll of diceRolls) {
 					if (dieRoll.classList.contains("max")) continue;
 					if (Number(dieRoll.innerText) >= 6 - critRange) {
@@ -23,25 +24,25 @@ export default class CoreHooks {
 			// Highlight rolls where the first part is a d6 roll
 			const d6Roll = message.rolls.find((r) => r.validD6Roll);
 			if (d6Roll) {
-				if (d6Roll.isCritical) html.find(".dice-total").addClass("critical");
-				else if (d6Roll.isFumble) html.find(".dice-total").addClass("fumble");
+				if (d6Roll.isCritical) $html.find(".dice-total").addClass("critical");
+				else if (d6Roll.isFumble) $html.find(".dice-total").addClass("fumble");
 				if (d6Roll.options.target) {
-					if (d6Roll.total >= d6Roll.options.target) html.find(".dice-total").addClass("success");
-					else html.find(".dice-total").addClass("failure");
+					if (d6Roll.total >= d6Roll.options.target) $html.find(".dice-total").addClass("success");
+					else $html.find(".dice-total").addClass("failure");
 				}
 			}
 		}
-		const chatCard = html.find(".tresdetv.chat-card");
+		const chatCard = $html.find(".tresdetv.chat-card");
 		if (chatCard.length > 0) {
-			const flavor = html.find(".flavor-text");
-			if (flavor.text() === html.find(".item-name").text()) flavor.remove();
+			const flavor = $html.find(".flavor-text");
+			if (flavor.text() === $html.find(".item-name").text()) flavor.remove();
 		}
-		const diceFlavor = html.find(".dice-flavor");
+		const diceFlavor = $html.find(".dice-flavor");
 		if (diceFlavor.length > 0) {
-			const flavorText = html.find(".flavor-text");
+			const flavorText = $html.find(".flavor-text");
 			if (flavorText.text().includes(diceFlavor.text())) diceFlavor.remove();
 		}
-		if (game.settings.get("tresdetv", "autoCollapseItemCards")) html.find(".card-content").hide();
+		if (game.settings.get("tresdetv", "autoCollapseItemCards")) $html.find(".card-content").hide();
 	}
 
 	static renderSettingsConfig(settingsConfig, html) {

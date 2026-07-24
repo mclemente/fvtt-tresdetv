@@ -1,7 +1,7 @@
 {
 	"Actor": {
 		"types": ["personagem", "pdm", "veiculo"],
-		"htmlFields": ["descricao"],
+		"htmlFields": ["descricao", "historia"],
 		"personagem": {},
 		"pdm": {},
 		"veiculo": {}
