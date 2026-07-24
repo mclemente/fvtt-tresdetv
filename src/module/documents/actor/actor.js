@@ -30,6 +30,7 @@ export default class ActorTresDeTV extends Actor {
 	prepareBaseData() {
 		// Data modifications in this step occur before processing embedded
 		// documents or derived data.
+		super.prepareBaseData();
 	}
 
 	/**

@@ -1,4 +1,4 @@
-export default class ChatLogTresDeTV extends ChatLog {
+export default class ChatLogTresDeTV extends foundry.applications.sidebar.tabs.ChatLog {
 	activateListeners(html) {
 		super.activateListeners(html);
 

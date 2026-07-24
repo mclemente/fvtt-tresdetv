@@ -57,12 +57,15 @@ export default class ItemSheetTresDeTV extends ItemSheet {
 		// Prepare active effects
 		context.effects = prepareActiveEffectCategories(this.item.effects);
 
-		context.descriptionHTML = await TextEditor.enrichHTML(itemData.system.descricao, {
-			secrets: itemData.isOwner,
-			async: true,
-			relativeTo: this.item,
-			rollData: context.rollData,
-		});
+		context.descriptionHTML = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+			itemData.system.descricao,
+			{
+				secrets: itemData.isOwner,
+				async: true,
+				relativeTo: this.item,
+				rollData: context.rollData,
+			},
+		);
 
 		context.isGM = game.user.isGM;
 

@@ -19,7 +19,7 @@ module.exports = {
 		jquery: true,
 	},
 
-	extends: ["eslint:recommended", "@typhonjs-fvtt/eslint-config-foundry.js/0.8.0", "plugin:prettier/recommended"],
+	extends: ["eslint:recommended", "@typhonjs-fvtt/eslint-config-foundry.js/0.8.0"],
 
 	plugins: [],
 
@@ -29,6 +29,7 @@ module.exports = {
 		"array-bracket-spacing": ["warn", "never"],
 		"array-callback-return": "warn",
 		"arrow-spacing": "warn",
+		"brace-style": "warn",
 		"comma-dangle": ["warn", "only-multiline"],
 		"comma-style": "warn",
 		"computed-property-spacing": "warn",
@@ -40,6 +41,7 @@ module.exports = {
 		"func-call-spacing": "warn",
 		"func-names": ["warn", "never"],
 		"getter-return": "warn",
+		indent: ["warn", "tab", { SwitchCase: 1 }],
 		"lines-between-class-members": "warn",
 		"new-parens": ["warn", "always"],
 		"no-alert": "warn",
@@ -56,6 +58,7 @@ module.exports = {
 		"no-dupe-keys": "warn",
 		"no-duplicate-case": "warn",
 		"no-duplicate-imports": ["warn", { includeExports: true }],
+		"no-else-return": "warn",
 		"no-empty": ["warn", { allowEmptyCatch: true }],
 		"no-empty-character-class": "warn",
 		"no-empty-pattern": "warn",
@@ -173,13 +176,6 @@ module.exports = {
 			},
 		],
 		"spaced-comment": "warn",
-		// Specify any specific ESLint rules.
-		"prettier/prettier": [
-			"error",
-			{
-				endOfLine: "auto",
-			},
-		],
 	},
 
 	globals: {

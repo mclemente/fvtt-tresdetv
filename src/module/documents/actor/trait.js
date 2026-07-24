@@ -223,7 +223,6 @@ export function keyLabel(trait, key) {
 		if (!CONFIG.TRESDETV[idsKey]?.[key]) continue;
 		const index = getBaseItem(CONFIG.TRESDETV[idsKey][key], { indexOnly: true });
 		if (index) return index.name;
-		else break;
 	}
 
 	return key;
