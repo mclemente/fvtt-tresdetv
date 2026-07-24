@@ -1,297 +1,836 @@
 import * as Trait from "../../documents/actor/trait.js";
+
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../../helpers/effects.js";
+
 import TraitSelector from "./trait-selector.js";
 import ActorTweaks from "./tweaks.js";
 
 /**
- * Extend the basic ActorSheet with some very simple modifications
- * @extends {ActorSheet}
+ * Ficha principal dos Actors do sistema 3DeT Victory.
+ *
+ * @extends {foundry.applications.sheets.ActorSheetV2}
  */
-export default class ActorSheetTresDeTV extends ActorSheet {
+export default class ActorSheetTresDeTV extends foundry.applications.sheets.ActorSheetV2 {
+	/**
+	 * IDs dos Items com o resumo expandido.
+	 *
+	 * @type {Set<string>}
+	 */
 	_expanded = new Set();
 
-	/** @override */
-	static get defaultOptions() {
-		return foundry.utils.mergeObject(super.defaultOptions, {
-			classes: ["tresdetv", "sheet", "actor", "personagem"],
+	/**
+	 * Aba atualmente selecionada.
+	 *
+	 * @type {string}
+	 */
+	_activeTab = "features";
+
+	/**
+	 * Configurações da ficha no padrão ApplicationV2.
+	 */
+	static DEFAULT_OPTIONS = {
+		classes: ["tresdetv", "sheet", "actor", "personagem"],
+
+		position: {
 			width: 620,
 			height: 700,
-			tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }],
-			dragDrop: [{ dragSelector: ".items-list .item" }],
-		});
-	}
+		},
 
-	/** @override */
+		dragDrop: [
+			{
+				dragSelector: ".items-list .item",
+			},
+		],
+
+		actions: {
+			/**
+			 * Abre a janela de ajustes do Actor.
+			 */
+			configureTresDeTVActor() {
+				return new ActorTweaks(this.actor).render(true);
+			},
+		},
+	};
+
+	/**
+	 * Caminho do template da ficha.
+	 *
+	 * @returns {string}
+	 */
 	get template() {
 		const path = "systems/tresdetv/templates/actor";
-		if (!game.user.isGM && this.actor.limited) return `${path}/limited-sheet.html`;
+
+		if (!game.user.isGM && this.actor.limited) {
+			return `${path}/limited-sheet.html`;
+		}
+
 		return `${path}/actor-sheet.html`;
 	}
 
-	/* -------------------------------------------- */
+	/**
+	 * Prepara os dados enviados ao template.
+	 *
+	 * @param {object} options Opções da renderização.
+	 * @returns {Promise<object>}
+	 */
+	async _prepareContext(options) {
+		const context = await super._prepareContext(options);
 
-	/** @override */
-	async getData() {
-		// Retrieve the data structure from the base sheet. You can inspect or log
-		// the context variable to see the structure, but some key properties for
-		// sheets are the actor object, the data object, whether or not it's
-		// editable, the items array, and the effects array.
-		const context = super.getData();
+		const actor = this.actor ?? this.document ?? context.document;
 
-		// Use a safe clone of the actor data for further operations.
-		const actorData = this.actor.toObject(false);
+		const actorData = actor.toObject(false);
 
-		// Add the actor's data to context.data for easier access, as well as flags.
+		context.actor = actor;
 		context.system = actorData.system;
 		context.flags = actorData.flags;
 		context.config = CONFIG.TRESDETV;
-		context.karma = Boolean(this.actor.effects.find((e) => e.statuses.has("karma")));
 
-		context.pericias = this._prepareSkills(context.system.pericias);
-
-		context.personagem = actorData.type === "personagem";
-		context.pdm = actorData.type === "pdm";
-		context.veiculo = actorData.type === "veiculo";
-
-		// Prepare character data and items.
-		this._prepareItems(context);
-		context.expandedData = {};
-		for (const id of this._expanded) {
-			const item = this.actor.items.get(id);
-			if (item) context.expandedData[id] = await item.getChatData({ secrets: this.actor.isOwner });
-		}
-
-		// Prepare NPC data and items.
-		// if (actorData.type == "npc") {
-		// }
-
-		// Add roll data for TinyMCE editors.
-		context.rollData = context.actor.getRollData();
-
-		// Prepare active effects
-		context.effects = prepareActiveEffectCategories(this.actor.effects);
-
-		context.descriptionHTML = await TextEditor.enrichHTML(actorData.system.descricao, {
-			secrets: actorData.isOwner,
-			async: true,
-			relativeTo: this.actor,
-			rollData: context.rollData,
-		});
+		context.editable = this.isEditable;
 
 		context.isGM = game.user.isGM;
+
+		context.karma = Boolean(actor.effects.find((effect) => effect.statuses.has("karma")));
+
+		context.pericias = this._prepareSkills(context.system?.pericias);
+
+		context.personagem = actorData.type === "personagem";
+
+		context.pdm = actorData.type === "pdm";
+
+		context.veiculo = actorData.type === "veiculo";
+
+		context.items = Array.from(actor.items.values());
+
+		context.tabs = this._prepareTabsContext();
+
+		this._prepareItems(context);
+
+		context.expandedData = {};
+
+		for (const id of this._expanded) {
+			const item = actor.items.get(id);
+
+			if (!item) {
+				continue;
+			}
+
+			context.expandedData[id] = await item.getChatData({
+				secrets: actor.isOwner,
+			});
+		}
+
+		context.rollData = actor.getRollData();
+
+		context.effects = prepareActiveEffectCategories(actor.effects);
+
+		const enrichmentOptions = {
+			secrets: actor.isOwner,
+			async: true,
+			relativeTo: actor,
+			rollData: context.rollData,
+		};
+
+		context.descricaoHTML = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+			actorData.system?.descricao ?? "",
+			enrichmentOptions,
+		);
+
+		context.historiaHTML = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+			actorData.system?.historia ?? "",
+			enrichmentOptions,
+		);
 
 		return context;
 	}
 
 	/**
-	 * Organize and classify Items for Character sheets.
+	 * Prepara o estado visual das abas.
 	 *
-	 * @param {Object} actorData The actor to prepare.
+	 * @returns {object}
+	 */
+	_prepareTabsContext() {
+		const createTab = (id, label) => {
+			const active = this._activeTab === id;
+
+			return {
+				id,
+				label,
+				group: "primary",
+				active,
+
+				cssClass: active ? "active" : "",
+			};
+		};
+
+		return {
+			features: createTab("features", "Ficha"),
+
+			notes: createTab("notes", "Anotações"),
+
+			effects: createTab("effects", "Efeitos"),
+		};
+	}
+
+	/**
+	 * Renderiza o template.
 	 *
-	 * @return {undefined}
+	 * @param {object} context Contexto da ficha.
+	 * @param {object} options Opções da renderização.
+	 * @returns {Promise<DocumentFragment>}
+	 */
+	async _renderHTML(context, options) {
+		const html = await foundry.applications.handlebars.renderTemplate(this.template, context);
+
+		const template = document.createElement("template");
+
+		template.innerHTML = html.trim();
+
+		return template.content;
+	}
+
+	/**
+	 * Substitui o conteúdo da ficha.
+	 *
+	 * @param {DocumentFragment} result Conteúdo renderizado.
+	 * @param {HTMLElement} content Conteúdo da janela.
+	 * @param {object} options Opções da renderização.
+	 * @returns {void}
+	 */
+	_replaceHTML(result, content, options) {
+		content.replaceChildren(...result.childNodes);
+
+		this.activateListeners($(content));
+	}
+
+	/* -------------------------------------------- */
+	/*  Preparação dos Items                        */
+	/* -------------------------------------------- */
+
+	/**
+	 * Separa os Items por categoria.
+	 *
+	 * @param {object} context Contexto da ficha.
+	 * @returns {void}
 	 */
 	_prepareItems(context) {
-		// Initialize containers.
 		const itens = [];
 		const vantagens = [];
 		const desvantagens = [];
 		const tecnicas = [];
 
-		// Iterate through items, allocating to containers
-		for (let i of context.items) {
-			i.isExpanded = this._expanded.has(i._id);
-			if (i.type === "item") {
-				itens.push(i);
-			} else if (i.type === "vantagem") {
-				vantagens.push(i);
-			} else if (i.type === "desvantagem") {
-				desvantagens.push(i);
-			} else if (i.type === "tecnica") {
-				tecnicas.push(i);
+		const items = Array.from(context.items ?? this.actor.items.values());
+
+		for (const item of items) {
+			item.isExpanded = this._expanded.has(item.id);
+
+			switch (item.type) {
+				case "item":
+					itens.push(item);
+					break;
+
+				case "vantagem":
+					vantagens.push(item);
+					break;
+
+				case "desvantagem":
+					desvantagens.push(item);
+					break;
+
+				case "tecnica":
+					tecnicas.push(item);
+					break;
 			}
 		}
 
-		// Assign and return
 		context.itens = itens;
 		context.vantagens = vantagens;
+
 		context.desvantagens = desvantagens;
+
 		context.tecnicas = tecnicas;
 	}
 
+	/**
+	 * Prepara as perícias selecionadas.
+	 *
+	 * @param {object} systemData Dados das perícias.
+	 * @returns {object}
+	 */
 	_prepareSkills(systemData) {
 		const data = foundry.utils.deepClone(systemData);
-		if (!data) return {};
+
+		if (!data) {
+			return {};
+		}
 
 		let values = data.value;
-		if (!values) values = [];
-		else if (values instanceof Set) values = Array.from(values);
-		else if (!Array.isArray(values)) values = [values];
 
-		data.selected = values.reduce((obj, key) => {
-			obj[key] = Trait.keyLabel("pericia", key) ?? key;
-			return obj;
+		if (!values) {
+			values = [];
+		} else if (values instanceof Set) {
+			values = Array.from(values);
+		} else if (!Array.isArray(values)) {
+			values = [values];
+		}
+
+		data.selected = values.reduce((selected, key) => {
+			selected[key] = Trait.keyLabel("pericia", key) ?? key;
+
+			return selected;
 		}, {});
 
-		if (data.custom) data.custom.split(/[,;]/).forEach((c, i) => (data.selected[`custom${i + 1}`] = c.trim()));
+		if (data.custom) {
+			data.custom.split(/[,;]/).forEach((custom, index) => {
+				const value = custom.trim();
+
+				if (value) {
+					data.selected[`custom${index + 1}`] = value;
+				}
+			});
+		}
 
 		return data;
 	}
 
 	/* -------------------------------------------- */
+	/*  Listeners                                   */
+	/* -------------------------------------------- */
 
-	/** @override */
+	/**
+	 * Registra os eventos da ficha.
+	 *
+	 * @param {JQuery} html Conteúdo da ficha.
+	 * @returns {void}
+	 */
 	activateListeners(html) {
-		super.activateListeners(html);
+		/*
+		 * Troca de abas.
+		 */
+		html.find(".sheet-tabs [data-tab]").on("click", this._onTabChange.bind(this));
 
-		// Render the item sheet for viewing/editing prior to the editable check.
-		html.find(".item-edit").click((ev) => {
-			const li = $(ev.currentTarget).parents(".item");
-			const item = this.actor.items.get(li.data("itemId"));
-			item.sheet.render(true);
+		/*
+		 * Editor de Anotações e História.
+		 */
+		html.find(".rich-text-edit").on("click", this._onEditRichText.bind(this));
+
+		/*
+		 * Abre a ficha de um Item.
+		 */
+		html.find(".item-edit").on("click", (event) => {
+			event.preventDefault();
+
+			const itemId = event.currentTarget.closest(".item")?.dataset.itemId;
+
+			this.actor.items.get(itemId)?.sheet.render(true);
 		});
 
-		html.find(".item .item-name.rollable h4").click((event) => this._onItemSummary(event));
+		/*
+		 * Expande o resumo de um Item.
+		 */
+		html.find(".item .item-name.rollable h4").on("click", this._onItemSummary.bind(this));
 
-		// -------------------------------------------------------------
-		// Everything below here is only needed if the sheet is editable
-		if (!this.isEditable) return;
+		if (!this.isEditable) {
+			return;
+		}
 
-		html.find("button[data-action=toggleDarma]").click(() => {
-			this.actor.toggleStatusEffect("karma");
+		/*
+		 * Salva os campos comuns.
+		 */
+		html.find("form").on(
+			"change",
+			["input[name]", "select[name]", "textarea[name]"].join(", "),
+			this._onFieldChange.bind(this),
+		);
+
+		/*
+		 * Alterna Karma.
+		 */
+		html.find("button[data-action='toggleDarma']").on("click", async (event) => {
+			event.preventDefault();
+
+			await this.actor.toggleStatusEffect("karma");
 		});
 
-		// Add Inventory Item
-		html.find(".item-create").click(this._onItemCreate.bind(this));
+		/*
+		 * Cria um Item.
+		 */
+		html.find(".item-create").on("click", this._onItemCreate.bind(this));
 
-		html.find(".trait-selector").click(this._onTraitSelector.bind(this));
+		/*
+		 * Abre o seletor de perícias.
+		 */
+		html.find(".trait-selector").on("click", this._onTraitSelector.bind(this));
 
-		html.find(".item-toggle").click((ev) => {
-			ev.preventDefault();
-			const li = $(ev.currentTarget).parents(".item");
-			const item = this.actor.items.get(li.data("itemId"));
-			return item.update({ "system.equipped": !foundry.utils.getProperty(item, "system.equipped") });
+		/*
+		 * Equipa ou desequipa um Item.
+		 */
+		html.find(".item-toggle").on("click", async (event) => {
+			event.preventDefault();
+
+			const itemId = event.currentTarget.closest(".item")?.dataset.itemId;
+
+			const item = this.actor.items.get(itemId);
+
+			if (!item) {
+				return;
+			}
+
+			await item.update({
+				"system.equipped": !foundry.utils.getProperty(item, "system.equipped"),
+			});
 		});
 
-		// Delete Inventory Item
-		html.find(".item-delete").click((ev) => {
-			const li = $(ev.currentTarget).parents(".item");
-			const item = this.actor.items.get(li.data("itemId"));
-			item.delete();
-			li.slideUp(200, () => this.render(false));
+		/*
+		 * Exclui um Item.
+		 */
+		html.find(".item-delete").on("click", async (event) => {
+			event.preventDefault();
+
+			const itemId = event.currentTarget.closest(".item")?.dataset.itemId;
+
+			const item = this.actor.items.get(itemId);
+
+			if (item) {
+				await item.delete();
+			}
 		});
 
-		// Active Effect management
-		html.find(".effect-control").click((ev) => onManageActiveEffect(ev, this.actor));
+		/*
+		 * Gerenciamento de efeitos.
+		 */
+		html.find(".effect-control").on("click", (event) => {
+			onManageActiveEffect(event, this.actor);
+		});
 
-		// Rollable abilities.
-		html.find(".rollable .item-image").click(this._onRoll.bind(this));
+		/*
+		 * Exibe o cartão do Item.
+		 */
+		html.find(".rollable .item-image").on("click", this._onRoll.bind(this));
 
-		html.find(".ability .dados .rollable").click(this._onRollDice.bind(this));
-		html.find(".ability label.rollable").click(this._onRollTest.bind(this));
+		/*
+		 * Rolagem de 1D, 2D ou 3D.
+		 */
+		html.find(".ability .dados .rollable").on("click", this._onRollDice.bind(this));
 
-		// Drag events for macros.
-		if (this.actor.owner) {
-			let handler = (ev) => this._onDragStart(ev);
-			html.find("li.item").each((i, li) => {
-				if (li.classList.contains("inventory-header")) return;
-				li.setAttribute("draggable", true);
-				li.addEventListener("dragstart", handler, false);
+		/*
+		 * Rolagem padrão de atributo.
+		 */
+		html.find(".ability label.rollable").on("click", this._onRollTest.bind(this));
+
+		/*
+		 * Permite arrastar Items.
+		 */
+		if (this.actor.isOwner) {
+			const handler = (event) => this._onDragStart(event);
+
+			html.find("li.item").each((index, element) => {
+				if (element.classList.contains("inventory-header")) {
+					return;
+				}
+
+				element.setAttribute("draggable", "true");
+
+				element.addEventListener("dragstart", handler, false);
 			});
 		}
 	}
 
+	/* -------------------------------------------- */
+	/*  Abas                                        */
+	/* -------------------------------------------- */
+
 	/**
-	 * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
-	 * @param {Event} event   The originating click event
-	 * @private
+	 * Troca a aba visível.
+	 *
+	 * @param {Event} event Evento de clique.
+	 * @returns {void}
+	 */
+	_onTabChange(event) {
+		event.preventDefault();
+		event.stopPropagation();
+
+		const tab = event.currentTarget.dataset.tab;
+
+		const group =
+			event.currentTarget.dataset.group ??
+			event.currentTarget.closest("[data-group]")?.dataset.group ??
+			"primary";
+
+		if (!tab) {
+			return;
+		}
+
+		this._activeTab = tab;
+
+		this._applyActiveTab(this.element, group, tab);
+	}
+
+	/**
+	 * Aplica visualmente a aba selecionada.
+	 *
+	 * @param {HTMLElement} root Elemento principal.
+	 * @param {string} group Grupo da aba.
+	 * @param {string} tab Aba selecionada.
+	 * @returns {void}
+	 */
+	_applyActiveTab(root, group, tab) {
+		root.querySelectorAll(
+			`.sheet-tabs [data-group="${group}"][data-tab],
+				.sheet-tabs[data-group="${group}"] [data-tab]`,
+		).forEach((element) => {
+			const active = element.dataset.tab === tab;
+
+			element.classList.toggle("active", active);
+
+			element.setAttribute("aria-selected", String(active));
+		});
+
+		root.querySelectorAll(`.sheet-body > .tab[data-group="${group}"][data-tab]`).forEach((element) => {
+			const active = element.dataset.tab === tab;
+
+			element.classList.toggle("active", active);
+
+			element.hidden = !active;
+		});
+	}
+
+	/* -------------------------------------------- */
+	/*  Salvamento                                  */
+	/* -------------------------------------------- */
+
+	/**
+	 * Salva um campo comum da ficha.
+	 *
+	 * @param {Event} event Evento change.
+	 * @returns {Promise<void>}
+	 */
+	async _onFieldChange(event) {
+		const field = event.currentTarget;
+
+		const name = field.name;
+
+		if (!name || field.disabled) {
+			return;
+		}
+
+		if (field.type === "radio" && !field.checked) {
+			return;
+		}
+
+		let value;
+
+		if (field.type === "checkbox") {
+			value = field.checked;
+		} else if (field.tagName === "SELECT" && field.multiple) {
+			value = Array.from(field.selectedOptions).map((option) => option.value);
+		} else if (field.type === "number" || field.type === "range" || field.dataset.dtype === "Number") {
+			value = field.value === "" ? 0 : Number(field.value);
+		} else if (field.dataset.dtype === "Boolean") {
+			value = field.value === "true";
+		} else {
+			value = field.value;
+		}
+
+		try {
+			await this.actor.update({
+				[name]: value,
+			});
+		} catch (error) {
+			console.error("3DeT Victory | Erro ao salvar campo do Actor.", {
+				name,
+				value,
+				error,
+			});
+
+			ui.notifications.error(`Não foi possível salvar o campo ${name}.`);
+		}
+	}
+
+	/* -------------------------------------------- */
+	/*  Editor de texto                             */
+	/* -------------------------------------------- */
+
+	/**
+	 * Abre o editor de Anotações ou História.
+	 *
+	 * @param {Event} event Evento de clique.
+	 * @returns {Promise<void>}
+	 */
+	async _onEditRichText(event) {
+		event.preventDefault();
+
+		if (!this.isEditable) {
+			return;
+		}
+
+		const fieldPath = event.currentTarget.dataset.field;
+
+		const title = event.currentTarget.dataset.title ?? "Editar texto";
+
+		if (!fieldPath) {
+			ui.notifications.error("3DeT Victory | O caminho do campo de texto não foi informado.");
+
+			return;
+		}
+
+		const currentValue = foundry.utils.getProperty(this.actor, fieldPath) ?? "";
+
+		const htmlField = new foundry.data.fields.HTMLField({
+			required: false,
+			nullable: false,
+			initial: "",
+		});
+
+		/*
+		 * Importante:
+		 *
+		 * A div externa do conteúdo do DialogV2
+		 * precisa ficar completamente sem atributos.
+		 *
+		 * Não adicionar class, id, style ou dataset.
+		 */
+		const content = document.createElement("div");
+
+		const formGroup = htmlField.toFormGroup(
+			{
+				label: title,
+			},
+			{
+				name: "content",
+				value: currentValue,
+
+				elementType: "prose-mirror",
+
+				toggled: false,
+				collaborate: false,
+
+				documentUUID: this.actor.uuid,
+
+				height: 360,
+			},
+		);
+
+		content.append(formGroup);
+
+		const result = await foundry.applications.api.DialogV2.input({
+			window: {
+				title,
+			},
+
+			content,
+			modal: true,
+			rejectClose: false,
+
+			position: {
+				width: 650,
+				height: 550,
+			},
+
+			ok: {
+				label: "Salvar",
+
+				icon: "fa-solid fa-floppy-disk",
+
+				callback: async (dialogEvent, dialogButton) => {
+					const editor =
+						dialogButton.form.elements.content ??
+						dialogButton.form.querySelector('prose-mirror[name="content"]');
+
+					if (typeof editor?.save === "function") {
+						await editor.save();
+					}
+
+					return editor?.value ?? "";
+				},
+			},
+		});
+
+		if (result === null) {
+			return;
+		}
+
+		try {
+			this._activeTab = "notes";
+
+			await this.actor.update({
+				[fieldPath]: result,
+			});
+		} catch (error) {
+			console.error("3DeT Victory | Erro ao salvar texto rico.", {
+				fieldPath,
+				result,
+				error,
+			});
+
+			ui.notifications.error(`Não foi possível salvar ${title}.`);
+		}
+	}
+
+	/* -------------------------------------------- */
+	/*  Items                                       */
+	/* -------------------------------------------- */
+
+	/**
+	 * Cria um novo Item.
+	 *
+	 * @param {Event} event Evento de clique.
+	 * @returns {Promise<Item>}
 	 */
 	async _onItemCreate(event) {
 		event.preventDefault();
-		const header = event.currentTarget;
-		// Get the type of item to create.
-		const type = header.dataset.type;
-		// Grab any data associated with this control.
-		const data = foundry.utils.duplicate(header.dataset);
-		// Initialize a default name.
-		const name = type.capitalize();
-		// Prepare the item object.
-		const itemData = {
-			name: name,
-			type: type,
-			system: data,
-		};
-		// Remove the type from the dataset since it's in the itemData.type prop.
-		delete itemData.system.type;
 
-		// Finally, create the item!
-		return await Item.create(itemData, { parent: this.actor, renderSheet: true });
-	}
+		const type = event.currentTarget.dataset.type;
 
-	async _onItemSummary(event) {
-		event.preventDefault();
-		const li = $(event.currentTarget).parents(".item");
-		const item = this.actor.items.get(li.data("item-id"));
-
-		// Toggle summary
-		if (li.hasClass("expanded")) {
-			const summary = li.children(".item-summary");
-			summary.slideUp(200, () => summary.remove());
-			this._expanded.delete(item.id);
-		} else {
-			const chatData = await item.getChatData({ secrets: this.actor.isOwner });
-			const summary = $(await renderTemplate("systems/tresdetv/templates/item/parts/item-summary.hbs", chatData));
-			li.append(summary.hide());
-			summary.slideDown(200);
-			this._expanded.add(item.id);
+		if (!type) {
+			throw new Error("3DeT Victory | O botão não informou o tipo do Item.");
 		}
-		li.toggleClass("expanded");
+
+		const system = foundry.utils.deepClone(event.currentTarget.dataset);
+
+		delete system.type;
+
+		return Item.create(
+			{
+				name: type.charAt(0).toUpperCase() + type.slice(1),
+
+				type,
+				system,
+			},
+			{
+				parent: this.actor,
+				renderSheet: true,
+			},
+		);
 	}
 
 	/**
-	 * Handle clickable rolls.
-	 * @param {Event} event   The originating click event
-	 * @private
+	 * Expande ou fecha o resumo de um Item.
+	 *
+	 * @param {Event} event Evento de clique.
+	 * @returns {Promise<void>}
+	 */
+	async _onItemSummary(event) {
+		event.preventDefault();
+
+		const element = event.currentTarget.closest(".item");
+
+		const item = this.actor.items.get(element?.dataset.itemId);
+
+		if (!item) {
+			return;
+		}
+
+		const listItem = $(element);
+
+		if (listItem.hasClass("expanded")) {
+			const summary = listItem.children(".item-summary");
+
+			summary.slideUp(200, () => summary.remove());
+
+			this._expanded.delete(item.id);
+		} else {
+			const chatData = await item.getChatData({
+				secrets: this.actor.isOwner,
+			});
+
+			const summaryHTML = await foundry.applications.handlebars.renderTemplate(
+				"systems/tresdetv/templates/item/parts/item-summary.hbs",
+				chatData,
+			);
+
+			const summary = $(summaryHTML);
+
+			listItem.append(summary.hide());
+
+			summary.slideDown(200);
+
+			this._expanded.add(item.id);
+		}
+
+		listItem.toggleClass("expanded");
+	}
+
+	/* -------------------------------------------- */
+	/*  Rolagens                                    */
+	/* -------------------------------------------- */
+
+	/**
+	 * Exibe o cartão do Item.
+	 *
+	 * @param {Event} event Evento de clique.
+	 * @returns {Promise<unknown> | undefined}
 	 */
 	_onRoll(event) {
 		event.preventDefault();
-		const itemId = event.currentTarget.closest(".item").dataset.itemId;
-		const item = this.actor.items.get(itemId);
-		return item.displayCard(event);
-	}
 
-	_onRollDice(event) {
-		event.preventDefault();
-		const configure = !event.altKey && !event.ctrlKey && !event.shiftKey;
-		const { key, dice } = event.currentTarget.dataset;
-		this.actor.rollTest(key, event, { dice, configure });
-	}
+		const itemId = event.currentTarget.closest(".item")?.dataset.itemId;
 
-	_onRollTest(event) {
-		event.preventDefault();
-		const key = event.currentTarget.dataset.key;
-		this.actor.rollTest(key, event, {});
+		return this.actor.items.get(itemId)?.displayCard(event);
 	}
 
 	/**
-	 * Handle spawning the TraitSelector application which allows a checkbox of multiple trait options.
-	 * @param {Event} event      The click event which originated the selection.
-	 * @returns {TraitSelector}  Newly displayed application.
-	 * @private
+	 * Executa uma rolagem específica.
+	 *
+	 * @param {Event} event Evento de clique.
+	 * @returns {void}
+	 */
+	_onRollDice(event) {
+		event.preventDefault();
+
+		const configure = !event.altKey && !event.ctrlKey && !event.shiftKey;
+
+		const { key, dice } = event.currentTarget.dataset;
+
+		this.actor.rollTest(key, event, {
+			dice,
+			configure,
+		});
+	}
+
+	/**
+	 * Executa a rolagem padrão.
+	 *
+	 * @param {Event} event Evento de clique.
+	 * @returns {void}
+	 */
+	_onRollTest(event) {
+		event.preventDefault();
+
+		this.actor.rollTest(event.currentTarget.dataset.key, event, {});
+	}
+
+	/**
+	 * Abre o seletor de perícias.
+	 *
+	 * @param {Event} event Evento de clique.
+	 * @returns {TraitSelector}
 	 */
 	_onTraitSelector(event) {
 		event.preventDefault();
-		const trait = event.currentTarget.dataset.trait;
-		return new TraitSelector(this.actor, trait).render(true);
+
+		return new TraitSelector(
+			this.actor,
+
+			event.currentTarget.dataset.trait,
+		).render(true);
 	}
 
-	_getHeaderButtons() {
-		let buttons = super._getHeaderButtons();
-		buttons.unshift({
+	/**
+	 * Controles do cabeçalho.
+	 *
+	 * @returns {Array<object>}
+	 */
+	_getHeaderControls() {
+		const controls = super._getHeaderControls();
+
+		controls.unshift({
 			label: "Ajustes",
-			class: "configure-sheet",
-			icon: "fas fa-gears",
-			onclick: (ev) => new ActorTweaks(this.actor).render(true),
+
+			icon: "fa-solid fa-gears",
+
+			action: "configureTresDeTVActor",
 		});
-		return buttons;
+
+		return controls;
 	}
 }

@@ -14,7 +14,7 @@
 		"maximum": "14"
 	},
 	"esmodules": ["module/tresdetv.js"],
-	"styles": ["styles/tresdetv.scss"],
+	"styles": ["styles/tresdetv.css"],
 	"packs": [
 		{
 			"name": "vantagens",
@@ -54,8 +54,8 @@
 	},
 	"primaryTokenAttribute": "pontos.vida",
 	"secondaryTokenAttribute": "pontos.mana",
-	"url": "https://github.com/vaugusto273/fvtt-tresdetv",
-	"version": "1.0.3",
-	"manifest": "https://github.com/vaugusto273/fvtt-tresdetv/releases/latest/download/system.json",
-	"download": "https://github.com/vaugusto273/fvtt-tresdetv/releases/download/1.0.3/system.zip"
+	"url": "This is auto replaced",
+	"version": "This is auto replaced",
+	"manifest": "This is auto replaced",
+	"download": "This is auto replaced"
 }

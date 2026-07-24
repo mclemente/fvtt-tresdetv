@@ -8,15 +8,8 @@
 				<h1 class="charname">
 					<input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'Name' }}" />
 				</h1>
-				<input
-					class="ponto-personagem"
-					type="text"
-					name="system.custo"
-					value="{{system.custo}}"
-					data-dtype="Number"
-					data-tooltip="Custo"
-					data-tooltip-direction="UP"
-				/>
+				<input class="ponto-personagem" type="text" name="system.custo" value="{{system.custo}}"
+					data-dtype="Number" data-tooltip="Custo" data-tooltip-direction="UP" />
 			</div>
 			<!-- <div class="grid grid-2col">
 				<div class="resource">
@@ -38,8 +31,8 @@
 	<section class="sheet-body">
 		{{!-- Description Tab --}}
 		<div class="tab" data-group="primary" data-tab="description">
-			{{editor descriptionHTML target="system.descricao" button=true editable=editable
-				engine="prosemirror" collaborate=false}}
+			{{editor system.descricao target="system.descricao" button=true editable=editable
+			engine="prosemirror" collaborate=false}}
 		</div>
 
 		{{!-- Attributes Tab --}}
