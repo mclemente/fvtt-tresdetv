@@ -71,12 +71,15 @@ export default class ActorSheetTresDeTV extends ActorSheet {
 		// Prepare active effects
 		context.effects = prepareActiveEffectCategories(this.actor.effects);
 
-		context.descriptionHTML = await foundry.applications.ux.TextEditor.implementation.enrichHTML(actorData.system.descricao, {
-			secrets: actorData.isOwner,
-			async: true,
-			relativeTo: this.actor,
-			rollData: context.rollData,
-		});
+		context.descriptionHTML = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+			actorData.system.descricao,
+			{
+				secrets: actorData.isOwner,
+				async: true,
+				relativeTo: this.actor,
+				rollData: context.rollData,
+			},
+		);
 
 		context.isGM = game.user.isGM;
 

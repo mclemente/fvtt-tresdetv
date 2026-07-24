@@ -39,8 +39,8 @@ export default class CombatTresDeTV extends Combat {
 				"rollMode" in messageOptions
 					? messageOptions.rollMode
 					: combatant.hidden
-					? CONST.DICE_ROLL_MODES.PRIVATE
-					: chatRollMode;
+						? CONST.DICE_ROLL_MODES.PRIVATE
+						: chatRollMode;
 
 			// Play 1 sound for the whole rolled set
 			if (i > 0) chatData.sound = null;
