@@ -1,50 +1,144 @@
-<form class="{{cssClass}}" autocomplete="off">
-	<header class="sheet-header">
-		<div class="portrait">
-			<img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+<form
+	class="{{cssClass}} victory-item-sheet"
+	autocomplete="off"
+>
+	<header class="sheet-header item-sheet-header">
+		<div class="portrait item-portrait">
+			<input
+				type="hidden"
+				name="img"
+				value="{{item.img}}"
+			/>
+
+			{{#if editable}}
+				<button
+					type="button"
+					class="portrait-picker"
+					data-target="img"
+					data-type="image"
+					data-document-uuid="{{item.uuid}}"
+					aria-label="Trocar imagem de {{item.name}}"
+					data-tooltip="Trocar imagem do item"
+					data-tooltip-direction="UP"
+				>
+					<img
+						class="profile-img"
+						src="{{item.img}}"
+						alt="Imagem de {{item.name}}"
+					/>
+
+					<span class="portrait-edit-overlay">
+						<i
+							class="fa-solid fa-camera"
+							aria-hidden="true"
+						></i>
+
+						<span>
+							Trocar imagem
+						</span>
+					</span>
+				</button>
+			{{else}}
+				<img
+					class="profile-img"
+					src="{{item.img}}"
+					alt="Imagem de {{item.name}}"
+				/>
+			{{/if}}
 		</div>
+
 		<div class="header-fields">
+			<span class="item-type-kicker">
+				Item
+			</span>
+
 			<h1 class="charname">
-				<input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'Name'}}" />
+				<input
+					name="name"
+					type="text"
+					value="{{item.name}}"
+					placeholder="{{localize 'Name'}}"
+				/>
 			</h1>
-			<div class="flexrow">
-				<div class="resource">
-					<label class="resource-label">Quantidade</label>
-					<input type="text" name="system.quantidade" value="{{system.quantidade}}" data-dtype="Number" />
+
+			<div class="item-header-resources">
+				<div class="resource item-header-resource">
+					<label class="resource-label">
+						Quantidade
+					</label>
+
+					<input
+						type="number"
+						name="system.quantidade"
+						value="{{system.quantidade}}"
+						data-dtype="Number"
+					/>
 				</div>
-				<div class="resource">
-					<label class="resource-label">Valor</label>
-					<input type="text" name="system.valor" value="{{system.valor}}" data-dtype="Number" />
+
+				<div class="resource item-header-resource">
+					<label class="resource-label">
+						Valor
+					</label>
+
+					<input
+						type="number"
+						name="system.valor"
+						value="{{system.valor}}"
+						data-dtype="Number"
+					/>
 				</div>
 			</div>
 		</div>
 	</header>
 
-	{{!-- Sheet Tab Navigation --}}
-	<nav class="sheet-tabs tabs flexrow" data-group="primary">
-		<a class="item" data-tab="description">Descrição</a>
-		<!-- <a class="item" data-tab="attributes">Atributos</a> -->
-		<a class="item" data-tab="effects">Efeitos</a>
+	<nav
+		class="sheet-tabs tabs flexrow"
+		data-group="primary"
+		role="tablist"
+	>
+		<a
+			class="item"
+			data-group="primary"
+			data-tab="description"
+			role="tab"
+		>
+			Descrição
+		</a>
+
+		<a
+			class="item"
+			data-group="primary"
+			data-tab="effects"
+			role="tab"
+		>
+			Efeitos
+		</a>
 	</nav>
 
-	{{!-- Sheet Body --}}
-	<section class="sheet-body">
-		{{!-- Description Tab --}}
-		<div class="tab" data-group="primary" data-tab="description">
-			{{editor descriptionHTML target="system.descricao" button=true editable=editable
-				engine="prosemirror" collaborate=false}}
+	<section class="sheet-body item-sheet-body">
+		<div
+			class="tab"
+			data-group="primary"
+			data-tab="description"
+			role="tabpanel"
+		>
+			{{editor
+				system.descricao
+				target="system.descricao"
+				button=true
+				editable=editable
+				engine="prosemirror"
+				collaborate=false
+			}}
 		</div>
 
-		{{!-- Attributes Tab --}}
-		<!-- <div class="tab attributes" data-group="primary" data-tab="attributes">
-			{{!-- As you add new fields, add them in here! --}}
-			<div class="resource">
-				<label class="resource-label">Roll Formula</label>
-				<input type="text" name="system.formula" value="{{system.formula}}" data-dtype="String" />
-			</div>
-		</div> -->
-
-		{{!-- Active Effects Tab --}}
-		<div class="tab effects flexcol" data-group="primary" data-tab="effects">{{> "tresdetv.actor-effects"}}</div>
+		<div
+			class="tab effects flexcol"
+			data-group="primary"
+			data-tab="effects"
+			role="tabpanel"
+		>
+			{{> "tresdetv.actor-effects"}}
+		</div>
 	</section>
 </form>

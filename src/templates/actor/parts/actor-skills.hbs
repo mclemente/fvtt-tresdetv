@@ -1,19 +1,61 @@
-<ol class="items-list">
-	<li class="item flexrow items-header">
-		<div class="item-name">Perícias</div>
-		<div class="item-controls">
-			<a class="trait-selector item-controls" data-trait="pericia">
-				<i class="fas fa-edit"></i>
-			</a>
+<section class="items-list skills-list">
+	<header class="items-header skills-header">
+		<div class="item-name">
+			<span class="section-title">
+				Perícias
+			</span>
 		</div>
-	</li>
-	<div class="traits-list">
-		{{#if pericias.selected}}
-			{{#each pericias.selected as |v k|}}
-				<li class="tag {{k}}">{{v}}</li>
-			{{/each}}
+
+		<div class="item-controls section-controls">
+			<button
+				type="button"
+				class="trait-selector section-control-button"
+				data-trait="pericia"
+				aria-label="Editar perícias"
+				data-tooltip="Editar perícias"
+				data-tooltip-direction="UP"
+			>
+				<i
+					class="fa-solid fa-pen-to-square"
+					aria-hidden="true"
+				></i>
+			</button>
+		</div>
+	</header>
+
+	<ul class="skills-roll-list">
+		{{#each pericias.selected as |value key|}}
+			<li class="skill-entry {{key}}">
+				<button
+					type="button"
+					class="skill-roll-button"
+					data-skill-key="{{key}}"
+					data-skill-label="{{value}}"
+					data-actor-uuid="{{@root.actor.uuid}}"
+					aria-label="Rolar teste de {{value}}"
+					data-tooltip="Rolar teste de {{value}}"
+					data-tooltip-direction="UP"
+				>
+					<span class="skill-roll-icon">
+						<i
+							class="fa-solid fa-dice-d6"
+							aria-hidden="true"
+						></i>
+					</span>
+
+					<span class="skill-roll-name">
+						{{value}}
+					</span>
+
+					<span class="skill-roll-hint">
+						Rolar
+					</span>
+				</button>
+			</li>
 		{{else}}
-			<li class="tag empty">Nenhuma perícia selecionada ainda.</li>
-		{{/if}}
-	</div>
-</ol>
+			<li class="empty-list-row">
+				Nenhuma perícia selecionada.
+			</li>
+		{{/each}}
+	</ul>
+</section>

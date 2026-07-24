@@ -1,0 +1,432 @@
+/* ============================================ */
+/*  ROLAGEM DAS FICHAS                          */
+/*  Actor, Item, Vantagem, Desvantagem, Técnica */
+/* ============================================ */
+
+/*
+ * A janela precisa funcionar como uma coluna.
+ *
+ * O cabeçalho e as abas permanecem fixos, enquanto
+ * somente o corpo da ficha recebe a rolagem.
+ */
+.application.tresdetv.sheet,
+.window-app.tresdetv.sheet,
+.tresdetv.window-app.sheet {
+	.window-content {
+		display: flex;
+		flex-direction: column;
+
+		width: 100%;
+		height: 100%;
+
+		min-width: 0;
+		min-height: 0;
+
+		overflow: hidden;
+	}
+}
+
+/*
+ * Formulário principal de qualquer ficha.
+ *
+ * Esta regra também corrige os templates que não
+ * possuem a classe flexcol.
+ */
+.application.tresdetv.sheet
+	.window-content
+	> form,
+.window-app.tresdetv.sheet
+	.window-content
+	> form,
+.tresdetv.window-app.sheet
+	.window-content
+	> form,
+.tresdetv.sheet
+	form.victory-item-sheet,
+.tresdetv.sheet
+	form.tresdetv {
+	display: flex;
+	flex: 1 1 0;
+	flex-direction: column;
+
+	width: 100%;
+	height: 100%;
+
+	min-width: 0;
+	min-height: 0;
+
+	margin: 0;
+
+	overflow: hidden;
+}
+
+/*
+ * Cabeçalho fixo.
+ */
+.application.tresdetv.sheet
+	.window-content
+	> form
+	> .sheet-header,
+.window-app.tresdetv.sheet
+	.window-content
+	> form
+	> .sheet-header,
+.tresdetv.sheet
+	form
+	> .sheet-header {
+	flex: 0 0 auto;
+
+	width: 100%;
+	min-width: 0;
+}
+
+/*
+ * Abas fixas.
+ */
+.application.tresdetv.sheet
+	.window-content
+	> form
+	> .sheet-tabs,
+.window-app.tresdetv.sheet
+	.window-content
+	> form
+	> .sheet-tabs,
+.tresdetv.sheet
+	form
+	> .sheet-tabs {
+	flex: 0 0 auto;
+
+	width: 100%;
+	min-width: 0;
+}
+
+/*
+ * Corpo rolável.
+ *
+ * flex-basis: 0 é importante para que o navegador
+ * calcule apenas o espaço restante da janela.
+ */
+.application.tresdetv.sheet
+	.window-content
+	> form
+	> .sheet-body,
+.window-app.tresdetv.sheet
+	.window-content
+	> form
+	> .sheet-body,
+.tresdetv.sheet
+	form
+	> .sheet-body {
+	display: block;
+
+	flex: 1 1 0;
+
+	width: 100%;
+
+	min-width: 0;
+	min-height: 0;
+
+	padding-bottom: 18px;
+
+	overflow-x: hidden;
+	overflow-y: auto;
+
+	overscroll-behavior: contain;
+	scrollbar-gutter: stable;
+	scroll-behavior: smooth;
+
+	scrollbar-width: thin;
+	scrollbar-color:
+		var(--tdv-orange)
+		rgba(23, 23, 29, 0.08);
+}
+
+/*
+ * Barra de rolagem em navegadores Chromium,
+ * incluindo o navegador interno do Foundry.
+ */
+.application.tresdetv.sheet
+	.sheet-body::-webkit-scrollbar,
+.window-app.tresdetv.sheet
+	.sheet-body::-webkit-scrollbar,
+.tresdetv.sheet
+	.sheet-body::-webkit-scrollbar {
+	width: 9px;
+}
+
+.application.tresdetv.sheet
+	.sheet-body::-webkit-scrollbar-track,
+.window-app.tresdetv.sheet
+	.sheet-body::-webkit-scrollbar-track,
+.tresdetv.sheet
+	.sheet-body::-webkit-scrollbar-track {
+	background:
+		rgba(23, 23, 29, 0.06);
+
+	border-left:
+		1px solid
+		rgba(23, 23, 29, 0.08);
+}
+
+.application.tresdetv.sheet
+	.sheet-body::-webkit-scrollbar-thumb,
+.window-app.tresdetv.sheet
+	.sheet-body::-webkit-scrollbar-thumb,
+.tresdetv.sheet
+	.sheet-body::-webkit-scrollbar-thumb {
+	min-height: 40px;
+
+	border:
+		2px solid transparent;
+
+	border-radius: 8px;
+
+	background:
+		var(--tdv-orange);
+
+	background-clip:
+		padding-box;
+}
+
+.application.tresdetv.sheet
+	.sheet-body::-webkit-scrollbar-thumb:hover,
+.window-app.tresdetv.sheet
+	.sheet-body::-webkit-scrollbar-thumb:hover,
+.tresdetv.sheet
+	.sheet-body::-webkit-scrollbar-thumb:hover {
+	background:
+		var(--tdv-orange-dark);
+
+	background-clip:
+		padding-box;
+}
+
+/* -------------------------------------------- */
+/*  Conteúdo das abas                           */
+/* -------------------------------------------- */
+
+/*
+ * Cada aba ocupa toda a largura disponível,
+ * mas pode crescer verticalmente sem ser cortada.
+ */
+.tresdetv.sheet
+	.sheet-body
+	> .tab {
+	width: 100%;
+
+	min-width: 0;
+	min-height: 0;
+
+	overflow: visible;
+}
+
+/*
+ * Abas inativas continuam completamente ocultas.
+ */
+.tresdetv.sheet
+	.sheet-body
+	> .tab[hidden] {
+	display: none !important;
+}
+
+/*
+ * Evita que listas internas criem uma segunda
+ * barra de rolagem dentro da ficha.
+ *
+ * A rolagem deve pertencer à sheet-body.
+ */
+.tresdetv.sheet
+	.sheet-body
+	.items-list,
+.tresdetv.sheet
+	.sheet-body
+	.item-list,
+.tresdetv.sheet
+	.sheet-body
+	.effect-item-list,
+.tresdetv.sheet
+	.sheet-body
+	.effects-list,
+.tresdetv.sheet
+	.sheet-body
+	.technique-tier-list,
+.tresdetv.sheet
+	.sheet-body
+	.technique-items-list {
+	max-height: none;
+
+	overflow: visible;
+}
+
+/* -------------------------------------------- */
+/*  Ficha de Técnica                            */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.item
+	.technique-sheet
+	.item-sheet-body,
+.tresdetv.sheet.item
+	.technique-sheet
+	.sheet-body {
+	flex: 1 1 0;
+
+	min-height: 0;
+
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+/*
+ * A aba de configuração pode crescer livremente.
+ */
+.tresdetv.sheet.item
+	.technique-config-tab {
+	width: 100%;
+
+	min-width: 0;
+	min-height: min-content;
+
+	padding-bottom: 20px;
+
+	overflow: visible;
+}
+
+/*
+ * Impede que os painéis de configuração sejam
+ * comprimidos verticalmente.
+ */
+.tresdetv.sheet.item
+	.technique-config-tab
+	.victory-config-panel {
+	flex-shrink: 0;
+
+	min-width: 0;
+}
+
+/* -------------------------------------------- */
+/*  Vantagem e Desvantagem                      */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.item
+	.victory-item-sheet
+	.item-config-tab {
+	min-height: min-content;
+
+	padding-bottom: 20px;
+
+	overflow: visible;
+}
+
+.tresdetv.sheet.item
+	.victory-item-sheet
+	.victory-config-panel {
+	flex-shrink: 0;
+}
+
+/* -------------------------------------------- */
+/*  Descrição e editor                          */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.item
+	.sheet-body
+	.editor,
+.tresdetv.sheet.actor
+	.sheet-body
+	.editor {
+	width: 100%;
+
+	min-width: 0;
+	min-height: 320px;
+
+	overflow: visible;
+}
+
+.tresdetv.sheet.item
+	.sheet-body
+	prose-mirror,
+.tresdetv.sheet.actor
+	.sheet-body
+	prose-mirror {
+	display: block;
+
+	width: 100%;
+
+	min-width: 0;
+	min-height: 320px;
+}
+
+/*
+ * Área interna do editor.
+ */
+.tresdetv.sheet
+	prose-mirror
+	.editor-content {
+	min-height: 260px;
+}
+
+/* -------------------------------------------- */
+/*  Aba de Efeitos                              */
+/* -------------------------------------------- */
+
+.tresdetv.sheet
+	.sheet-body
+	> .tab.effects {
+	min-height: min-content;
+
+	padding-bottom: 20px;
+
+	overflow: visible;
+}
+
+.tresdetv.sheet
+	.sheet-body
+	.effects-list {
+	padding-bottom: 8px;
+}
+
+/*
+ * Os grupos de efeitos não podem ser achatados
+ * para caber dentro da altura da janela.
+ */
+.tresdetv.sheet
+	.effect-section {
+	flex: 0 0 auto;
+}
+
+/* -------------------------------------------- */
+/*  Telas muito pequenas                        */
+/* -------------------------------------------- */
+
+@media (max-height: 650px) {
+	.application.tresdetv.sheet
+		.window-content
+		> form
+		> .sheet-body,
+	.window-app.tresdetv.sheet
+		.window-content
+		> form
+		> .sheet-body,
+	.tresdetv.sheet
+		form
+		> .sheet-body {
+		padding-bottom: 26px;
+	}
+}
+
+/* -------------------------------------------- */
+/*  Acessibilidade                              */
+/* -------------------------------------------- */
+
+@media (
+	prefers-reduced-motion:
+	reduce
+) {
+	.application.tresdetv.sheet
+		.sheet-body,
+	.window-app.tresdetv.sheet
+		.sheet-body,
+	.tresdetv.sheet
+		.sheet-body {
+		scroll-behavior: auto;
+	}
+}

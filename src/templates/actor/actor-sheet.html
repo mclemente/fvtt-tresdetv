@@ -1,97 +1,159 @@
-<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+<form
+	class="tresdetv sheet actor {{actor.type}} flexcol"
+	autocomplete="off"
+>
 	{{> "tresdetv.actor-header"}}
 
-	{{!-- Sheet Tab Navigation --}}
-	<nav class="sheet-tabs tabs flexrow" data-group="primary">
-		{{!-- Default tab is specified in actor-sheet.js --}}
-		<a class="item" data-tab="features">Ficha</a>
-		<a class="item" data-tab="notes">Anotações</a>
-		<a class="item" data-tab="effects">Efeitos</a>
+	<nav
+		class="sheet-tabs tabs flexrow"
+		data-group="primary"
+		role="tablist"
+	>
+		<a
+			class="item {{tabs.features.cssClass}}"
+			data-group="primary"
+			data-tab="features"
+			role="tab"
+			aria-selected="{{tabs.features.active}}"
+		>
+			Ficha
+		</a>
+
+		<a
+			class="item {{tabs.notes.cssClass}}"
+			data-group="primary"
+			data-tab="notes"
+			role="tab"
+			aria-selected="{{tabs.notes.active}}"
+		>
+			Anotações
+		</a>
+
+		<a
+			class="item {{tabs.effects.cssClass}}"
+			data-group="primary"
+			data-tab="effects"
+			role="tab"
+			aria-selected="{{tabs.effects.active}}"
+		>
+			Efeitos
+		</a>
 	</nav>
 
-	{{!-- Sheet Body --}}
 	<section class="sheet-body">
-		{{!-- Owned Features Tab --}}
-		<div class="tab features" data-group="primary" data-tab="features">
-			{{#unless veiculo}}
-			<div class="sheet-overview">
-				<div class="overview-card">
-					<span class="overview-label">Arquétipo</span>
-					<span class="overview-value">{{#if
-						system.detalhes.arquetipo}}{{system.detalhes.arquetipo}}{{else}}—{{/if}}</span>
-				</div>
-				<div class="overview-card">
-					<span class="overview-label">Conceito</span>
-					<span class="overview-value">{{#if
-						system.detalhes.conceito}}{{system.detalhes.conceito}}{{else}}—{{/if}}</span>
-				</div>
-			</div>
+		{{!-- Aba Ficha --}}
+		<div
+			class="tab features {{tabs.features.cssClass}}"
+			data-group="primary"
+			data-tab="features"
+			role="tabpanel"
+			{{#unless tabs.features.active}}
+				hidden
 			{{/unless}}
-			<section class="flexrow sheet-layout">
+		>
+			<section class="character-main-layout flexrow">
 				<aside class="sidebar">
-					<div class="atributos-pontos flexrow">
-						<div class="abilities flexcol">
-							{{#each system.atributos as |ability key|}}
-							<div class="ability atributos flexrow flex-group-center">
-								<div class="dados flexrow">
-									<a class="rollable" data-key="{{key}}" data-dice="1"
-										aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=1 nome=key}}"><i
-											class="fas fa-dice-one"></i></a>
-									<a class="rollable" data-key="{{key}}" data-dice="2"
-										aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=2 nome=key}}"><i
-											class="fas fa-dice-two"></i></a>
-									<a class="rollable" data-key="{{key}}" data-dice="3"
-										aria-label="{{localize 'TRESDETV.Aria.Rolar' dados=3 nome=key}}"><i
-											class="fas fa-dice-three"></i></a>
-								</div>
-								<label class="rollable resource-label" data-key="{{key}}"
-									data-tooltip="{{concat 'TRESDETV.Atributos.' key '.label'}}"
-									data-tooltip-direction="UP" aria-label="Rolar Poder">{{localize (concat
-									"TRESDETV.Atributos." key ".short")}}</label>
-								<input type="number" name="system.atributos.{{key}}.value" value="{{ability.value}}"
-									data-dtype="Number" />
-							</div>
-							{{/each}}
-						</div>
-						<!-- Points -->
-						{{> "tresdetv.actor-points"}}
-					</div>
-					<!-- Perícias -->
+					{{!--
+						Este partial agora contém os três atributos
+						e seus respectivos recursos.
+					--}}
+					{{> "tresdetv.actor-points"}}
+
 					{{> "tresdetv.actor-skills"}}
-					<!-- Técnicas -->
+
 					{{> "tresdetv.actor-spells"}}
 				</aside>
 
-				<section>
-					<!-- Habilidades -->
+				<section class="main-sheet-content">
 					{{> "tresdetv.actor-features"}}
 
-					<!-- Itens -->
 					{{> "tresdetv.actor-items"}}
 				</section>
 			</section>
 		</div>
 
-		<div class="tab details" data-group="primary" data-tab="details">
-
-		</div>
-
-		<div class="tab notes flexcol" data-group="primary" data-tab="notes">
+		{{!-- Aba Anotações --}}
+		<div
+			class="tab notes flexcol {{tabs.notes.cssClass}}"
+			data-group="primary"
+			data-tab="notes"
+			role="tabpanel"
+			{{#unless tabs.notes.active}}
+				hidden
+			{{/unless}}
+		>
 			<section class="grid-2col">
 				<div class="notes-section">
-					<h3 class="item-name">Anotações</h3>
-					{{editor content=system.descricao target="system.descricao" button=true editable=editable
-					engine="prosemirror" collaborate=false}}
+					<h3 class="item-name">
+						Anotações
+					</h3>
+
+					{{#if editable}}
+						<button
+							type="button"
+							class="unbutton rich-text-edit"
+							data-field="system.descricao"
+							data-title="Anotações"
+							aria-label="Editar Anotações"
+							data-tooltip="Editar Anotações"
+						>
+							<i class="fas fa-pen-to-square"></i>
+						</button>
+					{{/if}}
+
+					<div class="rich-text-content">
+						{{#if system.descricao}}
+							{{{descricaoHTML}}}
+						{{else}}
+							<p class="empty-text">
+								Nenhuma anotação adicionada.
+							</p>
+						{{/if}}
+					</div>
 				</div>
+
 				<div class="notes-section">
-					<h3 class="item-name">História</h3>
-					{{editor content=system.historia target="system.historia" button=true editable=editable
-					engine="prosemirror" collaborate=false}}
+					<h3 class="item-name">
+						História
+					</h3>
+
+					{{#if editable}}
+						<button
+							type="button"
+							class="unbutton rich-text-edit"
+							data-field="system.historia"
+							data-title="História"
+							aria-label="Editar História"
+							data-tooltip="Editar História"
+						>
+							<i class="fas fa-pen-to-square"></i>
+						</button>
+					{{/if}}
+
+					<div class="rich-text-content">
+						{{#if system.historia}}
+							{{{historiaHTML}}}
+						{{else}}
+							<p class="empty-text">
+								Nenhuma história adicionada.
+							</p>
+						{{/if}}
+					</div>
 				</div>
 			</section>
 		</div>
 
-		{{!-- Active Effects Tab --}}
-		<div class="tab effects flexcol" data-group="primary" data-tab="effects">{{> "tresdetv.actor-effects"}}</div>
+		{{!-- Aba Efeitos --}}
+		<div
+			class="tab effects flexcol {{tabs.effects.cssClass}}"
+			data-group="primary"
+			data-tab="effects"
+			role="tabpanel"
+			{{#unless tabs.effects.active}}
+				hidden
+			{{/unless}}
+		>
+			{{> "tresdetv.actor-effects"}}
+		</div>
 	</section>
 </form>

@@ -1,38 +1,137 @@
 <ol class="items-list effects-list">
 	{{#each effects as |section sid|}}
-	<li class="items-header flexrow" data-effect-type="{{section.type}}">
-		<h3 class="item-name effect-name flexrow">{{localize section.label}}</h3>
-		<div class="effect-source">{{localize "TRESDETV.EffectSource"}}</div>
-		<div class="effect-source">{{localize "TRESDETV.EffectDuration"}}</div>
-		<div class="item-controls effect-controls flexrow">
-			<a class="effect-control" data-action="create" title="{{localize 'TRESDETV.EffectCreate'}}">
-				<i class="fas fa-plus"></i> {{localize "TRESDETV.Add"}}
-			</a>
-		</div>
-	</li>
+		<li
+			class="effect-section"
+			data-effect-type="{{section.type}}"
+		>
+			<header class="items-header effect-section-header">
+				<div class="item-name effect-name">
+					<span class="section-title">
+						{{section.label}}
+					</span>
+				</div>
 
-	<ol class="item-list">
-		{{#each section.effects as |effect|}}
-		<li class="item effect flexrow" data-effect-id="{{effect.id}}">
-			<div class="item-name effect-name">
-				<img class="item-image" src="{{effect.img}}" width="20" height="20" />
-				<h4>{{effect.name}}</h4>
-			</div>
-			<div class="effect-source">{{effect.sourceName}}</div>
-			<div class="effect-duration">{{effect.duration.label}}</div>
-			<div class="item-controls effect-controls flexrow">
-				<a class="effect-control" data-action="toggle" title="{{localize 'TRESDETV.EffectToggle'}}">
-					<i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
-				</a>
-				<a class="effect-control" data-action="edit" title="{{localize 'TRESDETV.EffectEdit'}}">
-					<i class="fas fa-edit"></i>
-				</a>
-				<a class="effect-control" data-action="delete" title="{{localize 'TRESDETV.EffectDelete'}}">
-					<i class="fas fa-trash"></i>
-				</a>
-			</div>
+				<div
+					class="effect-column-title effect-source-title"
+				>
+					{{localize "TRESDETV.EffectSource"}}
+				</div>
+
+				<div
+					class="effect-column-title effect-duration-title"
+				>
+					{{localize "TRESDETV.EffectDuration"}}
+				</div>
+
+				<div class="item-controls effect-controls">
+					<button
+						type="button"
+						class="effect-control effect-add-button"
+						data-action="create"
+						aria-label="{{localize 'TRESDETV.EffectCreate'}}"
+						data-tooltip="{{localize 'TRESDETV.EffectCreate'}}"
+						data-tooltip-direction="UP"
+					>
+						<i
+							class="fa-solid fa-plus"
+							aria-hidden="true"
+						></i>
+
+						<span class="effect-add-label">
+							{{localize "TRESDETV.Add"}}
+						</span>
+					</button>
+				</div>
+			</header>
+
+			<ol class="item-list effect-item-list">
+				{{#each section.effects as |effect|}}
+					<li
+						class="item effect effect-row"
+						data-effect-id="{{effect.id}}"
+					>
+						<div class="item-name effect-name">
+							<img
+								class="item-image"
+								src="{{effect.img}}"
+								alt=""
+								width="28"
+								height="28"
+							/>
+
+							<h4>
+								{{effect.name}}
+							</h4>
+						</div>
+
+						<div
+							class="effect-source"
+							data-column-label="{{localize 'TRESDETV.EffectSource'}}"
+						>
+							{{effect.sourceName}}
+						</div>
+
+						<div
+							class="effect-duration"
+							data-column-label="{{localize 'TRESDETV.EffectDuration'}}"
+						>
+							{{effect.duration.label}}
+						</div>
+
+						<div
+							class="item-controls effect-controls"
+						>
+							<button
+								type="button"
+								class="effect-control"
+								data-action="toggle"
+								aria-label="{{localize 'TRESDETV.EffectToggle'}}"
+								data-tooltip="{{localize 'TRESDETV.EffectToggle'}}"
+								data-tooltip-direction="UP"
+							>
+								<i
+									class="fa-solid {{#if effect.disabled}}fa-check{{else}}fa-xmark{{/if}}"
+									aria-hidden="true"
+								></i>
+							</button>
+
+							<button
+								type="button"
+								class="effect-control"
+								data-action="edit"
+								aria-label="{{localize 'TRESDETV.EffectEdit'}}"
+								data-tooltip="{{localize 'TRESDETV.EffectEdit'}}"
+								data-tooltip-direction="UP"
+							>
+								<i
+									class="fa-solid fa-pen-to-square"
+									aria-hidden="true"
+								></i>
+							</button>
+
+							<button
+								type="button"
+								class="effect-control"
+								data-action="delete"
+								aria-label="{{localize 'TRESDETV.EffectDelete'}}"
+								data-tooltip="{{localize 'TRESDETV.EffectDelete'}}"
+								data-tooltip-direction="UP"
+							>
+								<i
+									class="fa-solid fa-trash"
+									aria-hidden="true"
+								></i>
+							</button>
+						</div>
+					</li>
+				{{else}}
+					<li
+						class="empty-list-row effect-empty-row"
+					>
+						Nenhum efeito nesta categoria.
+					</li>
+				{{/each}}
+			</ol>
 		</li>
-		{{/each}}
-	</ol>
 	{{/each}}
 </ol>

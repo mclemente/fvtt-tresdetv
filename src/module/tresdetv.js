@@ -1,7 +1,15 @@
 // Import helper/utility classes and constants.
 import TRESDETV from "./helpers/config.js";
+
 import registerSettings from "./helpers/settings.js";
+
 import { setTextEnrichers } from "./helpers/text-editor-enrichers.js";
+
+import { installSheetInteractions } from "./helpers/sheet-interactions.js";
+
+import { registerTechniqueTierHelpers } from "./helpers/technique-tiers.js";
+
+import { installPdfExportControls } from "./helpers/pdf-export-controls.js";
 
 import * as applications from "./applications/_module.js";
 import * as dataModels from "./data/_module.js";
@@ -27,108 +35,184 @@ globalThis.tresdetv = {
 /*  Init Hook                                   */
 /* -------------------------------------------- */
 
-Hooks.once("init", async () => {
-	globalThis.tresdetv =
-		globalThis.tresdet =
-		game.tresdetv =
-		game.tresdet =
-			Object.assign(game.system, globalThis.tresdetv);
+Hooks.once(
+	"init",
 
-	// Add custom constants for configuration.
-	CONFIG.TRESDETV = CONFIG.tresdetv = CONFIG.tresdet = TRESDETV;
-	CONFIG.Dice.RollTresDeTV = dice.RollTresDeTV;
-	CONFIG.Dice.rolls.push(dice.RollTresDeTV);
+	async () => {
+		globalThis.tresdetv =
+			globalThis.tresdet =
+			game.tresdetv =
+			game.tresdet =
+				Object.assign(game.system, globalThis.tresdetv);
 
-	/**
-	 * Set an initiative formula for the system
-	 * @type {String}
-	 */
-	CONFIG.Combat.initiative = {
-		formula: "2d6 + @atributos.habilidade.value",
-		decimals: 2,
-	};
+		CONFIG.TRESDETV = CONFIG.tresdetv = CONFIG.tresdet = TRESDETV;
 
-	// Define custom Document classes
-	CONFIG.Actor.documentClass = documents.ActorTresDeTV;
-	CONFIG.Item.documentClass = documents.ItemTresDeTV;
-	CONFIG.Combat.documentClass = documents.CombatTresDeTV;
-	// Patch Core Functions
-	Combatant.prototype.getInitiativeRoll = utils.getInitiativeRoll;
+		CONFIG.Dice.RollTresDeTV = dice.RollTresDeTV;
 
-	CONFIG.ui.chat = applications.sidebar.ChatLogTresDeTV;
-	CONFIG.ui.combat = applications.sidebar.CombatTrackerTresDeTV;
+		CONFIG.Dice.rolls.push(dice.RollTresDeTV);
 
-	// Define DataModels
-	CONFIG.Actor.dataModels.personagem = dataModels.ActorData;
-	CONFIG.Actor.dataModels.pdm = dataModels.ActorData;
-	CONFIG.Actor.dataModels.veiculo = dataModels.VeiculoData;
+		CONFIG.Combat.initiative = {
+			formula: "2d6 + @atributos.habilidade.value",
 
-	CONFIG.Item.dataModels.item = dataModels.ItemData;
-	CONFIG.Item.dataModels.tecnica = dataModels.TenicaData;
-	CONFIG.Item.dataModels.vantagem = dataModels.VantagemData;
-	CONFIG.Item.dataModels.desvantagem = dataModels.DesvantagemData;
+			decimals: 2,
+		};
 
-	const trackableAttributes = {
-		bar: ["pontos.vida", "pontos.mana"],
-		value: ["pontos.acao", "pontos.experiencia", "pontos.personagem"],
-	};
-	CONFIG.Actor.trackableAttributes = {
-		personagem: trackableAttributes,
-		pdm: trackableAttributes,
-		veiculo: trackableAttributes,
-	};
-	CONFIG.statusEffects = [
-		...CONFIG.statusEffects.slice(0, 1),
-		{
-			img: "systems/tresdetv/assets/icons/svg/cycle.svg",
-			id: "karma",
-			name: "Karma",
-			description: "<i>O que vai, volta.</i>",
-			enumerable: false,
-			configurable: true,
-		},
-		...CONFIG.statusEffects.slice(1),
-	];
+		/*
+		 * Classes personalizadas
+		 * de documentos.
+		 */
+		CONFIG.Actor.documentClass = documents.ActorTresDeTV;
 
-	// Register sheet application classes
-	const ActorSheetClass = foundry.applications?.sheets?.ActorSheet ?? ActorSheet;
-	const ItemSheetClass = foundry.applications?.sheets?.ItemSheet ?? ItemSheet;
+		CONFIG.Item.documentClass = documents.ItemTresDeTV;
 
-	Actors.unregisterSheet("core", ActorSheetClass);
-	Actors.registerSheet("tresdetv", applications.actor.ActorSheetTresDeTV, {
-		label: "Ficha de Personagem 3DeTV",
-		makeDefault: true,
-	});
-	Items.unregisterSheet("core", ItemSheetClass);
-	Items.registerSheet("tresdetv", applications.item.ItemSheetTresDeTV, {
-		label: "Ficha de Item 3DeTV",
-		makeDefault: true,
-	});
+		CONFIG.Combat.documentClass = documents.CombatTresDeTV;
 
-	// Register custom system settings
-	registerSettings();
-	utils.getSkills();
+		Combatant.prototype.getInitiativeRoll = utils.getInitiativeRoll;
 
-	setTextEnrichers();
+		/*
+		 * Interfaces personalizadas.
+		 */
+		CONFIG.ui.chat = applications.sidebar.ChatLogTresDeTV;
 
-	for (let group of Object.keys(hooks)) {
-		for (let hook of Object.getOwnPropertyNames(hooks[group])) {
-			if (!["length", "name", "prototype"].includes(hook)) {
+		CONFIG.ui.combat = applications.sidebar.CombatTrackerTresDeTV;
+
+		/*
+		 * Data Models dos Actors.
+		 */
+		CONFIG.Actor.dataModels.personagem = dataModels.ActorData;
+
+		CONFIG.Actor.dataModels.pdm = dataModels.ActorData;
+
+		CONFIG.Actor.dataModels.veiculo = dataModels.VeiculoData;
+
+		/*
+		 * Data Models dos Items.
+		 */
+		CONFIG.Item.dataModels.item = dataModels.ItemData;
+
+		CONFIG.Item.dataModels.tecnica = dataModels.TenicaData;
+
+		CONFIG.Item.dataModels.vantagem = dataModels.VantagemData;
+
+		CONFIG.Item.dataModels.desvantagem = dataModels.DesvantagemData;
+
+		const trackableAttributes = {
+			bar: ["pontos.vida", "pontos.mana"],
+
+			value: ["pontos.acao", "pontos.experiencia", "pontos.personagem"],
+		};
+
+		CONFIG.Actor.trackableAttributes = {
+			personagem: trackableAttributes,
+
+			pdm: trackableAttributes,
+
+			veiculo: trackableAttributes,
+		};
+
+		/*
+		 * Efeito de Karma.
+		 */
+		CONFIG.statusEffects = [
+			...CONFIG.statusEffects.slice(0, 1),
+
+			{
+				img: "systems/tresdetv/assets/icons/svg/cycle.svg",
+
+				id: "karma",
+				name: "Karma",
+
+				description: "<i>O que vai, volta.</i>",
+
+				enumerable: false,
+				configurable: true,
+			},
+
+			...CONFIG.statusEffects.slice(1),
+		];
+
+		/*
+		 * Registro das fichas.
+		 */
+		const ActorSheetClass = foundry.appv1?.sheets?.ActorSheet ?? ActorSheet;
+
+		const ItemSheetClass = foundry.appv1?.sheets?.ItemSheet ?? ItemSheet;
+
+		foundry.documents.collections.Actors.unregisterSheet("core", ActorSheetClass);
+
+		foundry.documents.collections.Actors.registerSheet(
+			"tresdetv",
+
+			applications.actor.ActorSheetTresDeTV,
+
+			{
+				label: "Ficha de Personagem 3DeTV",
+
+				makeDefault: true,
+			},
+		);
+
+		foundry.documents.collections.Items.unregisterSheet("core", ItemSheetClass);
+
+		foundry.documents.collections.Items.registerSheet(
+			"tresdetv",
+
+			applications.item.ItemSheetTresDeTV,
+
+			{
+				label: "Ficha de Item 3DeTV",
+
+				makeDefault: true,
+			},
+		);
+
+		registerSettings();
+		utils.getSkills();
+		setTextEnrichers();
+
+		/*
+		 * Adiciona Exportar para PDF ao menu
+		 * de todas as fichas de Actor e Item.
+		 */
+		installPdfExportControls();
+
+		for (const group of Object.keys(hooks)) {
+			for (const hook of Object.getOwnPropertyNames(hooks[group])) {
+				if (["length", "name", "prototype"].includes(hook)) {
+					continue;
+				}
+
 				Hooks.on(hook, hooks[group][hook]);
 			}
 		}
-	}
 
-	// Preload Handlebars templates.
-	utils.preloadHandlebarsTemplates();
-});
+		/*
+		 * Helpers de Truques, Técnicas Comuns
+		 * e Técnicas Lendárias.
+		 */
+		registerTechniqueTierHelpers();
 
-Hooks.once("i18nInit", () => utils.performPreLocalization(CONFIG.tresdetv));
+		/*
+		 * Templates Handlebars.
+		 */
+		utils.preloadHandlebarsTemplates();
+	},
+);
+
+Hooks.once(
+	"i18nInit",
+
+	() => utils.performPreLocalization(CONFIG.tresdetv),
+);
 
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
-Hooks.once("ready", async function () {
-	// Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-});
+Hooks.once(
+	"ready",
+
+	async () => {
+		installSheetInteractions();
+	},
+);

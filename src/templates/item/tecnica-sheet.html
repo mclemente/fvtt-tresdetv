@@ -1,91 +1,433 @@
-<form class="{{cssClass}}" autocomplete="off">
-	<header class="sheet-header">
-		<div class="portrait">
-			<img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+<form
+	class="{{cssClass}} victory-item-sheet technique-sheet"
+	data-technique-tier="{{system.categoria}}"
+	autocomplete="off"
+>
+	<header
+		class="sheet-header item-sheet-header technique-sheet-header"
+	>
+		<div class="portrait item-portrait">
+			<input
+				type="hidden"
+				name="img"
+				value="{{item.img}}"
+			/>
+
+			{{#if editable}}
+				<button
+					type="button"
+					class="portrait-picker"
+					data-target="img"
+					data-type="image"
+					data-document-uuid="{{item.uuid}}"
+					aria-label="Trocar imagem de {{item.name}}"
+					data-tooltip="Trocar imagem da técnica"
+					data-tooltip-direction="UP"
+				>
+					<img
+						class="profile-img"
+						src="{{item.img}}"
+						alt="Imagem de {{item.name}}"
+					/>
+
+					<span class="portrait-edit-overlay">
+						<i
+							class="fa-solid fa-camera"
+							aria-hidden="true"
+						></i>
+
+						<span>
+							Trocar imagem
+						</span>
+					</span>
+				</button>
+			{{else}}
+				<img
+					class="profile-img"
+					src="{{item.img}}"
+					alt="Imagem de {{item.name}}"
+				/>
+			{{/if}}
 		</div>
+
 		<div class="header-fields">
-			<h1 class="charname">
-				<input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'Name' }}" />
-			</h1>
-			<!-- <div class="grid grid-2col">
-				<div class="resource">
-					<label class="resource-label">Custo</label>
-					<input type="text" name="system.custo" value="{{system.custo}}" data-dtype="Number" />
+			<div class="technique-header-meta">
+				<span class="item-type-kicker">
+					Técnica
+				</span>
+
+				<div class="technique-tier-indicators">
+					<span
+						class="technique-sheet-tier technique-sheet-tier-truque"
+					>
+						<i
+							class="fa-solid fa-book-open"
+							aria-hidden="true"
+						></i>
+
+						Truque
+					</span>
+
+					<span
+						class="technique-sheet-tier technique-sheet-tier-comum"
+					>
+						<i
+							class="fa-solid fa-bolt"
+							aria-hidden="true"
+						></i>
+
+						Técnica Comum
+					</span>
+
+					<span
+						class="technique-sheet-tier technique-sheet-tier-lendaria"
+					>
+						<i
+							class="fa-solid fa-crown"
+							aria-hidden="true"
+						></i>
+
+						Técnica Lendária
+					</span>
 				</div>
-			</div> -->
+			</div>
+
+			<h1 class="charname">
+				<input
+					name="name"
+					type="text"
+					value="{{item.name}}"
+					placeholder="{{localize 'Name'}}"
+				/>
+			</h1>
 		</div>
 	</header>
 
-	{{!-- Sheet Tab Navigation --}}
-	<nav class="sheet-tabs tabs flexrow" data-group="primary">
-		<a class="item" data-tab="description">Descrição</a>
-		<a class="item" data-tab="attributes">Atributos</a>
-		<a class="item" data-tab="effects">Efeitos</a>
+	<nav
+		class="sheet-tabs tabs flexrow"
+		data-group="primary"
+		role="tablist"
+	>
+		<a
+			class="item"
+			data-group="primary"
+			data-tab="description"
+			role="tab"
+		>
+			Descrição
+		</a>
+
+		<a
+			class="item"
+			data-group="primary"
+			data-tab="attributes"
+			role="tab"
+		>
+			Configuração
+		</a>
+
+		<a
+			class="item"
+			data-group="primary"
+			data-tab="effects"
+			role="tab"
+		>
+			Efeitos
+		</a>
 	</nav>
 
-	{{!-- Sheet Body --}}
-	<section class="sheet-body">
-		{{!-- Description Tab --}}
-		<div class="tab" data-group="primary" data-tab="description">
-			{{editor descriptionHTML target="system.descricao" button=true editable=editable
-				engine="prosemirror" collaborate=false}}
+	<section class="sheet-body item-sheet-body">
+		<div
+			class="tab"
+			data-group="primary"
+			data-tab="description"
+			role="tabpanel"
+		>
+			{{editor
+				system.descricao
+				target="system.descricao"
+				button=true
+				editable=editable
+				engine="prosemirror"
+				collaborate=false
+			}}
 		</div>
 
-		{{!-- Attributes Tab --}}
-		<div class="tab attributes" data-group="primary" data-tab="attributes">
-			<h3>Ativação</h3>
-			{{#with system.ativacao}}
-			<div class="form-group">
-				<label class="resource-label">Requisitos</label>
-				<input type="text" name="system.ativacao.requisitos" value="{{requisitos}}" data-dtype="String" />
-			</div>
-			<div class="form-group">
-				<label class="resource-label">Alcance</label>
-				<input type="text" name="system.ativacao.alcance" value="{{alcance}}" data-dtype="String" />
-			</div>
-			<div class="form-group">
-				<label class="resource-label">Custo</label>
-				<input type="text" name="system.ativacao.custo" value="{{custo}}" data-dtype="String" />
-			</div>
-			<div class="form-group">
-				<label class="resource-label">Teste</label>
-				<select name="system.ativacao.teste">
-					{{selectOptions ../atrChoices selected=teste}}
-				</select>
-			</div>
-			{{/with}}
-			<h3>Duração</h3>
-			{{#with system.duracao}}
-			<div class="form-group">
-				<label class="resource-label">Tempo</label>
-				<div class="flexrow">
-					<input
-						type="text"
-						name="system.duracao.value"
-						value="{{value}}"
-						data-dtype="String"
-						placeholder="Valor"
-					/>
-					<input
-						type="text"
-						name="system.duracao.unidade"
-						value="{{unidade}}"
-						data-dtype="String"
-						placeholder="Unidade"
-					/>
+		<div
+			class="tab attributes item-config-tab technique-config-tab"
+			data-group="primary"
+			data-tab="attributes"
+			role="tabpanel"
+		>
+			<section
+				class="victory-config-panel technique-tier-config-panel"
+			>
+				<div class="panel-heading">
+					<div>
+						<span class="panel-kicker">
+							Classificação
+						</span>
+
+						<h3>
+							Nível da técnica
+						</h3>
+					</div>
+
+					<i
+						class="fa-solid fa-layer-group"
+						aria-hidden="true"
+					></i>
 				</div>
-				<!-- <input
-					type="text"
-					name="system.duracao.especial"
-					value="{{especial}}"
-					data-dtype="String"
-					placeholder="Outros"
-				/> -->
-			</div>
-			{{/with}}
+
+				<div class="form-group stacked-field">
+					<label
+						class="resource-label"
+						for="technique-tier-{{item.id}}"
+					>
+						Categoria
+					</label>
+
+					<select
+						id="technique-tier-{{item.id}}"
+						name="system.categoria"
+					>
+						<option
+							value="truque"
+							{{selected
+								system.categoria
+								"truque"
+							}}
+						>
+							Truque
+						</option>
+
+						<option
+							value="comum"
+							{{selected
+								system.categoria
+								"comum"
+							}}
+						>
+							Técnica Comum
+						</option>
+
+						<option
+							value="lendaria"
+							{{selected
+								system.categoria
+								"lendaria"
+							}}
+						>
+							Técnica Lendária
+						</option>
+					</select>
+				</div>
+
+				<div class="technique-tier-explanations">
+					<p
+						class="technique-tier-explanation technique-tier-explanation-truque"
+					>
+						<i
+							class="fa-solid fa-book-open"
+							aria-hidden="true"
+						></i>
+
+						<span>
+							<strong>
+								Truque:
+							</strong>
+
+							habilidade simples ou
+							conjunto de efeitos menores.
+						</span>
+					</p>
+
+					<p
+						class="technique-tier-explanation technique-tier-explanation-comum"
+					>
+						<i
+							class="fa-solid fa-bolt"
+							aria-hidden="true"
+						></i>
+
+						<span>
+							<strong>
+								Técnica Comum:
+							</strong>
+
+							uma técnica individual de
+							uso normal.
+						</span>
+					</p>
+
+					<p
+						class="technique-tier-explanation technique-tier-explanation-lendaria"
+					>
+						<i
+							class="fa-solid fa-crown"
+							aria-hidden="true"
+						></i>
+
+						<span>
+							<strong>
+								Técnica Lendária:
+							</strong>
+
+							poder raro e muito superior
+							às técnicas comuns.
+						</span>
+					</p>
+				</div>
+			</section>
+
+			<section class="victory-config-panel">
+				<div class="panel-heading">
+					<div>
+						<span class="panel-kicker">
+							Uso da técnica
+						</span>
+
+						<h3>
+							Ativação
+						</h3>
+					</div>
+
+					<i
+						class="fa-solid fa-bolt"
+						aria-hidden="true"
+					></i>
+				</div>
+
+				{{#with system.ativacao}}
+					<div class="form-group stacked-field">
+						<label class="resource-label">
+							Requisitos
+						</label>
+
+						<input
+							type="text"
+							name="system.ativacao.requisitos"
+							value="{{requisitos}}"
+							data-dtype="String"
+						/>
+					</div>
+
+					<div class="form-group stacked-field">
+						<label class="resource-label">
+							Alcance
+						</label>
+
+						<input
+							type="text"
+							name="system.ativacao.alcance"
+							value="{{alcance}}"
+							data-dtype="String"
+						/>
+					</div>
+
+					<div class="form-group stacked-field">
+						<label class="resource-label">
+							Custo em PM
+						</label>
+
+						<input
+							type="number"
+							name="system.ativacao.custo"
+							value="{{custo}}"
+							min="0"
+							step="1"
+							data-dtype="Number"
+						/>
+					</div>
+
+					<div class="form-group stacked-field">
+						<label class="resource-label">
+							Teste
+						</label>
+
+						<select name="system.ativacao.teste">
+							<option value="">
+								Nenhum
+							</option>
+
+							{{selectOptions
+								../atrChoices
+								selected=teste
+							}}
+						</select>
+					</div>
+				{{/with}}
+			</section>
+
+			<section class="victory-config-panel">
+				<div class="panel-heading">
+					<div>
+						<span class="panel-kicker">
+							Persistência
+						</span>
+
+						<h3>
+							Duração
+						</h3>
+					</div>
+
+					<i
+						class="fa-solid fa-hourglass-half"
+						aria-hidden="true"
+					></i>
+				</div>
+
+				{{#with system.duracao}}
+					<div class="form-group stacked-field">
+						<label class="resource-label">
+							Tempo
+						</label>
+
+						<div class="duration-fields">
+							<input
+								type="number"
+								name="system.duracao.value"
+								value="{{value}}"
+								min="0"
+								step="1"
+								data-dtype="Number"
+								placeholder="Valor"
+							/>
+
+							<input
+								type="text"
+								name="system.duracao.unidade"
+								value="{{unidade}}"
+								data-dtype="String"
+								placeholder="Ex.: rodada, cena, turno"
+							/>
+						</div>
+					</div>
+
+					<div class="form-group stacked-field">
+						<label class="resource-label">
+							Duração especial
+						</label>
+
+						<input
+							type="text"
+							name="system.duracao.especial"
+							value="{{especial}}"
+							data-dtype="String"
+							placeholder="Ex.: até o fim da cena"
+						/>
+					</div>
+				{{/with}}
+			</section>
 		</div>
 
-		{{!-- Active Effects Tab --}}
-		<div class="tab effects flexcol" data-group="primary" data-tab="effects">{{> "tresdetv.actor-effects"}}</div>
+		<div
+			class="tab effects flexcol"
+			data-group="primary"
+			data-tab="effects"
+			role="tabpanel"
+		>
+			{{> "tresdetv.actor-effects"}}
+		</div>
 	</section>
 </form>

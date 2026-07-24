@@ -1,85 +1,204 @@
 <header class="sheet-header">
-	<div class="portrait">
-		<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
-	</div>
-	<div class="header-fields">
-		<div class="main-fields flexrow">
-			<h1 class="charname">
-				<input name="name" type="text" value="{{actor.name}}" placeholder="{{ localize 'Name' }}" />
-			</h1>
-			{{#if veiculo}}
-			<input
-				class="ponto-personagem"
-				type="number"
-				name="system.pontos.personagem.value"
-				value="{{system.pontos.personagem.value}}"
-				data-dtype="Number"
-				data-tooltip="Pontos de Personagem"
-				data-tooltip-direction="UP"
-			/>
-			{{/if}}
-			{{#unless veiculo}}
-			<button
-				class="darma unbutton"
-				type="button"
-				data-tooltip="Darma/Karma"
-				data-tooltip-direction="UP"
-				aria-pressed="{{karma}}"
-				data-action="toggleDarma">
-			</button>
-			{{/unless}}
+	<div
+		class="victory-banner"
+		aria-hidden="true"
+	>
+		<div class="victory-wordmark">
+			<span class="victory-wordmark-main">
+				3DeT
+			</span>
+
+			<span class="victory-wordmark-sub">
+				Victory
+			</span>
 		</div>
-		{{#unless veiculo}}
-		<!--  -->
-		<div class="resources flexrow">
-			<div class="resource resource-stack flexcol">
-				<label class="resource-label" data-tooltip="Arquétipo" data-tooltip-direction="UP">Arquétipo</label>
-				<input
-					type="text"
-					name="system.detalhes.arquetipo"
-					placeholder="Arquétipo"
-					value="{{system.detalhes.arquetipo}}"
-					data-dtype="String"
+
+		<div class="victory-banner-title">
+			Ficha de Personagem
+		</div>
+	</div>
+
+	<div class="character-identity flexrow">
+		<div class="portrait actor-portrait">
+			<input
+				type="hidden"
+				name="img"
+				value="{{actor.img}}"
+			/>
+
+			{{#if editable}}
+				<button
+					type="button"
+					class="portrait-picker"
+					data-target="img"
+					data-type="image"
+					data-document-uuid="{{actor.uuid}}"
+					aria-label="Trocar imagem de {{actor.name}}"
+					data-tooltip="Trocar imagem do personagem"
+					data-tooltip-direction="UP"
+				>
+					<img
+						class="profile-img"
+						src="{{actor.img}}"
+						alt="Imagem de {{actor.name}}"
+					/>
+
+					<span class="portrait-edit-overlay">
+						<i
+							class="fa-solid fa-camera"
+							aria-hidden="true"
+						></i>
+
+						<span>
+							Trocar imagem
+						</span>
+					</span>
+				</button>
+			{{else}}
+				<img
+					class="profile-img"
+					src="{{actor.img}}"
+					alt="Imagem de {{actor.name}}"
 				/>
-			</div>
-			<div class="resource pontos flexrow">
-				<label class="resource-label" data-tooltip="Pontos de Personagem" data-tooltip-direction="UP">
-					Pts
-				</label>
-				<input
-					type="number"
-					name="system.pontos.personagem.value"
-					value="{{system.pontos.personagem.value}}"
-					data-dtype="Number"
-				/>
+			{{/if}}
+		</div>
+
+		<div class="header-fields">
+			<div class="main-fields flexrow">
+				<h1 class="charname">
+					<label
+						class="field-caption"
+						for="actor-name-{{actor.id}}"
+					>
+						Nome
+					</label>
+
+					<input
+						id="actor-name-{{actor.id}}"
+						name="name"
+						type="text"
+						value="{{actor.name}}"
+						placeholder="{{localize 'Name'}}"
+					/>
+				</h1>
+
+				{{#if veiculo}}
+					<input
+						class="ponto-personagem"
+						type="number"
+						name="system.pontos.personagem.value"
+						value="{{system.pontos.personagem.value}}"
+						data-dtype="Number"
+						data-tooltip="Pontos de Personagem"
+						data-tooltip-direction="UP"
+					/>
+				{{/if}}
+
+				{{#unless veiculo}}
+					<button
+						class="karma-toggle unbutton"
+						type="button"
+						data-tooltip="Alternar Darma/Karma"
+						data-tooltip-direction="UP"
+						aria-label="Alternar Darma/Karma"
+						aria-pressed="{{karma}}"
+						data-action="toggleDarma"
+					>
+						<span class="karma-icon">
+							<img
+								src="systems/tresdetv/assets/icons/svg/cycle.svg"
+								alt=""
+							/>
+						</span>
+
+						<span class="karma-label">
+							Karma
+						</span>
+					</button>
+				{{/unless}}
 			</div>
 
-			{{#if personagem}}
-			<div class="resource xp flexrow">
-				<label class="resource-label" data-tooltip="Pontos de Experiência" data-tooltip-direction="UP">
-					XP
-				</label>
-				<input
-					type="number"
-					name="system.pontos.experiencia.value"
-					value="{{system.pontos.experiencia.value}}"
-					data-dtype="Number"
-				/>
-			</div>
-			{{/if}}
+			{{#unless veiculo}}
+				<div
+					class="resources identity-resources flexrow"
+				>
+					<div
+						class="resource identity-resource archetype-field flexrow"
+					>
+						<label class="field-caption">
+							Arquétipo
+						</label>
+
+						<input
+							type="text"
+							name="system.detalhes.arquetipo"
+							placeholder="Ex.: Kemono"
+							value="{{system.detalhes.arquetipo}}"
+							data-dtype="String"
+						/>
+					</div>
+
+					<div
+						class="resource pontos flexrow"
+					>
+						<label
+							class="resource-label"
+							data-tooltip="Pontos de Personagem"
+							data-tooltip-direction="UP"
+						>
+							Pts
+						</label>
+
+						<input
+							type="number"
+							name="system.pontos.personagem.value"
+							value="{{system.pontos.personagem.value}}"
+							data-dtype="Number"
+						/>
+					</div>
+
+					{{#if personagem}}
+						<div
+							class="resource xp flexrow"
+						>
+							<label
+								class="resource-label"
+								data-tooltip="Pontos de Experiência"
+								data-tooltip-direction="UP"
+							>
+								XP
+							</label>
+
+							<input
+								type="number"
+								name="system.pontos.experiencia.value"
+								value="{{system.pontos.experiencia.value}}"
+								data-dtype="Number"
+							/>
+						</div>
+					{{/if}}
+				</div>
+
+				<div
+					class="resources concept-resources flexrow"
+				>
+					<div
+						class="resource identity-resource flexrow"
+					>
+						<label class="field-caption">
+							Conceito
+						</label>
+
+						<input
+							type="text"
+							name="system.detalhes.conceito"
+							placeholder="Uma frase sobre o personagem"
+							value="{{system.detalhes.conceito}}"
+							data-dtype="String"
+						/>
+					</div>
+				</div>
+			{{/unless}}
 		</div>
-		<div class="resources flexrow">
-			<div class="resource resource-stack flexcol">
-				<label class="resource-label" data-tooltip="Conceito" data-tooltip-direction="UP">Conceito</label>
-				<input
-					type="text"
-					name="system.detalhes.conceito"
-					placeholder="Conceito"
-					value="{{system.detalhes.conceito}}"
-					data-dtype="String"
-				/>
-			</div>
-		</div>
-		{{/unless}}
 	</div>
 </header>

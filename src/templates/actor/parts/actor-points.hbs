@@ -1,58 +1,386 @@
-<div class="abilities flexcol resource-stack-group">
-	<div class="ability pontos flexrow flex-group-center resource-pill">
-		<label
-			for="system.pontos.acao.value"
-			class="resource-label align-left"
-			data-tooltip="TRESDETV.Pontos.acao.label"
-			data-tooltip-direction="UP"
-		>
-			{{localize "TRESDETV.Pontos.acao.short"}}
-		</label>
-		{{! <div class="flexrow"> }}
-		<input
-			type="number"
-			name="system.pontos.acao.max"
-			value="{{system.pontos.acao.max}}"
-			data-dtype="Number"
-			disabled
-		/>
-		<input type="number" name="system.pontos.acao.value" value="{{system.pontos.acao.value}}" data-dtype="Number" />
-		{{! </div> }}
+<section
+	class="character-stats"
+	aria-label="Atributos e recursos do personagem"
+>
+	<header class="character-stats-header">
+		<div class="stats-heading">
+			<span class="stats-heading-title">
+				Atributos
+			</span>
+
+			<span class="stats-heading-description">
+				Clique em P, H ou R para fazer um teste
+			</span>
+		</div>
+
+		<div class="resources-heading">
+			<span>
+				Recursos
+			</span>
+
+			<small>
+				Atual / Máximo
+			</small>
+		</div>
+	</header>
+
+	{{!-- Poder e Pontos de Ação --}}
+	<div class="ability stat-row stat-poder">
+		<div class="stat-attribute">
+			<div
+				class="dados stat-roll-buttons"
+				aria-label="Quantidade de dados para Poder"
+			>
+				<button
+					type="button"
+					class="rollable stat-roll-button"
+					data-key="poder"
+					data-dice="1"
+					aria-label="Rolar um dado de Poder"
+					data-tooltip="Rolar 1D + Poder"
+					data-tooltip-direction="UP"
+				>
+					1D
+				</button>
+
+				<button
+					type="button"
+					class="rollable stat-roll-button"
+					data-key="poder"
+					data-dice="2"
+					aria-label="Rolar dois dados de Poder"
+					data-tooltip="Rolar 2D + Poder"
+					data-tooltip-direction="UP"
+				>
+					2D
+				</button>
+
+				<button
+					type="button"
+					class="rollable stat-roll-button"
+					data-key="poder"
+					data-dice="3"
+					aria-label="Rolar três dados de Poder"
+					data-tooltip="Rolar 3D + Poder"
+					data-tooltip-direction="UP"
+				>
+					3D
+				</button>
+			</div>
+
+			<label
+				class="rollable stat-attribute-label"
+				for="attribute-power-{{actor.id}}"
+				data-key="poder"
+				data-tooltip="TRESDETV.Atributos.poder.label"
+				data-tooltip-direction="UP"
+				aria-label="Rolar teste de Poder"
+			>
+				<span class="stat-letter">
+					P
+				</span>
+
+				<span class="stat-name">
+					Poder
+				</span>
+			</label>
+
+			<input
+				id="attribute-power-{{actor.id}}"
+				class="stat-value"
+				type="number"
+				name="system.atributos.poder.value"
+				value="{{system.atributos.poder.value}}"
+				data-dtype="Number"
+			/>
+		</div>
+
+		<div class="stat-resource resource-action">
+			<label
+				class="stat-resource-label"
+				for="resource-action-current-{{actor.id}}"
+				data-tooltip="TRESDETV.Pontos.acao.label"
+				data-tooltip-direction="UP"
+			>
+				<span class="resource-short">
+					PA
+				</span>
+
+				<span class="resource-name">
+					Ação
+				</span>
+			</label>
+
+			<div class="resource-value-group">
+				<input
+					id="resource-action-current-{{actor.id}}"
+					class="resource-current"
+					type="number"
+					name="system.pontos.acao.value"
+					value="{{system.pontos.acao.value}}"
+					data-dtype="Number"
+					data-tooltip="Pontos de Ação atuais"
+					data-tooltip-direction="UP"
+				/>
+
+				<span
+					class="resource-separator"
+					aria-hidden="true"
+				>
+					/
+				</span>
+
+				<input
+					class="resource-maximum"
+					type="number"
+					name="system.pontos.acao.max"
+					value="{{system.pontos.acao.max}}"
+					data-dtype="Number"
+					data-tooltip="Pontos de Ação máximos"
+					data-tooltip-direction="UP"
+					disabled
+				/>
+			</div>
+		</div>
 	</div>
-	<div class="ability pontos flexrow flex-group-center resource-pill">
-		<label
-			for="system.pontos.mana.value"
-			class="resource-label align-left"
-			data-tooltip="TRESDETV.Pontos.mana.label"
-			data-tooltip-direction="UP"
-		>
-			{{localize "TRESDETV.Pontos.mana.short"}}
-		</label>
-		<input
-			type="number"
-			name="system.pontos.mana.max"
-			value="{{system.pontos.mana.max}}"
-			data-dtype="Number"
-			disabled
-		/>
-		<input type="number" name="system.pontos.mana.value" value="{{system.pontos.mana.value}}" data-dtype="Number" />
+
+	{{!-- Habilidade e Pontos de Mana --}}
+	<div class="ability stat-row stat-habilidade">
+		<div class="stat-attribute">
+			<div
+				class="dados stat-roll-buttons"
+				aria-label="Quantidade de dados para Habilidade"
+			>
+				<button
+					type="button"
+					class="rollable stat-roll-button"
+					data-key="habilidade"
+					data-dice="1"
+					aria-label="Rolar um dado de Habilidade"
+					data-tooltip="Rolar 1D + Habilidade"
+					data-tooltip-direction="UP"
+				>
+					1D
+				</button>
+
+				<button
+					type="button"
+					class="rollable stat-roll-button"
+					data-key="habilidade"
+					data-dice="2"
+					aria-label="Rolar dois dados de Habilidade"
+					data-tooltip="Rolar 2D + Habilidade"
+					data-tooltip-direction="UP"
+				>
+					2D
+				</button>
+
+				<button
+					type="button"
+					class="rollable stat-roll-button"
+					data-key="habilidade"
+					data-dice="3"
+					aria-label="Rolar três dados de Habilidade"
+					data-tooltip="Rolar 3D + Habilidade"
+					data-tooltip-direction="UP"
+				>
+					3D
+				</button>
+			</div>
+
+			<label
+				class="rollable stat-attribute-label"
+				for="attribute-skill-{{actor.id}}"
+				data-key="habilidade"
+				data-tooltip="TRESDETV.Atributos.habilidade.label"
+				data-tooltip-direction="UP"
+				aria-label="Rolar teste de Habilidade"
+			>
+				<span class="stat-letter">
+					H
+				</span>
+
+				<span class="stat-name">
+					Habilidade
+				</span>
+			</label>
+
+			<input
+				id="attribute-skill-{{actor.id}}"
+				class="stat-value"
+				type="number"
+				name="system.atributos.habilidade.value"
+				value="{{system.atributos.habilidade.value}}"
+				data-dtype="Number"
+			/>
+		</div>
+
+		<div class="stat-resource resource-mana">
+			<label
+				class="stat-resource-label"
+				for="resource-mana-current-{{actor.id}}"
+				data-tooltip="TRESDETV.Pontos.mana.label"
+				data-tooltip-direction="UP"
+			>
+				<span class="resource-short">
+					PM
+				</span>
+
+				<span class="resource-name">
+					Mana
+				</span>
+			</label>
+
+			<div class="resource-value-group">
+				<input
+					id="resource-mana-current-{{actor.id}}"
+					class="resource-current"
+					type="number"
+					name="system.pontos.mana.value"
+					value="{{system.pontos.mana.value}}"
+					data-dtype="Number"
+					data-tooltip="Pontos de Mana atuais"
+					data-tooltip-direction="UP"
+				/>
+
+				<span
+					class="resource-separator"
+					aria-hidden="true"
+				>
+					/
+				</span>
+
+				<input
+					class="resource-maximum"
+					type="number"
+					name="system.pontos.mana.max"
+					value="{{system.pontos.mana.max}}"
+					data-dtype="Number"
+					data-tooltip="Pontos de Mana máximos"
+					data-tooltip-direction="UP"
+					disabled
+				/>
+			</div>
+		</div>
 	</div>
-	<div class="ability pontos flexrow flex-group-center resource-pill">
-		<label
-			for="system.pontos.vida.value"
-			class="resource-label align-left"
-			data-tooltip="TRESDETV.Pontos.vida.label"
-			data-tooltip-direction="UP"
-		>
-			{{localize "TRESDETV.Pontos.vida.short"}}
-		</label>
-		<input
-			type="number"
-			name="system.pontos.vida.max"
-			value="{{system.pontos.vida.max}}"
-			data-dtype="Number"
-			disabled
-		/>
-		<input type="number" name="system.pontos.vida.value" value="{{system.pontos.vida.value}}" data-dtype="Number" />
+
+	{{!-- Resistência e Pontos de Vida --}}
+	<div class="ability stat-row stat-resistencia">
+		<div class="stat-attribute">
+			<div
+				class="dados stat-roll-buttons"
+				aria-label="Quantidade de dados para Resistência"
+			>
+				<button
+					type="button"
+					class="rollable stat-roll-button"
+					data-key="resistencia"
+					data-dice="1"
+					aria-label="Rolar um dado de Resistência"
+					data-tooltip="Rolar 1D + Resistência"
+					data-tooltip-direction="UP"
+				>
+					1D
+				</button>
+
+				<button
+					type="button"
+					class="rollable stat-roll-button"
+					data-key="resistencia"
+					data-dice="2"
+					aria-label="Rolar dois dados de Resistência"
+					data-tooltip="Rolar 2D + Resistência"
+					data-tooltip-direction="UP"
+				>
+					2D
+				</button>
+
+				<button
+					type="button"
+					class="rollable stat-roll-button"
+					data-key="resistencia"
+					data-dice="3"
+					aria-label="Rolar três dados de Resistência"
+					data-tooltip="Rolar 3D + Resistência"
+					data-tooltip-direction="UP"
+				>
+					3D
+				</button>
+			</div>
+
+			<label
+				class="rollable stat-attribute-label"
+				for="attribute-resistance-{{actor.id}}"
+				data-key="resistencia"
+				data-tooltip="TRESDETV.Atributos.resistencia.label"
+				data-tooltip-direction="UP"
+				aria-label="Rolar teste de Resistência"
+			>
+				<span class="stat-letter">
+					R
+				</span>
+
+				<span class="stat-name">
+					Resistência
+				</span>
+			</label>
+
+			<input
+				id="attribute-resistance-{{actor.id}}"
+				class="stat-value"
+				type="number"
+				name="system.atributos.resistencia.value"
+				value="{{system.atributos.resistencia.value}}"
+				data-dtype="Number"
+			/>
+		</div>
+
+		<div class="stat-resource resource-life">
+			<label
+				class="stat-resource-label"
+				for="resource-life-current-{{actor.id}}"
+				data-tooltip="TRESDETV.Pontos.vida.label"
+				data-tooltip-direction="UP"
+			>
+				<span class="resource-short">
+					PV
+				</span>
+
+				<span class="resource-name">
+					Vida
+				</span>
+			</label>
+
+			<div class="resource-value-group">
+				<input
+					id="resource-life-current-{{actor.id}}"
+					class="resource-current"
+					type="number"
+					name="system.pontos.vida.value"
+					value="{{system.pontos.vida.value}}"
+					data-dtype="Number"
+					data-tooltip="Pontos de Vida atuais"
+					data-tooltip-direction="UP"
+				/>
+
+				<span
+					class="resource-separator"
+					aria-hidden="true"
+				>
+					/
+				</span>
+
+				<input
+					class="resource-maximum"
+					type="number"
+					name="system.pontos.vida.max"
+					value="{{system.pontos.vida.max}}"
+					data-dtype="Number"
+					data-tooltip="Pontos de Vida máximos"
+					data-tooltip-direction="UP"
+					disabled
+				/>
+			</div>
+		</div>
 	</div>
-</div>
+</section>

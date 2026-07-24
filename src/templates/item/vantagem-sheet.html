@@ -1,69 +1,299 @@
-<form class="{{cssClass}}" autocomplete="off">
-	<header class="sheet-header">
-		<div class="portrait">
-			<img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+<form
+	class="{{cssClass}} victory-item-sheet"
+	autocomplete="off"
+>
+	<header class="sheet-header item-sheet-header">
+		<div class="portrait item-portrait">
+			<input
+				type="hidden"
+				name="img"
+				value="{{item.img}}"
+			/>
+
+			{{#if editable}}
+				<button
+					type="button"
+					class="portrait-picker"
+					data-target="img"
+					data-type="image"
+					data-document-uuid="{{item.uuid}}"
+					aria-label="Trocar imagem de {{item.name}}"
+					data-tooltip="Trocar imagem"
+					data-tooltip-direction="UP"
+				>
+					<img
+						class="profile-img"
+						src="{{item.img}}"
+						alt="Imagem de {{item.name}}"
+					/>
+
+					<span class="portrait-edit-overlay">
+						<i
+							class="fa-solid fa-camera"
+							aria-hidden="true"
+						></i>
+
+						<span>
+							Trocar imagem
+						</span>
+					</span>
+				</button>
+			{{else}}
+				<img
+					class="profile-img"
+					src="{{item.img}}"
+					alt="Imagem de {{item.name}}"
+				/>
+			{{/if}}
 		</div>
+
 		<div class="header-fields">
+			<span class="item-type-kicker">
+				{{item.type}}
+			</span>
+
 			<div class="main-fields flexrow">
 				<h1 class="charname">
-					<input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'Name' }}" />
+					<input
+						name="name"
+						type="text"
+						value="{{item.name}}"
+						placeholder="{{localize 'Name'}}"
+					/>
 				</h1>
-				<input
-					class="ponto-personagem"
-					type="text"
-					name="system.custo"
-					value="{{system.custo}}"
-					data-dtype="Number"
-					data-tooltip="Custo"
-					data-tooltip-direction="UP"
-				/>
-			</div>
-			<!-- <div class="grid grid-2col">
-				<div class="resource">
-					<label class="resource-label">Custo</label>
-					<input type="text" name="system.custo" value="{{system.custo}}" data-dtype="Number" />
+
+				<div class="cost-field">
+					<label>
+						Custo
+					</label>
+
+					<input
+						class="ponto-personagem"
+						type="number"
+						name="system.custo"
+						value="{{system.custo}}"
+						data-dtype="Number"
+						data-tooltip="Custo em pontos"
+						data-tooltip-direction="UP"
+					/>
 				</div>
-			</div> -->
+			</div>
 		</div>
 	</header>
 
-	{{!-- Sheet Tab Navigation --}}
-	<nav class="sheet-tabs tabs flexrow" data-group="primary">
-		<a class="item" data-tab="description">Descrição</a>
-		<a class="item" data-tab="attributes">Atributos</a>
-		<a class="item" data-tab="effects">Efeitos</a>
+	<nav
+		class="sheet-tabs tabs flexrow"
+		data-group="primary"
+		role="tablist"
+	>
+		<a
+			class="item"
+			data-group="primary"
+			data-tab="description"
+			role="tab"
+		>
+			Descrição
+		</a>
+
+		<a
+			class="item"
+			data-group="primary"
+			data-tab="attributes"
+			role="tab"
+		>
+			Configuração
+		</a>
+
+		<a
+			class="item"
+			data-group="primary"
+			data-tab="effects"
+			role="tab"
+		>
+			Efeitos
+		</a>
 	</nav>
 
-	{{!-- Sheet Body --}}
-	<section class="sheet-body">
-		{{!-- Description Tab --}}
-		<div class="tab" data-group="primary" data-tab="description">
-			{{editor descriptionHTML target="system.descricao" button=true editable=editable
-				engine="prosemirror" collaborate=false}}
+	<section class="sheet-body item-sheet-body">
+		<div
+			class="tab"
+			data-group="primary"
+			data-tab="description"
+			role="tabpanel"
+		>
+			{{editor
+				system.descricao
+				target="system.descricao"
+				button=true
+				editable=editable
+				engine="prosemirror"
+				collaborate=false
+			}}
 		</div>
 
-		{{!-- Attributes Tab --}}
-		<div class="tab attributes" data-group="primary" data-tab="attributes">
-			{{!-- As you add new fields, add them in here! --}}
-			<!-- <div class="form-group">
-				<label class="resource-label">Arquétipo</label>
-				<input type="checkbox" name="system.arquetipo" {{checked system.arquetipo}} />
-			</div> -->
-			<div class="form-group">
-				<label class="resource-label">Afeta</label>
-				<div class="form-fields">
-					{{#each system.afeta as |value i|}}
-					<div class="flexcol flex-group-center">
-						<label style="text-transform: capitalize">{{i}}</label>
-						<input type="checkbox" name="system.afeta.{{i}}" {{checked value}} />
+		<div
+			class="tab attributes item-config-tab"
+			data-group="primary"
+			data-tab="attributes"
+			role="tabpanel"
+		>
+			<section
+				class="victory-config-panel origin-config-panel"
+			>
+				<div class="panel-heading">
+					<div>
+						<span class="panel-kicker">
+							Organização na ficha
+						</span>
+
+						<h3>
+							Origem
+						</h3>
 					</div>
+
+					<i
+						class="fa-solid fa-layer-group"
+						aria-hidden="true"
+					></i>
+				</div>
+
+				<div class="form-group stacked-field">
+					<label
+						class="resource-label"
+						for="origin-type-{{item.id}}"
+					>
+						Categoria
+					</label>
+
+					<select
+						id="origin-type-{{item.id}}"
+						name="system.origem.tipo"
+					>
+						<option
+							value="comprada"
+							{{selected system.origem.tipo "comprada"}}
+						>
+							Comprada com pontos
+						</option>
+
+						<option
+							value="arquetipo"
+							{{selected system.origem.tipo "arquetipo"}}
+						>
+							Arquétipo
+						</option>
+
+						<option
+							value="kit"
+							{{selected system.origem.tipo "kit"}}
+						>
+							Kit de Arcanauta
+						</option>
+
+						<option
+							value="artefato"
+							{{selected system.origem.tipo "artefato"}}
+						>
+							Artefato
+						</option>
+
+						<option
+							value="tecnica"
+							{{selected system.origem.tipo "tecnica"}}
+						>
+							Técnica ou poder
+						</option>
+
+						<option
+							value="temporaria"
+							{{selected system.origem.tipo "temporaria"}}
+						>
+							Temporária
+						</option>
+
+						<option
+							value="outra"
+							{{selected system.origem.tipo "outra"}}
+						>
+							Outra origem
+						</option>
+					</select>
+				</div>
+
+				<div class="form-group stacked-field">
+					<label
+						class="resource-label"
+						for="origin-name-{{item.id}}"
+					>
+						Nome da origem
+					</label>
+
+					<input
+						id="origin-name-{{item.id}}"
+						type="text"
+						name="system.origem.nome"
+						value="{{system.origem.nome}}"
+						data-dtype="String"
+						placeholder="Ex.: Kemono, Combatente, Espada Blazdall"
+					/>
+
+					<p class="notes">
+						Este texto aparece na divisória da ficha.
+						Deixe vazio quando não precisar detalhar.
+					</p>
+				</div>
+			</section>
+
+			<section
+				class="victory-config-panel affects-config-panel"
+			>
+				<div class="panel-heading">
+					<div>
+						<span class="panel-kicker">
+							Regras
+						</span>
+
+						<h3>
+							Atributos afetados
+						</h3>
+					</div>
+
+					<i
+						class="fa-solid fa-dice-d6"
+						aria-hidden="true"
+					></i>
+				</div>
+
+				<div class="attribute-checkbox-grid">
+					{{#each system.afeta as |value key|}}
+						<label class="attribute-checkbox">
+							<input
+								type="checkbox"
+								name="system.afeta.{{key}}"
+								{{checked value}}
+							/>
+
+							<span>
+								{{key}}
+							</span>
+						</label>
 					{{/each}}
 				</div>
-				<p class="notes">Quais atributos de rolagem esta {{item.type}} afeta.</p>
-			</div>
+
+				<p class="notes">
+					Marque quais atributos de rolagem esta
+					{{item.type}} pode modificar.
+				</p>
+			</section>
 		</div>
 
-		{{!-- Active Effects Tab --}}
-		<div class="tab effects flexcol" data-group="primary" data-tab="effects">{{> "tresdetv.actor-effects"}}</div>
+		<div
+			class="tab effects flexcol"
+			data-group="primary"
+			data-tab="effects"
+			role="tabpanel"
+		>
+			{{> "tresdetv.actor-effects"}}
+		</div>
 	</section>
 </form>

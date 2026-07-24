@@ -1,0 +1,1191 @@
+/* ============================================ */
+/*  FICHA DE PERSONAGEM                         */
+/*  Layout responsivo, atributos e controles    */
+/* ============================================ */
+
+.tresdetv.sheet.actor {
+	--tdv-power: #c94f35;
+	--tdv-power-soft: #fae7e1;
+
+	--tdv-skill: #347aaa;
+	--tdv-skill-soft: #e3f0f8;
+
+	--tdv-resistance: #3e8659;
+	--tdv-resistance-soft: #e4f1e8;
+
+	--tdv-ui-ink: #202027;
+	--tdv-ui-muted: #706a61;
+	--tdv-ui-line: #d7cfc1;
+	--tdv-ui-paper: #fffdf8;
+	--tdv-ui-paper-alt: #f4efe6;
+
+	/*
+	 * As consultas responsivas passam a considerar
+	 * a largura interna da ficha, não a tela inteira.
+	 */
+	.sheet-body {
+		container-name: actor-body;
+		container-type: inline-size;
+
+		font-family:
+			"Segoe UI",
+			Arial,
+			sans-serif;
+
+		font-size: 13px;
+		line-height: 1.4;
+	}
+
+	/*
+	 * Layout principal.
+	 *
+	 * Em fichas largas: duas colunas.
+	 * Em fichas estreitas: uma coluna.
+	 */
+	.character-main-layout {
+		display: grid;
+
+		grid-template-columns:
+			minmax(300px, 0.95fr)
+			minmax(270px, 1.05fr);
+
+		align-items: start;
+		gap: 18px;
+
+		width: 100%;
+		min-width: 0;
+	}
+
+	.sidebar,
+	.main-sheet-content {
+		width: 100%;
+		min-width: 0;
+	}
+
+	.sidebar {
+		container-name: actor-sidebar;
+		container-type: inline-size;
+	}
+}
+
+/* -------------------------------------------- */
+/*  Painel de atributos                         */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .character-stats {
+	width: 100%;
+	margin: 0 0 16px;
+	padding: 0;
+
+	overflow: hidden;
+
+	border:
+		1px solid
+		var(--tdv-ui-line);
+
+	border-top:
+		4px solid
+		var(--tdv-orange);
+
+	background:
+		var(--tdv-ui-paper);
+
+	box-shadow:
+		3px 4px 0
+		rgba(30, 28, 25, 0.06);
+}
+
+/* -------------------------------------------- */
+/*  Cabeçalho dos atributos                     */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .character-stats-header {
+	display: grid;
+
+	grid-template-columns:
+		minmax(0, 1fr)
+		118px;
+
+	align-items: center;
+	gap: 12px;
+
+	min-height: 44px;
+	padding: 7px 10px;
+
+	background:
+		var(--tdv-ui-ink);
+
+	color: #fff;
+}
+
+.tresdetv.sheet.actor .stats-heading,
+.tresdetv.sheet.actor .resources-heading {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	min-width: 0;
+}
+
+.tresdetv.sheet.actor .stats-heading-title,
+.tresdetv.sheet.actor .resources-heading > span {
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 12px;
+	font-weight: 800;
+	line-height: 1.1;
+	letter-spacing: 0.55px;
+	text-transform: uppercase;
+}
+
+.tresdetv.sheet.actor .stats-heading-description,
+.tresdetv.sheet.actor .resources-heading small {
+	margin-top: 3px;
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 9px;
+	font-weight: 500;
+	line-height: 1.2;
+
+	color:
+		rgba(255, 255, 255, 0.7);
+}
+
+.tresdetv.sheet.actor .resources-heading {
+	text-align: center;
+}
+
+/* -------------------------------------------- */
+/*  Linhas P, H e R                             */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .stat-row {
+	--stat-color:
+		var(--tdv-orange);
+
+	--stat-soft:
+		rgba(246, 168, 0, 0.12);
+
+	display: grid;
+
+	grid-template-columns:
+		minmax(190px, 1fr)
+		118px;
+
+	align-items: stretch;
+
+	min-height: 78px;
+	margin: 0;
+	padding: 0;
+
+	border-bottom:
+		1px solid
+		var(--tdv-ui-line);
+
+	background:
+		var(--tdv-ui-paper);
+}
+
+.tresdetv.sheet.actor .stat-row:last-child {
+	border-bottom: 0;
+}
+
+.tresdetv.sheet.actor .stat-poder {
+	--stat-color:
+		var(--tdv-power);
+
+	--stat-soft:
+		var(--tdv-power-soft);
+}
+
+.tresdetv.sheet.actor .stat-habilidade {
+	--stat-color:
+		var(--tdv-skill);
+
+	--stat-soft:
+		var(--tdv-skill-soft);
+}
+
+.tresdetv.sheet.actor .stat-resistencia {
+	--stat-color:
+		var(--tdv-resistance);
+
+	--stat-soft:
+		var(--tdv-resistance-soft);
+}
+
+/* -------------------------------------------- */
+/*  Atributo                                    */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .stat-attribute {
+	display: grid;
+
+	grid-template-columns:
+		minmax(0, 1fr)
+		44px;
+
+	grid-template-rows:
+		auto
+		auto;
+
+	align-items: center;
+	column-gap: 10px;
+	row-gap: 7px;
+
+	min-width: 0;
+	padding: 9px 10px;
+
+	border-left:
+		5px solid
+		var(--stat-color);
+}
+
+.tresdetv.sheet.actor .stat-attribute-label {
+	grid-column: 1;
+	grid-row: 1;
+
+	display: grid;
+
+	grid-template-columns:
+		32px
+		minmax(0, 1fr);
+
+	align-items: center;
+	gap: 8px;
+
+	min-width: 0;
+	margin: 0;
+
+	color:
+		var(--tdv-ui-ink);
+
+	cursor: pointer;
+}
+
+.tresdetv.sheet.actor .stat-attribute-label:hover {
+	color:
+		var(--stat-color);
+
+	text-shadow: none;
+}
+
+.tresdetv.sheet.actor .stat-letter {
+	display: grid;
+	place-items: center;
+
+	width: 32px;
+	height: 32px;
+
+	border-radius: 4px;
+
+	background:
+		var(--stat-color);
+
+	color: #fff;
+
+	font-size: 17px;
+	font-weight: 900;
+	line-height: 1;
+
+	text-shadow: none;
+}
+
+.tresdetv.sheet.actor .stat-name {
+	min-width: 0;
+
+	font-size: 12px;
+	font-weight: 800;
+	line-height: 1.15;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.tresdetv.sheet.actor .stat-value {
+	grid-column: 2;
+	grid-row: 1 / span 2;
+
+	align-self: center;
+
+	width: 44px;
+	height: 42px;
+	min-width: 44px;
+	max-width: 44px;
+
+	margin: 0;
+	padding: 0 3px;
+
+	border:
+		2px solid
+		var(--stat-color);
+
+	border-radius: 4px;
+
+	background: #fff;
+	color:
+		var(--tdv-ui-ink);
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 17px;
+	font-weight: 800;
+	line-height: 1;
+	text-align: center;
+
+	box-shadow: none;
+}
+
+.tresdetv.sheet.actor .stat-value:hover,
+.tresdetv.sheet.actor .stat-value:focus {
+	background:
+		var(--stat-soft);
+
+	box-shadow:
+		0 0 0 2px
+		var(--stat-soft);
+}
+
+/* -------------------------------------------- */
+/*  Botões 1D, 2D e 3D                          */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .stat-roll-buttons {
+	grid-column: 1;
+	grid-row: 2;
+
+	display: grid;
+
+	grid-template-columns:
+		repeat(
+			3,
+			minmax(34px, 1fr)
+		);
+
+	align-items: center;
+	gap: 5px;
+
+	width: 100%;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.tresdetv.sheet.actor .stat-roll-button {
+	display: grid;
+	place-items: center;
+
+	width: 100%;
+	height: 27px;
+	min-width: 0;
+	min-height: 27px;
+
+	margin: 0;
+	padding: 0 4px;
+
+	border:
+		1px solid
+		var(--stat-color);
+
+	border-radius: 4px;
+
+	background:
+		var(--stat-color);
+
+	color: #fff;
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 10px;
+	font-weight: 900;
+	line-height: 1;
+
+	text-align: center;
+	text-shadow: none;
+
+	box-shadow:
+		inset 0 -2px 0
+		rgba(0, 0, 0, 0.16);
+
+	transition:
+		filter 120ms ease,
+		transform 120ms ease,
+		box-shadow 120ms ease;
+}
+
+.tresdetv.sheet.actor .stat-roll-button:hover,
+.tresdetv.sheet.actor .stat-roll-button:focus-visible {
+	background:
+		var(--stat-color);
+
+	color: #fff;
+	text-shadow: none;
+
+	filter:
+		brightness(1.12);
+
+	box-shadow:
+		inset 0 -2px 0
+		rgba(0, 0, 0, 0.16),
+		0 0 0 2px
+		var(--stat-soft);
+
+	transform:
+		translateY(-1px);
+}
+
+.tresdetv.sheet.actor .stat-roll-button:active {
+	transform:
+		translateY(1px);
+}
+
+/* -------------------------------------------- */
+/*  Recursos PA, PM e PV                        */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .stat-resource {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
+	gap: 7px;
+
+	min-width: 0;
+	padding: 9px;
+
+	border-left:
+		1px solid
+		var(--tdv-ui-line);
+
+	background:
+		var(--stat-soft);
+}
+
+.tresdetv.sheet.actor .stat-resource-label {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 5px;
+
+	width: 100%;
+	min-width: 0;
+	margin: 0;
+}
+
+.tresdetv.sheet.actor .resource-short {
+	font-size: 13px;
+	font-weight: 900;
+	line-height: 1;
+
+	color:
+		var(--stat-color);
+}
+
+.tresdetv.sheet.actor .resource-name {
+	font-size: 9px;
+	font-weight: 600;
+	line-height: 1;
+
+	color:
+		var(--tdv-ui-muted);
+}
+
+.tresdetv.sheet.actor .resource-value-group {
+	display: grid;
+
+	grid-template-columns:
+		minmax(32px, 1fr)
+		10px
+		minmax(32px, 1fr);
+
+	align-items: center;
+	gap: 2px;
+
+	width: 100%;
+	min-width: 0;
+}
+
+.tresdetv.sheet.actor .resource-current,
+.tresdetv.sheet.actor .resource-maximum {
+	width: 100%;
+	height: 34px;
+	min-width: 0;
+
+	margin: 0;
+	padding: 0 2px;
+
+	border:
+		1px solid
+		var(--stat-color);
+
+	border-radius: 4px;
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 13px;
+	font-weight: 800;
+	line-height: 1;
+	text-align: center;
+
+	box-shadow: none;
+}
+
+.tresdetv.sheet.actor .resource-current {
+	background: #fff;
+	color:
+		var(--tdv-ui-ink);
+}
+
+.tresdetv.sheet.actor .resource-current:hover,
+.tresdetv.sheet.actor .resource-current:focus {
+	background:
+		var(--stat-soft);
+
+	box-shadow:
+		0 0 0 2px
+		rgba(0, 0, 0, 0.05);
+}
+
+.tresdetv.sheet.actor .resource-maximum {
+	opacity: 1;
+
+	background:
+		var(--tdv-ui-paper-alt);
+
+	border-color:
+		var(--tdv-ui-line);
+
+	color:
+		var(--tdv-ui-muted);
+
+	cursor: default;
+}
+
+.tresdetv.sheet.actor .resource-separator {
+	display: grid;
+	place-items: center;
+
+	width: 10px;
+
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 1;
+
+	color:
+		var(--tdv-ui-muted);
+}
+
+/* -------------------------------------------- */
+/*  Cabeçalhos e botões das seções              */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .items-header {
+	display: flex;
+	align-items: center;
+
+	width: 100%;
+	min-height: 32px;
+	height: auto;
+
+	padding:
+		3px
+		3px
+		5px
+		0;
+}
+
+.tresdetv.sheet.actor .items-header .item-name {
+	display: flex;
+	align-items: center;
+
+	min-width: 0;
+}
+
+.tresdetv.sheet.actor .items-header .section-title,
+.tresdetv.sheet.actor .items-header .item-name {
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 13px;
+	font-weight: 900;
+	line-height: 1.2;
+	letter-spacing: 0.3px;
+	text-transform: uppercase;
+}
+
+/*
+ * Área compartilhada por editar Perícias,
+ * adicionar itens e adicionar efeitos.
+ */
+.tresdetv.sheet.actor .section-controls,
+.tresdetv.sheet.actor .items-header .item-controls {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	align-self: center;
+
+	flex: 0 0 auto;
+
+	height: 26px;
+	min-height: 26px;
+	margin: 0 0 0 auto;
+	padding: 0;
+}
+
+.tresdetv.sheet.actor .section-control-button,
+.tresdetv.sheet.actor .items-header .item-controls > a,
+.tresdetv.sheet.actor .items-header .item-controls > button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 24px;
+	height: 24px;
+	min-width: 24px;
+	min-height: 24px;
+
+	margin: 0;
+	padding: 0;
+
+	border: 0;
+	border-radius: 3px;
+
+	background:
+		var(--tdv-ui-ink);
+
+	color:
+		var(--tdv-yellow);
+
+	font-size: 12px;
+	line-height: 1;
+
+	box-shadow: none;
+	text-shadow: none;
+
+	cursor: pointer;
+}
+
+.tresdetv.sheet.actor .section-control-button:hover,
+.tresdetv.sheet.actor .items-header .item-controls > a:hover,
+.tresdetv.sheet.actor .items-header .item-controls > button:hover {
+	background:
+		var(--tdv-orange);
+
+	color:
+		var(--tdv-ui-ink);
+
+	box-shadow: none;
+	text-shadow: none;
+}
+
+.tresdetv.sheet.actor .section-control-button i,
+.tresdetv.sheet.actor .items-header .item-controls i {
+	display: block;
+
+	width: auto;
+	height: auto;
+
+	margin: 0;
+	padding: 0;
+
+	font-size: inherit;
+	line-height: 1;
+
+	transform: none;
+}
+
+/* -------------------------------------------- */
+/*  Perícias                                    */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .skills-list {
+	width: 100%;
+	margin: 0 0 14px;
+}
+
+.tresdetv.sheet.actor .skills-header {
+	position: relative;
+}
+
+.tresdetv.sheet.actor .skills-tags {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+
+	width: 100%;
+	min-height: 34px;
+
+	margin: 0;
+	padding: 8px 2px 6px;
+
+	list-style: none;
+}
+
+.tresdetv.sheet.actor .skills-tags .tag {
+	display: inline-flex;
+	align-items: center;
+
+	min-height: 24px;
+
+	margin: 0;
+	padding: 4px 8px;
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 11px;
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+/* -------------------------------------------- */
+/*  Listas gerais                               */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .items-list .item-name,
+.tresdetv.sheet.actor .items-list .item-name h3,
+.tresdetv.sheet.actor .items-list .item-name h4 {
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 12px;
+	line-height: 1.3;
+}
+
+.tresdetv.sheet.actor .items-list .item-name h3,
+.tresdetv.sheet.actor .items-list .item-name h4 {
+	font-weight: 700;
+}
+
+.tresdetv.sheet.actor .items-list .item {
+	min-height: 30px;
+}
+
+.tresdetv.sheet.actor .origin-divider {
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 9px;
+	font-weight: 800;
+	line-height: 1.2;
+	letter-spacing: 0.35px;
+}
+
+.tresdetv.sheet.actor .empty-list-row {
+	padding: 9px 4px;
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 11px;
+	line-height: 1.35;
+}
+
+/* -------------------------------------------- */
+/*  Efeitos                                     */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .effects-list {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+}
+
+.tresdetv.sheet.actor .effect-section {
+	width: 100%;
+	margin: 0 0 12px;
+	padding: 0;
+
+	list-style: none;
+}
+
+.tresdetv.sheet.actor .effect-section-header,
+.tresdetv.sheet.actor .effect-row {
+	display: grid;
+
+	grid-template-columns:
+		minmax(170px, 1fr)
+		minmax(95px, 0.45fr)
+		minmax(95px, 0.45fr)
+		auto;
+
+	align-items: center;
+	column-gap: 8px;
+
+	width: 100%;
+	min-width: 0;
+}
+
+.tresdetv.sheet.actor .effect-section-header {
+	min-height: 35px;
+	padding:
+		3px
+		3px
+		6px
+		0;
+}
+
+.tresdetv.sheet.actor .effect-section-header .item-name {
+	min-width: 0;
+}
+
+.tresdetv.sheet.actor .effect-column-title {
+	min-width: 0;
+
+	font-size: 10px;
+	font-weight: 800;
+	line-height: 1.2;
+	text-align: center;
+	text-transform: uppercase;
+
+	color:
+		var(--tdv-ui-ink);
+}
+
+.tresdetv.sheet.actor .effect-item-list {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+}
+
+.tresdetv.sheet.actor .effect-row {
+	min-height: 38px;
+	padding: 4px 3px;
+
+	border-bottom:
+		1px solid
+		var(--tdv-ui-line);
+}
+
+.tresdetv.sheet.actor .effect-row .effect-name {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+
+	min-width: 0;
+}
+
+.tresdetv.sheet.actor .effect-row .effect-name h4 {
+	min-width: 0;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.tresdetv.sheet.actor .effect-source,
+.tresdetv.sheet.actor .effect-duration {
+	min-width: 0;
+
+	padding: 0 4px;
+
+	border: 0;
+
+	font-size: 11px;
+	line-height: 1.25;
+	text-align: center;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.tresdetv.sheet.actor .effect-controls {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 4px;
+
+	min-width: 0;
+	height: auto;
+	margin: 0;
+	padding: 0;
+}
+
+.tresdetv.sheet.actor .effect-controls .effect-control {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 24px;
+	height: 24px;
+	min-width: 24px;
+	min-height: 24px;
+
+	margin: 0;
+	padding: 0;
+
+	border: 0;
+	border-radius: 3px;
+
+	background:
+		var(--tdv-ui-ink);
+
+	color:
+		var(--tdv-yellow);
+
+	font-size: 11px;
+	line-height: 1;
+
+	box-shadow: none;
+	text-shadow: none;
+
+	cursor: pointer;
+}
+
+.tresdetv.sheet.actor .effect-controls .effect-control:hover {
+	background:
+		var(--tdv-orange);
+
+	color:
+		var(--tdv-ui-ink);
+
+	box-shadow: none;
+	text-shadow: none;
+}
+
+.tresdetv.sheet.actor .effect-controls .effect-control i {
+	display: block;
+
+	width: auto;
+	height: auto;
+
+	margin: 0;
+	padding: 0;
+
+	font-size: inherit;
+	line-height: 1;
+}
+
+.tresdetv.sheet.actor .effect-add-button {
+	width: auto !important;
+	min-width: 24px !important;
+
+	gap: 5px;
+	padding: 0 8px !important;
+}
+
+.tresdetv.sheet.actor .effect-add-label {
+	display: inline-block;
+
+	font-size: 10px;
+	font-weight: 800;
+	line-height: 1;
+}
+
+.tresdetv.sheet.actor .effect-empty-row {
+	border-bottom:
+		1px dashed
+		var(--tdv-ui-line);
+}
+
+/* -------------------------------------------- */
+/*  Abas                                        */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .sheet-tabs .item {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 13px;
+	font-weight: 800;
+	line-height: 1;
+	text-transform: none;
+}
+
+/* ============================================ */
+/*  RESPONSIVIDADE DO CORPO DA FICHA             */
+/* ============================================ */
+
+/*
+ * Abaixo de 700px internos, a ficha deixa de
+ * espremer as duas colunas.
+ */
+@container actor-body (max-width: 700px) {
+	.tresdetv.sheet.actor .character-main-layout {
+		grid-template-columns:
+			minmax(0, 1fr);
+
+		gap: 20px;
+	}
+
+	.tresdetv.sheet.actor .sidebar,
+	.tresdetv.sheet.actor .main-sheet-content {
+		width: 100%;
+	}
+
+	.tresdetv.sheet.actor .character-stats {
+		max-width: none;
+	}
+}
+
+/*
+ * Quando o painel de atributos fica realmente
+ * estreito, o recurso passa para baixo.
+ */
+@container actor-sidebar (max-width: 390px) {
+	.tresdetv.sheet.actor .character-stats-header {
+		grid-template-columns:
+			minmax(0, 1fr);
+	}
+
+	.tresdetv.sheet.actor .resources-heading {
+		display: none;
+	}
+
+	.tresdetv.sheet.actor .stat-row {
+		grid-template-columns:
+			minmax(0, 1fr);
+	}
+
+	.tresdetv.sheet.actor .stat-resource {
+		display: grid;
+
+		grid-template-columns:
+			minmax(70px, 1fr)
+			minmax(105px, auto);
+
+		align-items: center;
+
+		border-top:
+			1px solid
+			var(--tdv-ui-line);
+
+		border-left: 0;
+	}
+
+	.tresdetv.sheet.actor .stat-resource-label {
+		justify-content: flex-start;
+		gap: 6px;
+	}
+
+	.tresdetv.sheet.actor .resource-value-group {
+		max-width: 122px;
+		justify-self: end;
+	}
+}
+
+/* ============================================ */
+/*  RESPONSIVIDADE DA ABA DE EFEITOS             */
+/* ============================================ */
+
+@container actor-body (max-width: 620px) {
+	.tresdetv.sheet.actor .effect-section-header,
+	.tresdetv.sheet.actor .effect-row {
+		grid-template-columns:
+			minmax(0, 1fr)
+			auto;
+
+		grid-template-areas:
+			"name controls"
+			"source source"
+			"duration duration";
+
+		row-gap: 5px;
+	}
+
+	.tresdetv.sheet.actor .effect-section-header .effect-name,
+	.tresdetv.sheet.actor .effect-row .effect-name {
+		grid-area: name;
+	}
+
+	.tresdetv.sheet.actor .effect-section-header .effect-controls,
+	.tresdetv.sheet.actor .effect-row .effect-controls {
+		grid-area: controls;
+	}
+
+	.tresdetv.sheet.actor .effect-source-title,
+	.tresdetv.sheet.actor .effect-duration-title {
+		display: none;
+	}
+
+	.tresdetv.sheet.actor .effect-row .effect-source {
+		grid-area: source;
+	}
+
+	.tresdetv.sheet.actor .effect-row .effect-duration {
+		grid-area: duration;
+	}
+
+	.tresdetv.sheet.actor .effect-row .effect-source,
+	.tresdetv.sheet.actor .effect-row .effect-duration {
+		display: grid;
+
+		grid-template-columns:
+			88px
+			minmax(0, 1fr);
+
+		align-items: baseline;
+		gap: 6px;
+
+		padding: 3px 4px;
+
+		background:
+			rgba(0, 0, 0, 0.025);
+
+		text-align: left;
+		white-space: normal;
+	}
+
+	.tresdetv.sheet.actor .effect-row .effect-source::before,
+	.tresdetv.sheet.actor .effect-row .effect-duration::before {
+		content:
+			attr(data-column-label);
+
+		font-size: 9px;
+		font-weight: 800;
+		text-transform: uppercase;
+
+		color:
+			var(--tdv-ui-muted);
+	}
+}
+
+@container actor-body (max-width: 430px) {
+	.tresdetv.sheet.actor .effect-add-label {
+		display: none;
+	}
+
+	.tresdetv.sheet.actor .effect-add-button {
+		width: 24px !important;
+		padding: 0 !important;
+	}
+}

@@ -1,0 +1,1405 @@
+/* ============================================ */
+/*  RETRATOS, KARMA, PERÍCIAS, EFEITOS E ÍCONES */
+/* ============================================ */
+
+/* -------------------------------------------- */
+/*  Font Awesome                                */
+/* -------------------------------------------- */
+
+.tresdetv :is(
+	.fa-solid,
+	.fas,
+	.fa-regular,
+	.far,
+	.fa-brands,
+	.fab
+) {
+	display: inline-block;
+	width: auto;
+	height: auto;
+	margin: 0;
+	padding: 0;
+	font-style: normal;
+	line-height: 1;
+	text-rendering: auto;
+}
+
+.tresdetv :is(
+	.fa-solid,
+	.fas
+) {
+	font-family:
+		"Font Awesome 6 Pro",
+		"Font Awesome 6 Free",
+		FontAwesome !important;
+
+	font-weight: 900 !important;
+}
+
+.tresdetv :is(
+	.fa-regular,
+	.far
+) {
+	font-family:
+		"Font Awesome 6 Pro",
+		"Font Awesome 6 Free",
+		FontAwesome !important;
+
+	font-weight: 400 !important;
+}
+
+/*
+ * A janela é ancestral do formulário. Essa regra
+ * impede que a fonte temática substitua os ícones
+ * de fechar e controles da janela.
+ */
+.application.tresdetv .window-header i,
+.window-app.tresdetv .window-header i,
+.tresdetv.window-app .window-header i {
+	font-family:
+		"Font Awesome 6 Pro",
+		"Font Awesome 6 Free",
+		FontAwesome !important;
+
+	font-weight: 900 !important;
+	font-style: normal;
+	line-height: 1;
+}
+
+/* -------------------------------------------- */
+/*  Retrato compartilhado                       */
+/* -------------------------------------------- */
+
+.tresdetv.sheet .portrait-picker {
+	position: relative;
+	display: block;
+
+	width: 100%;
+	height: 100%;
+	min-width: 0;
+	min-height: 0;
+
+	margin: 0;
+	padding: 0;
+
+	overflow: hidden;
+
+	border: 0;
+	border-radius: 0;
+
+	background: transparent;
+
+	box-shadow: none;
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	line-height: 1;
+	cursor: pointer;
+}
+
+.tresdetv.sheet .portrait-picker:hover,
+.tresdetv.sheet .portrait-picker:focus-visible {
+	border: 0;
+	outline: none;
+	box-shadow: none;
+}
+
+.tresdetv.sheet .portrait-picker .profile-img,
+.tresdetv.sheet .portrait > .profile-img {
+	display: block;
+
+	width: 100%;
+	height: 100%;
+
+	margin: 0;
+	padding: 0;
+
+	border: 0;
+
+	background:
+		linear-gradient(
+			135deg,
+			#fff,
+			#eee8dc
+		);
+
+	object-fit: cover;
+	object-position: center;
+}
+
+.tresdetv.sheet .portrait-edit-overlay {
+	position: absolute;
+	inset: auto 0 0;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	gap: 7px;
+
+	min-height: 40px;
+	padding: 7px 9px;
+
+	background:
+		linear-gradient(
+			180deg,
+			rgba(23, 23, 29, 0),
+			rgba(23, 23, 29, 0.94) 42%
+		);
+
+	color: #fff;
+
+	font-size: 11px;
+	font-weight: 800;
+	line-height: 1;
+	letter-spacing: 0.15px;
+
+	text-shadow:
+		0 1px 2px #000;
+
+	opacity: 0;
+
+	transform:
+		translateY(8px);
+
+	transition:
+		opacity 140ms ease,
+		transform 140ms ease;
+
+	pointer-events: none;
+}
+
+.tresdetv.sheet .portrait-edit-overlay i {
+	font-size: 15px;
+	color: var(--tdv-yellow);
+}
+
+.tresdetv.sheet .portrait-picker:hover
+	.portrait-edit-overlay,
+.tresdetv.sheet .portrait-picker:focus-visible
+	.portrait-edit-overlay {
+	opacity: 1;
+
+	transform:
+		translateY(0);
+}
+
+/* -------------------------------------------- */
+/*  Retrato do personagem                       */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .actor-portrait {
+	position: relative;
+
+	flex:
+		0 0 170px;
+
+	width: 170px;
+	height: 190px;
+
+	min-width: 170px;
+	min-height: 190px;
+
+	padding: 5px;
+	overflow: hidden;
+
+	border:
+		2px solid
+		var(--tdv-orange);
+
+	background:
+		var(--tdv-paper-bright);
+
+	box-shadow:
+		inset 0 0 0 2px
+			var(--tdv-ink),
+		5px 6px 0
+			rgba(23, 23, 29, 0.12);
+
+	clip-path:
+		polygon(
+			0 0,
+			100% 0,
+			100% calc(100% - 16px),
+			calc(100% - 16px) 100%,
+			0 100%
+		);
+}
+
+.tresdetv.sheet.actor .actor-portrait::after {
+	content: "";
+
+	position: absolute;
+
+	right: 0;
+	bottom: 0;
+
+	z-index: 4;
+
+	width: 19px;
+	height: 19px;
+
+	background:
+		var(--tdv-orange);
+
+	clip-path:
+		polygon(
+			100% 0,
+			100% 100%,
+			0 100%
+		);
+
+	pointer-events: none;
+}
+
+.tresdetv.sheet.actor
+	.actor-portrait
+	.portrait-picker {
+	clip-path:
+		polygon(
+			0 0,
+			100% 0,
+			100% calc(100% - 13px),
+			calc(100% - 13px) 100%,
+			0 100%
+		);
+}
+
+/* -------------------------------------------- */
+/*  Karma                                       */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .karma-toggle {
+	flex:
+		0 0 62px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+
+	gap: 4px;
+
+	width: 62px;
+	min-width: 62px;
+	height: 62px;
+
+	margin:
+		0 0 1px;
+
+	padding: 0;
+
+	border: 0;
+
+	background: transparent;
+	box-shadow: none;
+
+	color:
+		var(--tdv-ink);
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	cursor: pointer;
+}
+
+.tresdetv.sheet.actor .karma-icon {
+	display: grid;
+	place-items: center;
+
+	width: 44px;
+	height: 44px;
+
+	border:
+		2px solid
+		var(--tdv-orange);
+
+	border-radius:
+		50%;
+
+	background:
+		var(--tdv-ink);
+
+	box-shadow:
+		inset 0 0 0 2px
+			rgba(255, 255, 255, 0.12),
+		0 3px 0
+			rgba(23, 23, 29, 0.18);
+
+	transition:
+		background 140ms ease,
+		transform 160ms ease,
+		box-shadow 140ms ease;
+}
+
+.tresdetv.sheet.actor .karma-icon img {
+	display: block;
+
+	width: 28px;
+	height: 28px;
+
+	margin: 0;
+	padding: 0;
+
+	border: 0;
+
+	object-fit: contain;
+
+	filter:
+		brightness(0)
+		invert(1);
+}
+
+.tresdetv.sheet.actor .karma-label {
+	font-size: 9px;
+	font-weight: 900;
+	line-height: 1;
+	letter-spacing: 0.7px;
+
+	text-transform:
+		uppercase;
+
+	color:
+		var(--tdv-muted);
+}
+
+.tresdetv.sheet.actor .karma-toggle:hover,
+.tresdetv.sheet.actor .karma-toggle:focus-visible {
+	outline: none;
+	box-shadow: none;
+}
+
+.tresdetv.sheet.actor .karma-toggle:hover
+	.karma-icon,
+.tresdetv.sheet.actor .karma-toggle:focus-visible
+	.karma-icon {
+	background:
+		var(--tdv-orange);
+
+	transform:
+		translateY(-2px)
+		rotate(8deg);
+
+	box-shadow:
+		inset 0 0 0 2px
+			rgba(255, 255, 255, 0.2),
+		0 5px 0
+			rgba(23, 23, 29, 0.16);
+}
+
+.tresdetv.sheet.actor
+	.karma-toggle[aria-pressed="true"]
+	.karma-icon {
+	background:
+		var(--tdv-yellow);
+
+	border-color:
+		var(--tdv-ink);
+
+	box-shadow:
+		inset 0 0 0 2px
+			rgba(255, 255, 255, 0.35),
+		0 0 0 4px
+			rgba(246, 168, 0, 0.24),
+		0 5px 0
+			rgba(23, 23, 29, 0.14);
+}
+
+.tresdetv.sheet.actor
+	.karma-toggle[aria-pressed="true"]
+	.karma-icon img {
+	filter:
+		brightness(0);
+
+	animation:
+		karma-cycle
+		4s linear infinite;
+}
+
+.tresdetv.sheet.actor
+	.karma-toggle[aria-pressed="true"]
+	.karma-label {
+	color:
+		var(--tdv-orange-dark);
+}
+
+/* -------------------------------------------- */
+/*  Perícias                                    */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.actor .skills-list {
+	width: 100%;
+
+	margin:
+		0 0 15px;
+}
+
+.tresdetv.sheet.actor .skills-roll-list {
+	display: grid;
+
+	grid-template-columns:
+		repeat(
+			auto-fit,
+			minmax(126px, 1fr)
+		);
+
+	gap: 7px;
+
+	width: 100%;
+
+	margin: 0;
+
+	padding:
+		9px 1px 6px;
+
+	list-style: none;
+}
+
+.tresdetv.sheet.actor .skill-entry {
+	min-width: 0;
+
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+}
+
+.tresdetv.sheet.actor .skill-roll-button {
+	display: grid;
+
+	grid-template-columns:
+		30px
+		minmax(0, 1fr)
+		auto;
+
+	align-items: center;
+
+	gap: 7px;
+
+	width: 100%;
+	min-width: 0;
+	min-height: 36px;
+
+	margin: 0;
+
+	padding:
+		4px 7px 4px 4px;
+
+	border:
+		1px solid
+		var(--tdv-line-dark);
+
+	border-left:
+		4px solid
+		var(--tdv-orange);
+
+	border-radius:
+		4px;
+
+	background:
+		linear-gradient(
+			180deg,
+			#fff,
+			#f4efe6
+		);
+
+	color:
+		var(--tdv-ink);
+
+	box-shadow:
+		0 2px 0
+		rgba(23, 23, 29, 0.08);
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	text-align: left;
+	text-shadow: none;
+
+	cursor: pointer;
+
+	transition:
+		border-color 120ms ease,
+		background 120ms ease,
+		transform 120ms ease,
+		box-shadow 120ms ease;
+}
+
+.tresdetv.sheet.actor .skill-roll-button:hover,
+.tresdetv.sheet.actor .skill-roll-button:focus-visible {
+	border-color:
+		var(--tdv-orange-dark);
+
+	background:
+		linear-gradient(
+			180deg,
+			#fff7df,
+			#ffe8a3
+		);
+
+	color:
+		var(--tdv-ink);
+
+	box-shadow:
+		0 0 0 2px
+			rgba(246, 168, 0, 0.16),
+		0 3px 0
+			rgba(23, 23, 29, 0.09);
+
+	transform:
+		translateY(-1px);
+
+	text-shadow: none;
+}
+
+.tresdetv.sheet.actor .skill-roll-icon {
+	display: grid;
+	place-items: center;
+
+	width: 28px;
+	height: 28px;
+
+	border-radius:
+		3px;
+
+	background:
+		var(--tdv-ink);
+
+	color:
+		var(--tdv-yellow);
+
+	font-size:
+		13px;
+}
+
+.tresdetv.sheet.actor .skill-roll-name {
+	min-width: 0;
+
+	overflow: hidden;
+
+	white-space:
+		nowrap;
+
+	text-overflow:
+		ellipsis;
+
+	font-size: 11px;
+	font-weight: 800;
+	line-height: 1.2;
+}
+
+.tresdetv.sheet.actor .skill-roll-hint {
+	font-size: 8px;
+	font-weight: 900;
+	line-height: 1;
+	letter-spacing: 0.45px;
+
+	text-transform:
+		uppercase;
+
+	color:
+		var(--tdv-muted);
+}
+
+/* -------------------------------------------- */
+/*  Diálogo da perícia                          */
+/* -------------------------------------------- */
+
+.skill-roll-dialog {
+	display: flex;
+	flex-direction: column;
+
+	gap: 8px;
+
+	min-width: 300px;
+
+	padding:
+		6px 2px;
+}
+
+.skill-roll-dialog .form-group {
+	display: grid;
+
+	grid-template-columns:
+		minmax(130px, 1fr)
+		minmax(110px, 0.8fr);
+
+	align-items: center;
+
+	gap: 12px;
+
+	margin: 0;
+
+	padding:
+		8px 0;
+
+	border-bottom:
+		1px solid
+		rgba(120, 112, 99, 0.28);
+}
+
+.skill-roll-dialog .form-group:last-child {
+	border-bottom: 0;
+}
+
+.skill-roll-dialog label {
+	font-weight: 700;
+}
+
+.skill-roll-dialog .form-fields {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.skill-roll-dialog input,
+.skill-roll-dialog select {
+	width: 100%;
+	min-height: 32px;
+}
+
+/* -------------------------------------------- */
+/*  Fichas de Item                              */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.item {
+	min-width: 520px;
+	min-height: 560px;
+}
+
+.tresdetv.sheet.item .item-sheet-header {
+	min-height: 142px;
+
+	padding:
+		14px 16px;
+
+	gap: 16px;
+}
+
+.tresdetv.sheet.item .item-portrait {
+	position: relative;
+
+	flex:
+		0 0 112px;
+
+	width: 112px;
+	height: 112px;
+
+	min-width: 112px;
+	min-height: 112px;
+
+	padding: 4px;
+
+	overflow: hidden;
+
+	border:
+		2px solid
+		var(--tdv-orange);
+
+	background:
+		#fff;
+
+	box-shadow:
+		inset 0 0 0 2px
+			var(--tdv-ink),
+		4px 5px 0
+			rgba(23, 23, 29, 0.1);
+}
+
+.tresdetv.sheet.item
+	.item-portrait
+	.profile-img {
+	object-fit: cover;
+}
+
+.tresdetv.sheet.item .item-header-resources {
+	display: grid;
+
+	grid-template-columns:
+		repeat(
+			2,
+			minmax(90px, 1fr)
+		);
+
+	gap: 10px;
+
+	margin-top: 10px;
+}
+
+.tresdetv.sheet.item .item-header-resource {
+	display: grid;
+
+	grid-template-columns:
+		auto
+		minmax(0, 1fr);
+
+	align-items: center;
+
+	gap: 8px;
+
+	min-width: 0;
+}
+
+.tresdetv.sheet.item
+	.item-header-resource input {
+	min-width: 0;
+	height: 32px;
+
+	text-align: center;
+}
+
+.tresdetv.sheet.item .item-sheet-body {
+	container-name:
+		item-sheet-body;
+
+	container-type:
+		inline-size;
+
+	padding:
+		14px 16px 18px;
+
+	overflow:
+		hidden auto;
+}
+
+.tresdetv.sheet.item
+	.item-sheet-body > .tab {
+	width: 100%;
+	min-width: 0;
+}
+
+.tresdetv.sheet.item .item-config-tab {
+	display: grid;
+
+	grid-template-columns:
+		repeat(
+			2,
+			minmax(0, 1fr)
+		);
+
+	align-items: start;
+
+	gap: 14px;
+}
+
+.tresdetv.sheet.item .duration-fields {
+	display: grid;
+
+	grid-template-columns:
+		minmax(80px, 0.45fr)
+		minmax(120px, 1fr);
+
+	gap: 8px;
+}
+
+/* -------------------------------------------- */
+/*  Efeitos                                     */
+/* -------------------------------------------- */
+
+.tresdetv.sheet .effects-list {
+	display: flex;
+	flex-direction: column;
+
+	gap: 14px;
+
+	width: 100%;
+
+	margin: 0;
+	padding: 0;
+
+	overflow: visible;
+
+	list-style: none;
+}
+
+.tresdetv.sheet .effect-section {
+	width: 100%;
+	min-width: 0;
+
+	margin: 0;
+	padding: 0;
+
+	overflow: hidden;
+
+	list-style: none;
+
+	border:
+		1px solid
+		var(--tdv-line);
+
+	border-top:
+		4px solid
+		var(--tdv-orange);
+
+	background:
+		rgba(255, 255, 255, 0.55);
+
+	box-shadow:
+		3px 4px 0
+		rgba(23, 23, 29, 0.06);
+}
+
+.tresdetv.sheet .effect-section-header,
+.tresdetv.sheet .effect-row {
+	display: grid;
+
+	grid-template-columns:
+		minmax(170px, 1fr)
+		minmax(96px, 0.42fr)
+		minmax(88px, 0.38fr)
+		auto;
+
+	align-items: center;
+
+	column-gap: 9px;
+
+	width: 100%;
+	min-width: 0;
+}
+
+.tresdetv.sheet .effect-section-header {
+	min-height: 42px;
+
+	margin: 0;
+
+	padding:
+		6px 8px;
+
+	border: 0;
+
+	border-bottom:
+		2px solid
+		var(--tdv-orange);
+
+	background:
+		var(--tdv-paper-deep);
+}
+
+.tresdetv.sheet
+	.effect-section-header::after {
+	display: none;
+}
+
+.tresdetv.sheet
+	.effect-section-header
+	.item-name {
+	min-width: 0;
+	padding: 0;
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 12px;
+	font-weight: 900;
+	line-height: 1.15;
+	letter-spacing: 0.35px;
+
+	text-transform:
+		uppercase;
+}
+
+.tresdetv.sheet .effect-column-title {
+	min-width: 0;
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 9px;
+	font-weight: 900;
+	line-height: 1.2;
+	letter-spacing: 0.35px;
+
+	text-align: center;
+
+	text-transform:
+		uppercase;
+
+	color:
+		var(--tdv-muted);
+}
+
+.tresdetv.sheet .effect-item-list {
+	width: 100%;
+
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+}
+
+.tresdetv.sheet .effect-row {
+	min-height: 48px;
+
+	margin: 0;
+
+	padding:
+		6px 8px;
+
+	border: 0;
+
+	border-bottom:
+		1px solid
+		var(--tdv-line);
+
+	background:
+		rgba(255, 255, 255, 0.52);
+}
+
+.tresdetv.sheet .effect-row:last-child {
+	border-bottom: 0;
+}
+
+.tresdetv.sheet .effect-row:hover {
+	padding-left: 8px;
+
+	background:
+		rgba(255, 201, 40, 0.1);
+}
+
+.tresdetv.sheet
+	.effect-row
+	.effect-name {
+	display: flex;
+	align-items: center;
+
+	gap: 8px;
+
+	min-width: 0;
+}
+
+.tresdetv.sheet
+	.effect-row
+	.effect-name
+	.item-image {
+	flex:
+		0 0 28px;
+
+	width: 28px;
+	height: 28px;
+
+	margin: 0;
+
+	border:
+		1px solid
+		var(--tdv-line-dark);
+
+	border-radius:
+		3px;
+
+	object-fit: cover;
+
+	background:
+		#fff;
+}
+
+.tresdetv.sheet
+	.effect-row
+	.effect-name h4 {
+	min-width: 0;
+
+	margin: 0;
+
+	overflow: hidden;
+
+	white-space:
+		nowrap;
+
+	text-overflow:
+		ellipsis;
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 11px;
+	font-weight: 700;
+	line-height: 1.25;
+}
+
+.tresdetv.sheet .effect-source,
+.tresdetv.sheet .effect-duration {
+	min-width: 0;
+
+	padding:
+		0 4px;
+
+	border:
+		0 !important;
+
+	overflow: hidden;
+
+	white-space:
+		nowrap;
+
+	text-overflow:
+		ellipsis;
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 10px;
+	line-height: 1.25;
+	text-align: center;
+
+	color:
+		var(--tdv-ink-soft);
+}
+
+.tresdetv.sheet .effect-controls {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+
+	gap: 4px;
+
+	min-width: 0;
+	height: auto;
+
+	margin: 0;
+	padding: 0;
+
+	border:
+		0 !important;
+}
+
+.tresdetv.sheet
+	.effect-controls
+	.effect-control {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 26px;
+	height: 26px;
+
+	min-width: 26px;
+	min-height: 26px;
+
+	margin: 0;
+	padding: 0;
+
+	border: 0;
+
+	border-radius:
+		3px;
+
+	background:
+		var(--tdv-ink);
+
+	color:
+		var(--tdv-yellow);
+
+	box-shadow: none;
+
+	font-size: 11px;
+	line-height: 1;
+
+	text-shadow: none;
+
+	cursor: pointer;
+}
+
+.tresdetv.sheet
+	.effect-controls
+	.effect-control:hover,
+.tresdetv.sheet
+	.effect-controls
+	.effect-control:focus-visible {
+	background:
+		var(--tdv-orange);
+
+	color:
+		var(--tdv-ink);
+
+	outline: none;
+
+	box-shadow: none;
+	text-shadow: none;
+}
+
+.tresdetv.sheet
+	.effect-controls
+	.effect-control i {
+	display: block;
+
+	width: auto;
+	height: auto;
+
+	margin: 0;
+	padding: 0;
+
+	font-size: inherit;
+	line-height: 1;
+}
+
+.tresdetv.sheet
+	.effect-controls
+	.effect-add-button {
+	width: auto;
+	min-width: 26px;
+
+	gap: 6px;
+
+	padding:
+		0 9px;
+}
+
+.tresdetv.sheet .effect-add-label {
+	display: inline-block;
+
+	font-family:
+		"Segoe UI",
+		Arial,
+		sans-serif;
+
+	font-size: 9px;
+	font-weight: 900;
+	line-height: 1;
+
+	text-transform:
+		uppercase;
+}
+
+.tresdetv.sheet .effect-empty-row {
+	min-height: 42px;
+
+	margin: 0;
+
+	padding:
+		12px 10px;
+
+	border: 0;
+
+	background:
+		rgba(255, 255, 255, 0.35);
+
+	font-size: 11px;
+	font-style: italic;
+
+	color:
+		var(--tdv-muted);
+}
+
+/* -------------------------------------------- */
+/*  Responsividade do Actor                     */
+/* -------------------------------------------- */
+
+@container actor-body (max-width: 560px) {
+	.tresdetv.sheet.actor
+		.character-identity {
+		display: grid;
+
+		grid-template-columns:
+			135px
+			minmax(0, 1fr);
+
+		gap: 12px;
+	}
+
+	.tresdetv.sheet.actor
+		.actor-portrait {
+		width: 135px;
+		height: 160px;
+
+		min-width: 135px;
+		min-height: 160px;
+	}
+
+	.tresdetv.sheet.actor
+		.karma-toggle {
+		flex-basis: 50px;
+
+		width: 50px;
+		min-width: 50px;
+	}
+
+	.tresdetv.sheet.actor
+		.karma-icon {
+		width: 38px;
+		height: 38px;
+	}
+
+	.tresdetv.sheet.actor
+		.karma-icon img {
+		width: 24px;
+		height: 24px;
+	}
+}
+
+@container actor-body (max-width: 430px) {
+	.tresdetv.sheet.actor
+		.character-identity {
+		grid-template-columns:
+			1fr;
+	}
+
+	.tresdetv.sheet.actor
+		.actor-portrait {
+		justify-self: center;
+
+		width: 160px;
+		height: 180px;
+
+		min-width: 160px;
+		min-height: 180px;
+	}
+
+	.tresdetv.sheet.actor
+		.skills-roll-list {
+		grid-template-columns:
+			1fr;
+	}
+}
+
+/* -------------------------------------------- */
+/*  Responsividade dos Items                    */
+/* -------------------------------------------- */
+
+@container item-sheet-body (max-width: 540px) {
+	.tresdetv.sheet.item
+		.item-config-tab {
+		grid-template-columns:
+			1fr;
+	}
+
+	.tresdetv.sheet.item
+		.effect-section-header,
+	.tresdetv.sheet.item
+		.effect-row {
+		grid-template-columns:
+			minmax(0, 1fr)
+			auto;
+
+		grid-template-areas:
+			"name controls"
+			"source source"
+			"duration duration";
+
+		row-gap: 6px;
+	}
+
+	.tresdetv.sheet.item
+		.effect-section-header
+		.effect-name,
+	.tresdetv.sheet.item
+		.effect-row
+		.effect-name {
+		grid-area: name;
+	}
+
+	.tresdetv.sheet.item
+		.effect-section-header
+		.effect-controls,
+	.tresdetv.sheet.item
+		.effect-row
+		.effect-controls {
+		grid-area: controls;
+	}
+
+	.tresdetv.sheet.item
+		.effect-source-title,
+	.tresdetv.sheet.item
+		.effect-duration-title {
+		display: none;
+	}
+
+	.tresdetv.sheet.item
+		.effect-row
+		.effect-source {
+		grid-area: source;
+	}
+
+	.tresdetv.sheet.item
+		.effect-row
+		.effect-duration {
+		grid-area: duration;
+	}
+
+	.tresdetv.sheet.item
+		.effect-row
+		.effect-source,
+	.tresdetv.sheet.item
+		.effect-row
+		.effect-duration {
+		display: grid;
+
+		grid-template-columns:
+			82px
+			minmax(0, 1fr);
+
+		align-items: baseline;
+
+		gap: 7px;
+
+		padding:
+			4px 6px;
+
+		background:
+			rgba(23, 23, 29, 0.035);
+
+		text-align: left;
+
+		white-space:
+			normal;
+	}
+
+	.tresdetv.sheet.item
+		.effect-row
+		.effect-source::before,
+	.tresdetv.sheet.item
+		.effect-row
+		.effect-duration::before {
+		content:
+			attr(data-column-label);
+
+		font-size: 8px;
+		font-weight: 900;
+		letter-spacing: 0.35px;
+
+		text-transform:
+			uppercase;
+
+		color:
+			var(--tdv-muted);
+	}
+}
+
+@container item-sheet-body (max-width: 400px) {
+	.tresdetv.sheet.item
+		.effect-add-label {
+		display: none;
+	}
+
+	.tresdetv.sheet.item
+		.effect-controls
+		.effect-add-button {
+		width: 26px;
+
+		padding: 0;
+	}
+}
+
+@keyframes karma-cycle {
+	from {
+		transform:
+			rotate(0deg);
+	}
+
+	to {
+		transform:
+			rotate(360deg);
+	}
+}

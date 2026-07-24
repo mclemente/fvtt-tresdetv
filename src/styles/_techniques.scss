@@ -1,0 +1,1063 @@
+/* ============================================ */
+/*  TRUQUES, TÉCNICAS COMUNS E LENDÁRIAS       */
+/* ============================================ */
+
+.tresdetv.sheet.actor {
+	.techniques-panel {
+		width: 100%;
+		min-width: 0;
+		margin: 0 0 16px;
+	}
+
+	.techniques-main-header {
+		margin-bottom: 8px;
+	}
+
+	.technique-tier-list {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		width: 100%;
+	}
+
+	.technique-tier-group {
+		--tech-tier-color: #6b7280;
+		--tech-tier-dark: #414650;
+		--tech-tier-soft: #eef0f3;
+		--tech-tier-text: #202027;
+
+		position: relative;
+		width: 100%;
+		min-width: 0;
+		overflow: hidden;
+
+		border:
+			1px solid
+			var(--tech-tier-color);
+
+		border-left-width: 5px;
+
+		background:
+			rgba(
+				255,
+				255,
+				255,
+				0.58
+			);
+
+		box-shadow:
+			2px 3px 0
+			rgba(
+				23,
+				23,
+				29,
+				0.06
+			);
+	}
+
+	.technique-tier-truque {
+		--tech-tier-color: #7d5bb3;
+		--tech-tier-dark: #59398a;
+		--tech-tier-soft: #eee7f8;
+		--tech-tier-text: #35234e;
+	}
+
+	.technique-tier-comum {
+		--tech-tier-color: #2f78ad;
+		--tech-tier-dark: #1e557d;
+		--tech-tier-soft: #e1edf6;
+		--tech-tier-text: #183b57;
+	}
+
+	.technique-tier-lendaria {
+		--tech-tier-color: #d99a14;
+		--tech-tier-dark: #8f5c00;
+		--tech-tier-soft: #fff1bd;
+		--tech-tier-text: #4d3100;
+	}
+
+	.technique-tier-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+
+		min-height: 43px;
+		padding: 6px 7px;
+
+		border-bottom:
+			1px solid
+			var(--tech-tier-color);
+
+		background:
+			linear-gradient(
+				90deg,
+				var(--tech-tier-soft),
+				rgba(
+					255,
+					255,
+					255,
+					0.72
+				)
+			);
+	}
+
+	.technique-tier-title {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		min-width: 0;
+	}
+
+	.technique-tier-icon {
+		display: grid;
+		place-items: center;
+
+		flex: 0 0 29px;
+
+		width: 29px;
+		height: 29px;
+
+		border-radius: 4px;
+
+		background:
+			var(--tech-tier-color);
+
+		color: #fff;
+
+		box-shadow:
+			inset 0 -2px 0
+			rgba(
+				0,
+				0,
+				0,
+				0.16
+			);
+
+		i {
+			font-size: 13px;
+			line-height: 1;
+		}
+	}
+
+	.technique-tier-text {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+
+		strong {
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+
+			font-family:
+				"Segoe UI",
+				Arial,
+				sans-serif;
+
+			font-size: 11px;
+			font-weight: 900;
+			line-height: 1.15;
+			letter-spacing: 0.35px;
+
+			text-transform:
+				uppercase;
+
+			color:
+				var(--tech-tier-text);
+		}
+
+		> span {
+			margin-top: 2px;
+
+			font-family:
+				"Segoe UI",
+				Arial,
+				sans-serif;
+
+			font-size: 8px;
+			font-weight: 700;
+			line-height: 1.1;
+
+			color:
+				var(--tdv-muted);
+		}
+	}
+
+	.technique-tier-create {
+		display: inline-grid;
+		place-items: center;
+
+		flex: 0 0 24px;
+
+		width: 24px;
+		height: 24px;
+
+		margin: 0;
+		padding: 0;
+
+		border: 0;
+		border-radius: 3px;
+
+		background:
+			var(--tech-tier-dark);
+
+		color: #fff;
+
+		box-shadow: none;
+
+		&:hover,
+		&:focus-visible {
+			background:
+				var(--tech-tier-color);
+
+			color: #fff;
+
+			box-shadow:
+				0 0 0 2px
+				var(--tech-tier-soft);
+		}
+	}
+
+	.technique-items-list {
+		width: 100%;
+
+		margin: 0;
+		padding: 0;
+
+		list-style: none;
+	}
+
+	.technique-item {
+		display: grid;
+
+		grid-template-columns:
+			minmax(0, 1fr)
+			auto
+			auto;
+
+		align-items: center;
+		column-gap: 7px;
+
+		min-height: 48px;
+
+		padding: 5px 6px;
+
+		border: 0;
+
+		border-bottom:
+			1px solid
+			var(--tdv-line);
+
+		background:
+			rgba(
+				255,
+				255,
+				255,
+				0.38
+			);
+
+		transition:
+			background 120ms ease,
+			transform 120ms ease;
+
+		&:last-child {
+			border-bottom: 0;
+		}
+
+		&:hover {
+			padding-left: 6px;
+
+			background:
+				var(--tech-tier-soft);
+
+			transform:
+				translateX(1px);
+		}
+
+		&.expanded {
+			background:
+				var(--tech-tier-soft);
+		}
+
+		.item-summary {
+			grid-column: 1 / -1;
+
+			width: 100%;
+
+			margin-top: 5px;
+
+			border-left-color:
+				var(--tech-tier-color);
+		}
+	}
+
+	.technique-item-name {
+		display: flex;
+		align-items: center;
+		gap: 7px;
+		min-width: 0;
+
+		.item-image {
+			flex: 0 0 31px;
+
+			width: 31px;
+			height: 31px;
+
+			margin: 0;
+
+			border:
+				1px solid
+				var(--tech-tier-color);
+
+			border-radius: 4px;
+
+			background-color: #fff;
+			background-position: center;
+			background-size: cover;
+		}
+	}
+
+	.technique-item-text {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+
+		gap: 3px;
+
+		min-width: 0;
+
+		h4 {
+			width: 100%;
+
+			margin: 0;
+
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+
+			font-family:
+				"Segoe UI",
+				Arial,
+				sans-serif;
+
+			font-size: 11px;
+			font-weight: 800;
+			line-height: 1.15;
+
+			color:
+				var(--tdv-ink);
+		}
+	}
+
+	.technique-tier-badge {
+		display: inline-flex;
+		align-items: center;
+
+		gap: 4px;
+
+		max-width: 100%;
+
+		padding: 2px 5px;
+
+		border:
+			1px solid
+			var(--tech-tier-color);
+
+		border-radius: 8px;
+
+		background:
+			var(--tech-tier-soft);
+
+		color:
+			var(--tech-tier-dark);
+
+		font-family:
+			"Segoe UI",
+			Arial,
+			sans-serif;
+
+		font-size: 7px;
+		font-weight: 900;
+		line-height: 1;
+		letter-spacing: 0.25px;
+
+		text-transform:
+			uppercase;
+
+		i {
+			font-size: 7px;
+		}
+	}
+
+	.technique-cost {
+		display: inline-grid;
+		place-items: center;
+
+		min-width: 37px;
+		height: 22px;
+
+		padding: 0 6px;
+
+		border-radius: 3px;
+
+		background:
+			var(--tech-tier-color);
+
+		color: #fff;
+
+		font-family:
+			"Segoe UI",
+			Arial,
+			sans-serif;
+
+		font-size: 9px;
+		font-weight: 900;
+		line-height: 1;
+
+		white-space: nowrap;
+	}
+
+	.technique-item-controls {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+
+		gap: 3px;
+
+		margin: 0;
+
+		a {
+			display: inline-grid;
+			place-items: center;
+
+			width: 21px;
+			height: 21px;
+
+			margin: 0;
+			padding: 0;
+
+			border-radius: 3px;
+
+			color:
+				var(--tdv-muted);
+
+			&:hover {
+				background:
+					var(--tech-tier-dark);
+
+				color: #fff;
+			}
+		}
+	}
+
+	.technique-empty-row {
+		min-height: 36px;
+
+		padding: 9px 8px;
+
+		border: 0;
+
+		background:
+			rgba(
+				255,
+				255,
+				255,
+				0.32
+			);
+	}
+
+	/*
+	 * Efeito animado exclusivo das
+	 * Técnicas Lendárias.
+	 */
+	.technique-tier-lendaria
+		&.technique-tier-group {
+		background:
+			linear-gradient(
+				120deg,
+				rgba(
+					255,
+					246,
+					198,
+					0.82
+				),
+				rgba(
+					255,
+					255,
+					255,
+					0.78
+				),
+				rgba(
+					255,
+					232,
+					143,
+					0.82
+				)
+			);
+
+		background-size:
+			220% 220%;
+
+		box-shadow:
+			0 0 0 1px
+				rgba(
+					255,
+					218,
+					106,
+					0.5
+				),
+			0 0 12px
+				rgba(
+					217,
+					154,
+					20,
+					0.2
+				),
+			3px 4px 0
+				rgba(
+					23,
+					23,
+					29,
+					0.06
+				);
+
+		animation:
+			technique-legendary-surface
+			7s ease infinite;
+	}
+
+	.technique-tier-lendaria
+		.technique-tier-header {
+		position: relative;
+
+		overflow: hidden;
+
+		background:
+			linear-gradient(
+				110deg,
+				#fff0a8,
+				#fff8d8,
+				#ffd766,
+				#fff8d8
+			);
+
+		background-size:
+			250% 100%;
+
+		animation:
+			technique-legendary-flow
+			5s linear infinite;
+
+		&::after {
+			content: "";
+
+			position: absolute;
+
+			top: -70%;
+			left: -30%;
+
+			width: 22%;
+			height: 240%;
+
+			background:
+				linear-gradient(
+					90deg,
+					transparent,
+					rgba(
+						255,
+						255,
+						255,
+						0.85
+					),
+					transparent
+				);
+
+			transform:
+				rotate(18deg);
+
+			animation:
+				technique-legendary-shine
+				4.6s ease-in-out
+				infinite;
+
+			pointer-events: none;
+		}
+	}
+
+	.technique-tier-lendaria
+		.technique-tier-icon,
+	.technique-tier-lendaria
+		.technique-tier-badge,
+	.technique-tier-lendaria
+		.technique-cost {
+		background:
+			linear-gradient(
+				110deg,
+				#8f5c00,
+				#e5a91e,
+				#fff0a2,
+				#9d6700
+			);
+
+		background-size:
+			220% 100%;
+
+		border-color: #9d6700;
+
+		color: #241500;
+
+		box-shadow:
+			0 0 7px
+			rgba(
+				217,
+				154,
+				20,
+				0.38
+			);
+
+		animation:
+			technique-legendary-flow
+			5s linear infinite;
+	}
+
+	.technique-tier-lendaria
+		&.technique-item {
+		background:
+			linear-gradient(
+				90deg,
+				rgba(
+					255,
+					250,
+					227,
+					0.82
+				),
+				rgba(
+					255,
+					237,
+					166,
+					0.5
+				),
+				rgba(
+					255,
+					250,
+					227,
+					0.82
+				)
+			);
+
+		background-size:
+			220% 100%;
+
+		animation:
+			technique-legendary-flow
+			7s linear infinite;
+	}
+}
+
+/* -------------------------------------------- */
+/*  Ficha individual da Técnica                 */
+/* -------------------------------------------- */
+
+.tresdetv.sheet.item
+	.technique-sheet {
+	.technique-header-meta {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		gap: 10px;
+
+		min-width: 0;
+
+		margin-bottom: 3px;
+	}
+
+	.technique-tier-indicators {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	.technique-sheet-tier {
+		display: none;
+		align-items: center;
+
+		gap: 5px;
+
+		padding: 4px 8px;
+
+		border:
+			1px solid
+			currentColor;
+
+		border-radius: 10px;
+
+		font-family:
+			"Segoe UI",
+			Arial,
+			sans-serif;
+
+		font-size: 9px;
+		font-weight: 900;
+		line-height: 1;
+		letter-spacing: 0.35px;
+
+		text-transform:
+			uppercase;
+	}
+
+	.technique-config-tab {
+		display: grid;
+
+		grid-template-columns:
+			repeat(
+				2,
+				minmax(0, 1fr)
+			);
+
+		align-items: start;
+
+		gap: 14px;
+	}
+
+	.technique-tier-config-panel {
+		grid-column: 1 / -1;
+	}
+
+	.technique-tier-explanations {
+		margin-top: 8px;
+	}
+
+	.technique-tier-explanation {
+		display: none;
+		align-items: flex-start;
+
+		gap: 7px;
+
+		margin: 0;
+
+		padding: 8px 9px;
+
+		border-left:
+			4px solid
+			currentColor;
+
+		background:
+			rgba(
+				255,
+				255,
+				255,
+				0.55
+			);
+
+		font-family:
+			"Segoe UI",
+			Arial,
+			sans-serif;
+
+		font-size: 10px;
+		line-height: 1.4;
+
+		i {
+			flex: 0 0 auto;
+
+			margin-top: 2px;
+		}
+	}
+}
+
+.tresdetv.sheet.item
+	.technique-sheet[
+		data-technique-tier="truque"
+	] {
+	.technique-sheet-tier-truque {
+		display: inline-flex;
+
+		background: #eee7f8;
+
+		color: #59398a;
+	}
+
+	.technique-sheet-header,
+	.technique-tier-config-panel {
+		border-color: #7d5bb3;
+	}
+
+	.technique-tier-explanation-truque {
+		display: flex;
+
+		color: #59398a;
+	}
+}
+
+.tresdetv.sheet.item
+	.technique-sheet[
+		data-technique-tier="comum"
+	],
+.tresdetv.sheet.item
+	.technique-sheet[
+		data-technique-tier=""
+	] {
+	.technique-sheet-tier-comum {
+		display: inline-flex;
+
+		background: #e1edf6;
+
+		color: #1e557d;
+	}
+
+	.technique-sheet-header,
+	.technique-tier-config-panel {
+		border-color: #2f78ad;
+	}
+
+	.technique-tier-explanation-comum {
+		display: flex;
+
+		color: #1e557d;
+	}
+}
+
+.tresdetv.sheet.item
+	.technique-sheet[
+		data-technique-tier="lendaria"
+	] {
+	.technique-sheet-tier-lendaria {
+		display: inline-flex;
+
+		background:
+			linear-gradient(
+				110deg,
+				#8f5c00,
+				#e5a91e,
+				#fff0a2,
+				#9d6700
+			);
+
+		background-size:
+			220% 100%;
+
+		border-color: #8f5c00;
+
+		color: #241500;
+
+		box-shadow:
+			0 0 9px
+			rgba(
+				217,
+				154,
+				20,
+				0.4
+			);
+
+		animation:
+			technique-legendary-flow
+			5s linear infinite;
+	}
+
+	.technique-sheet-header {
+		position: relative;
+
+		overflow: hidden;
+
+		border-bottom-color:
+			#d99a14;
+
+		background:
+			linear-gradient(
+				120deg,
+				#fff9e4,
+				#fff0a9,
+				#fffdf4,
+				#ffe48b
+			);
+
+		background-size:
+			250% 250%;
+
+		box-shadow:
+			inset 0 0 18px
+			rgba(
+				217,
+				154,
+				20,
+				0.12
+			);
+
+		animation:
+			technique-legendary-surface
+			8s ease infinite;
+	}
+
+	.technique-tier-config-panel {
+		border-left-color:
+			#d99a14;
+
+		box-shadow:
+			0 0 0 1px
+				rgba(
+					217,
+					154,
+					20,
+					0.22
+				),
+			0 0 12px
+				rgba(
+					217,
+					154,
+					20,
+					0.16
+				),
+			3px 4px 0
+				rgba(
+					23,
+					23,
+					29,
+					0.06
+				);
+	}
+
+	.technique-tier-explanation-lendaria {
+		display: flex;
+
+		color: #8f5c00;
+
+		background:
+			linear-gradient(
+				90deg,
+				rgba(
+					255,
+					241,
+					189,
+					0.8
+				),
+				rgba(
+					255,
+					255,
+					255,
+					0.7
+				)
+			);
+	}
+}
+
+/* -------------------------------------------- */
+/*  Responsividade                              */
+/* -------------------------------------------- */
+
+@container item-sheet-body
+	(max-width: 540px) {
+	.tresdetv.sheet.item
+		.technique-sheet
+		.technique-config-tab {
+		grid-template-columns: 1fr;
+	}
+
+	.tresdetv.sheet.item
+		.technique-sheet
+		.technique-tier-config-panel {
+		grid-column: auto;
+	}
+}
+
+@container actor-body
+	(max-width: 430px) {
+	.tresdetv.sheet.actor
+		.technique-item {
+		grid-template-columns:
+			minmax(0, 1fr)
+			auto;
+
+		row-gap: 5px;
+	}
+
+	.tresdetv.sheet.actor
+		.technique-cost {
+		grid-column: 1;
+
+		justify-self: start;
+
+		margin-left: 38px;
+	}
+
+	.tresdetv.sheet.actor
+		.technique-item-controls {
+		grid-column: 2;
+		grid-row: 1 / span 2;
+	}
+
+	.tresdetv.sheet.actor
+		.technique-tier-badge {
+		padding: 3px;
+
+		border-radius: 50%;
+
+		span {
+			display: none;
+		}
+	}
+}
+
+/* -------------------------------------------- */
+/*  Animações                                   */
+/* -------------------------------------------- */
+
+@keyframes technique-legendary-surface {
+	0%,
+	100% {
+		background-position:
+			0% 50%;
+	}
+
+	50% {
+		background-position:
+			100% 50%;
+	}
+}
+
+@keyframes technique-legendary-flow {
+	0% {
+		background-position:
+			0% 50%;
+	}
+
+	100% {
+		background-position:
+			220% 50%;
+	}
+}
+
+@keyframes technique-legendary-shine {
+	0%,
+	55% {
+		left: -35%;
+		opacity: 0;
+	}
+
+	65% {
+		opacity: 0.9;
+	}
+
+	85%,
+	100% {
+		left: 125%;
+		opacity: 0;
+	}
+}
+
+@media (
+	prefers-reduced-motion:
+	reduce
+) {
+	.tresdetv.sheet.actor
+		.technique-tier-lendaria,
+	.tresdetv.sheet.item
+		.technique-sheet[
+			data-technique-tier="lendaria"
+		]
+		* {
+		animation:
+			none !important;
+	}
+}
