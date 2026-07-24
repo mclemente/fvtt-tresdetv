@@ -88,7 +88,6 @@ jobs:
               with:
                   name: dist
                   path: dist
-                  retention-days: 30
 
     publish:
         needs:
